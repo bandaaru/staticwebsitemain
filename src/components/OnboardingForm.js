@@ -36,7 +36,7 @@ const OnboardingForm = () => {
     "reason_digital_transformation": t("reason_digital_transformation"),
     "reason_other": t("reason_other"),
   };
-  
+
   // Convert maps to array format for rendering
   const orgTypes = Object.values(orgTypesMap);
   const partnershipReasons = Object.values(partnershipReasonsMap);
@@ -54,16 +54,16 @@ const OnboardingForm = () => {
 
       if (response.ok) {
         // Use translated success message
-        alert(data.message || t("onboarding_alert_success")); 
+        alert(data.message || t("onboarding_alert_success"));
         form.resetFields();
       } else {
         // Use translated failure message
-        alert(data.error || t("onboarding_alert_failed_generic")); 
+        alert(data.error || t("onboarding_alert_failed_generic"));
       }
     } catch (error) {
       console.error("Error submitting form:", error);
       // Use translated error message
-      alert(t("onboarding_alert_failed_generic")); 
+      alert(t("onboarding_alert_failed_generic"));
     } finally {
       setLoading(false);
     }
@@ -71,7 +71,7 @@ const OnboardingForm = () => {
 
   const onFinishFailed = () => {
     // Use translated validation alert
-    alert(t("onboarding_alert_failed_validation")); 
+    alert(t("onboarding_alert_failed_validation"));
   };
 
   return (
@@ -79,7 +79,7 @@ const OnboardingForm = () => {
       <div className="form-heading-container">
         <Title level={3}>{t("onboarding_title")}</Title>
       </div>
-      
+
       <div className="onboarding-form-container">
         <Form
           form={form}
@@ -131,18 +131,18 @@ const OnboardingForm = () => {
               { required: true, message: t("onboarding_required_select_type") },
             ]}
           >
-            <Select 
-                mode="multiple" 
-                placeholder={t("onboarding_placeholder_org_type")}
+            <Select
+              mode="multiple"
+              placeholder={t("onboarding_placeholder_org_type")}
             >
               {orgTypes.map((type) => (
                 <Option key={type} value={type}>
-                  {type} 
+                  {type}
                 </Option>
               ))}
             </Select>
           </Form.Item>
-      
+
           {/* Primary Reason for Partnering */}
           <Form.Item
             label={t("onboarding_label_reason")}
@@ -151,9 +151,9 @@ const OnboardingForm = () => {
               { required: true, message: t("onboarding_required_select_reason") },
             ]}
           >
-            <Select 
-                mode="multiple" 
-                placeholder={t("onboarding_placeholder_reason")}
+            <Select
+              mode="multiple"
+              placeholder={t("onboarding_placeholder_reason")}
             >
               {partnershipReasons.map((reason) => (
                 <Option key={reason} value={reason}>

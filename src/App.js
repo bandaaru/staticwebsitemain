@@ -9,7 +9,7 @@ import Technology from "./components/Technology";
 import CancellationPolicy from './components/CancellationPolicy';
 import TermsAndConditions from './components/TermsAndConditions';
 import ShippingPolicy from './components/ShippingPolicy';
-import PrivacyPolicy from './components/PrivacyPolicy'; 
+import PrivacyPolicy from './components/PrivacyPolicy';
 import Partners from "./components/Partners";
 import Sustainability from "./components/Sustainability";
 import CreditFabriX from "./components/CreditFabriX";
@@ -24,6 +24,11 @@ import ScrollToTop from "./components/ScrollToTop"; // ✅ Import ScrollToTop co
 import Climate from "./components/Climate";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import AnnouncementBar from "./components/AnnouncementBar";
+import Franchise from "./components/Franchise";
+import Gallery from "./components/Gallery";
+import Apply from "./components/Apply";
+
 
 
 
@@ -42,36 +47,43 @@ import "./styles/InputFabriX.css";
 import "./styles/TradeFabriX.css";
 import "./styles/TraceFabriX.css";
 import "./styles/onboarding.css";
+import "./styles/Gallery.css";
+
 
 function App() {
   return (
     <LangProvider>
 
-    <Router>
-    <ScrollToTop /> {/* ✅ Add scroll-to-top component here */}
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        {/* <Route path="/Contact" element={<Contact />} /> */}
-        <Route path="/Solutions" element={<Solutions />} />
-        <Route path="/Technology" element={<Technology />} />
-        <Route path="/CancellationPolicy" element={<CancellationPolicy />} />
-        <Route path="/TermsAndConditions" element={<TermsAndConditions />} />
-        <Route path="/ShippingPolicy" element={<ShippingPolicy />} />
-        <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
-        <Route path="/Sustainability" element={<Sustainability />} />
-        <Route path="/CreditFabriX" element={<CreditFabriX />} />
-        <Route path="/TraceFabriX"  element={<TraceFabriX/>} />
-        <Route path="/TradeFabriX"  element={<TradeFabriX/>} />
-        <Route path="/InputFabriX"  element={<InputFabriX/>} />
-        <Route path="/SupplyFabriX"  element={<SupplyFabriX/>} />
-        <Route path="/Partners" element={<Partners />} />
-        <Route path="/About" element={<About />} />
-        <Route path="/Climate" element={<Climate/>} />
-        <Route path="/OnboardingForm" element={<OnboardingForm />} />
-      </Routes>
-      <Footer />
-    </Router>
+      <Router>
+        <ScrollToTop /> {/* ✅ Add scroll-to-top component here */}
+        <AnnouncementBar />
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          {/* <Route path="/Contact" element={<Contact />} /> */}
+          <Route path="/Solutions" element={<Solutions />} />
+          <Route path="/Technology" element={<Technology />} />
+          <Route path="/CancellationPolicy" element={<CancellationPolicy />} />
+          <Route path="/TermsAndConditions" element={<TermsAndConditions />} />
+          <Route path="/ShippingPolicy" element={<ShippingPolicy />} />
+          <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
+          <Route path="/Sustainability" element={<Sustainability />} />
+          <Route path="/CreditFabriX" element={<CreditFabriX />} />
+          <Route path="/TraceFabriX" element={<TraceFabriX />} />
+          <Route path="/TradeFabriX" element={<TradeFabriX />} />
+          <Route path="/InputFabriX" element={<InputFabriX />} />
+          <Route path="/SupplyFabriX" element={<SupplyFabriX />} />
+          <Route path="/Partners" element={<Partners />} />
+          <Route path="/About" element={<About />} />
+          <Route path="/Climate" element={<Climate />} />
+          <Route path="/OnboardingForm" element={<OnboardingForm />} />
+          <Route path="/franchise" element={<Franchise />} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/Careers" element={<Apply />} />
+
+        </Routes>
+        <Footer />
+      </Router>
     </LangProvider>
   );
 }

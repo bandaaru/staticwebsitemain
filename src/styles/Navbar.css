@@ -5,8 +5,9 @@
 
 /* Navbar Container */
 .navbar {
-  position: fixed;
-  top: 0;
+  /* position: fixed;  <-- REMOVED to prevent overlap/hidden content */
+  top: 48px;
+  /* Height of Announcement Bar */
   left: 0;
   width: 100%;
   background-color: #ffffff;
@@ -14,17 +15,22 @@
   justify-content: space-between;
   align-items: center;
 
-  height: 90px;           /* 🔥 Increase navbar height here */
-  padding: 0 30px;        /* 🔥 Remove vertical padding so height stays exact */
+  height: 90px;
+  /* 🔥 Increase navbar height here */
+  padding: 0 30px;
+  /* 🔥 Remove vertical padding so height stays exact */
 
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
+  position: -webkit-sticky;
+  /* For Safari */
   position: sticky;
   transition: all 0.3s ease;
 }
 
 .navbar.fade {
-  opacity: 0.6; /* decrease opacity here */
+  opacity: 0.6;
+  /* decrease opacity here */
 }
 
 /* Logo shrink */
@@ -65,7 +71,8 @@
 .nav ul {
   list-style: none;
   display: flex;
-  gap: 30px;
+  gap: 20px;
+  /* Reduced gap to fit more items */
   margin: 0;
   padding: 0;
 }
@@ -78,11 +85,12 @@
 .dropbtn {
   text-decoration: none;
   color: black;
-  font-size: 16px;
-  font-weight: 350;
+  font-size: 14px;
+  /* Reduced font size to fit more items */
+  font-weight: 400;
   transition: color 0.3s ease;
   cursor: pointer;
-  padding-bottom: 15px;
+  padding-bottom: 5px;
 }
 
 .nav ul li a:hover,
@@ -97,26 +105,31 @@
   content: '';
   position: absolute;
   width: 100%;
-  transform: scaleX(0); /* Starts hidden */
+  transform: scaleX(0);
+  /* Starts hidden */
   height: 3px;
   bottom: 0;
   left: 0;
   background-color: rgb(67, 207, 67);
-  transform-origin: center; /* Animates from the center */
+  transform-origin: center;
+  /* Animates from the center */
   transition: transform 0.4s ease-out;
 }
 
 /* 2. Shows the underline on hover */
 .nav ul li a:hover::after {
-  transform: scaleX(1); /* Expands to full width */
+  transform: scaleX(1);
+  /* Expands to full width */
 }
 
 /* 3. Keeps the underline visible for the active page */
 .nav ul li a.active {
-    color: rgb(67, 207, 67);
+  color: rgb(67, 207, 67);
 }
+
 .nav ul li a.active::after {
-  transform: scaleX(1); /* Makes the line visible by default */
+  transform: scaleX(1);
+  /* Makes the line visible by default */
 }
 
 
@@ -138,9 +151,11 @@
   border-radius: 8px;
   overflow: hidden;
   /* animation: fadeIn 0.25s ease-in-out; */
-  border: 1px solid #e0e0e0;         /* ✅ border around dropdown */
-  border-top: 2px solid rgb(119, 206, 119);       /* ✅ green line at top */
-  
+  border: 1px solid #e0e0e0;
+  /* ✅ border around dropdown */
+  border-top: 2px solid rgb(119, 206, 119);
+  /* ✅ green line at top */
+
 }
 
 .dropdown-content a {
@@ -152,7 +167,7 @@
 }
 
 .dropdown-content a:hover {
-  background-color:white;
+  background-color: white;
 }
 
 /* Show dropdown on hover (desktop only) */
@@ -174,15 +189,38 @@
   height: 6px;
   border-right: 1px solid black;
   border-bottom: 1px solid black;
-  transform: rotate(45deg); /* Points downward */
+  transform: rotate(45deg);
+  /* Points downward */
 }
 
 
-/* --- Responsive Styles for Mobile --- */
-@media (max-width: 1024px) {
+/* --- Responsive Styles --- */
+@media (max-width: 1250px) {
+
+  /* Increased breakpoint because of many items */
   .navbar {
+    padding: 0 15px;
+  }
+
+  .nav ul {
+    gap: 12px;
+  }
+
+  .nav ul li a,
+  .dropbtn {
+    font-size: 13px;
+  }
+
+  .logo-image {
+    width: 110px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .navbar {
+    top: 48px;
     flex-wrap: wrap;
-    height: 60px; /* fixed consistent height */
+    height: 60px;
     padding: 12px 20px;
     background: #ffffff;
     border-radius: 0 0 0px 0px;
@@ -193,13 +231,13 @@
     display: flex;
     align-items: center;
     flex-shrink: 0;
-    max-height: 100%; /* keep the logo from forcing navbar height */
+    max-height: 100%;
   }
 
   .logo-image {
-    width: 100px; /* ✅ your desired new logo size */
+    width: 100px;
     height: auto;
-    max-height: 74px; /* 🧠 prevents it from stretching navbar too much */
+    max-height: 74px;
   }
 
   .mobile-menu-icon {
@@ -216,14 +254,20 @@
 
   .nav {
     display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
     width: 100%;
     flex-direction: column;
-    background-color:white;
-    border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-    margin-top: 12px;
-    overflow-y: auto;
+    background-color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
     max-height: 80vh;
+    overflow-y: auto;
+    border-radius: 12px;
+    /* Added from original 1024px block */
+    margin-top: 12px;
+    /* Added from original 1024px block */
   }
 
   .nav.open {
@@ -233,41 +277,46 @@
   .nav ul {
     flex-direction: column;
     gap: 0;
+    width: 100%;
     padding: 10px 0;
+    /* Added from original 1024px block */
   }
 
   .nav ul li {
     width: 100%;
+    border-bottom: 1px solid #f0f0f0;
     padding: 10px 20px;
+    /* Added from original 1024px block */
     text-align: left;
-    border-bottom: 1px solid #eee;
+    /* Added from original 1024px block */
   }
 
   .nav ul li a,
   .dropbtn {
+    font-size: 16px;
+    padding: 15px 0;
     display: block;
     width: 100%;
-    padding: 12px 0;
-    font-size: 16px;
     color: #333;
+    /* Added from original 1024px block */
     border-radius: 8px;
+    /* Added from original 1024px block */
     transition: background 0.3s ease, color 0.3s ease;
+    /* Added from original 1024px block */
   }
-
-  /* .nav ul li a:hover,
-  .dropbtn:hover {
-    background-color: #1890ff;
-    color: #ffffff;
-  } */
 
   .dropdown-content {
     position: static;
+    display: none;
     box-shadow: none;
     padding-left: 20px;
-    background-color:white;
+    border: none;
+    background-color: white;
+    /* Added from original 1024px block */
     border-radius: 8px;
+    /* Added from original 1024px block */
     margin-top: 4px;
-    display: none;
+    /* Added from original 1024px block */
   }
 
   .dropdown.open .dropdown-content {
@@ -276,112 +325,68 @@
 
   .dropdown-content a {
     padding: 8px 0;
+    /* Added from original 1024px block */
     font-size: 15px;
+    /* Added from original 1024px block */
     color: #333;
+    /* Added from original 1024px block */
     border-radius: 6px;
+    /* Added from original 1024px block */
   }
 
   .dropdown-content a:hover {
-    background-color:white;
-    /* color: #1890ff; */
+    background-color: white;
+    /* Added from original 1024px block */
   }
 
   .arrow-css {
     margin-left: 8px;
+    /* Added from original 1024px block */
     transform: rotate(45deg);
+    /* Added from original 1024px block */
     transition: transform 0.3s ease;
+    /* Added from original 1024px block */
   }
 
   .dropdown.open .arrow-css {
     transform: rotate(-135deg);
+    /* Added from original 1024px block */
   }
 }
 
 
-
-
-
-
-/* --- Language Selector Custom Styling (Put this in your Navbar.css) --- */
-.lang-box{
-  /* border:2px solid red; */
-  /* margin-bottom: 10px; */
+@media (max-width: 768px) {
+  .navbar {
+    top: 40px;
+    /* Matching mobile announcement bar height */
+  }
 }
-.lang-select-container {
-  /* 1. Positioning context and box styling */
-  position: relative; 
-  display: inline-flex;
-  align-items: center;
-  
-  padding: 8px 15px; /* Sets the visible size of the box */
- 
-  /* border:2px solid green; */
-  margin-bottom: 14px;
-    border-radius: 5px; 
-    background-color: #fff; 
+
+/* --- Language Selector Custom Styling --- */
+/* Replicating dropdown link styles for div elements */
+.lang-option {
+  color: black;
+  padding: 10px 14px;
+  text-decoration: none;
+  display: block;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.lang-option:hover {
+  background-color: #f9f9f9;
+  /* Slight hover effect */
+  color: lightgreen;
+  /* Match nav hover */
+}
+
+@media (max-width: 1024px) {
+  .lang-option {
+    padding: 8px 0;
+    font-size: 15px;
     color: #333;
-    min-width: 100px;
-    margin-left: 15px; 
-    
-    cursor: pointer; 
-    user-select: none;
-    overflow: hidden; /* Important for clean look */
-    border: none;
-    outline: none;
-}
-
-/* VISUAL LAYER: What the user sees (Icon and Custom Text) */
-.lang-display-wrapper {
-    display: flex;
-    align-items: center;
-    
-    /* CRITICAL: Allow clicks to pass through to the select element beneath */
-    pointer-events: none; 
-    position: relative;
-    z-index: 1; 
-    white-space: nowrap; 
-}
-
-.lang-icon {
-    margin-right: 8px;
-    font-size: 1.0em;
-    color: #1c5839;
-}
-
-/* FUNCTIONAL LAYER: The Select Element (Invisible but Functional) */
-.lang-select-container .lang-value {
-    /* HIDE NATIVE STYLING */
-    -webkit-appearance: none; /* Removes native style/arrow in Chrome/Safari */
-    -moz-appearance: none;    /* Removes native style/arrow in Firefox */
-    appearance: none;
-    background-image: none; 
-    background-color: transparent;
-    border: none;
-    
-    /* CRITICAL FIX: Hides the selected text value in the box */
-    /* This pushes the text content far to the side where it's not visible */
-    text-indent: 100%; 
-    
-    /* LAYER ON TOP TO CAPTURE CLICKS */
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    
-    opacity: 0; /* Make it transparent */
-    cursor: pointer; 
-    z-index: 2; /* Ensures it's on top of the visual wrapper */
-}
-
-/* OPTIONAL: Adds a custom dropdown arrow to the right of the box */
-.lang-select-container::after {
-    content: '▾'; 
-    position: absolute;
-    right: 0px; 
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none; 
-    color: #555;
-    z-index: 1;
+    border-radius: 6px;
+    padding-left: 20px;
+    /* Indent like other mobile dropdown items if needed, or match padding */
+  }
 }

@@ -1,0 +1,1234 @@
+/* Global Reset */
+* {
+    box-sizing: border-box;
+}
+
+.franchise-page {
+    font-family: 'Inter', sans-serif;
+    color: #333;
+    padding: 0;
+    animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* ===================================================== */
+/*                    HERO VIDEO SECTION                 */
+/* ===================================================== */
+
+.franchise-hero {
+    position: relative;
+    width: 100%;
+    height: 520px;
+    margin-bottom: 50px;
+    overflow: hidden;
+}
+
+.hero-bg-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.25),
+            rgba(0, 0, 0, 0.65));
+    z-index: 1;
+}
+
+.hero-content {
+    position: absolute;
+    left: 50px;
+    bottom: 40px;
+    z-index: 3;
+    max-width: 650px;
+    color: #fff;
+    text-align: left;
+}
+
+.hero-content h1 {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.2;
+    font-family: "Poppins", sans-serif;
+}
+
+.hero-content p {
+    font-size: 1.3rem;
+    margin-bottom: 30px;
+    font-weight: 300;
+    line-height: 1.7;
+}
+
+.hero-cta-button {
+    display: inline-block;
+    padding: 12px 24px;
+    background: linear-gradient(90deg, #43a047, #66bb6a);
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.hero-cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* ===================================================== */
+/*                    MAIN LAYOUT                        */
+/* ===================================================== */
+
+.franchise-section {
+    width: 100%;
+    padding: 0px 0 60px;
+    position: relative;
+}
+
+.franchise-section.light-bg {
+    background: linear-gradient(180deg, #ffffff 100%, #f9fff9 0%);
+}
+
+.section-container {
+    width: 100%;
+    max-width: 1300px;
+    margin: auto;
+    padding: 0 clamp(16px, 5vw, 60px);
+    position: relative;
+    z-index: 2;
+}
+
+/* SECTION HEADINGS (Matching SupplyFabriX labels) */
+.franchise-section h2 {
+    font-size: 2rem;
+    color: #1b5e20;
+    margin-bottom: 2rem;
+    text-align: center;
+    margin-top: 60px;
+}
+
+.section-subtitle {
+    font-size: 1.1rem;
+    color: #666;
+    text-align: center;
+    max-width: 700px;
+    margin: -1.5rem auto 3rem;
+}
+
+/* ===================================================== */
+/*                        CARDS                          */
+/* ===================================================== */
+
+/* Grids */
+.grid-4,
+.grid-3,
+.investment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+    z-index: 2;
+}
+
+/* Unified Card Style (Matching .sup-card) */
+.feature-card,
+.service-card,
+.benefit-card-new,
+.investment-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 30px 20px;
+    transition: 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+    text-align: left;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Alternating Background Colors */
+.grid-4>div:nth-child(odd),
+.grid-3>div:nth-child(odd) {
+    background: #f1f8e9;
+}
+
+.grid-4>div:nth-child(even),
+.grid-3>div:nth-child(even) {
+    background: #e8f5e9;
+}
+
+.feature-card:hover,
+.service-card:hover,
+.benefit-card-new:hover,
+.investment-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Icons */
+.card-icon,
+.service-icon,
+.benefit-icon-new {
+    font-size: 2.5rem;
+    color: #2e7d32;
+    margin-bottom: 15px;
+    display: inline-block;
+}
+
+/* Card Titles */
+.feature-card h3,
+.service-card h4,
+.benefit-card-new h3,
+.investment-card h3 {
+    color: #2e7d32;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-family: "Poppins", sans-serif;
+}
+
+/* Card Body */
+.feature-card p,
+.service-card p,
+.benefit-card-new p,
+.investment-card p {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+
+/* ===================================================== */
+/*                  SPECIFIC SECTIONS                    */
+/* ===================================================== */
+
+/* Investment Section Override */
+.investment-card {
+    background: white !important;
+    /* Keep white for investment to look clean */
+    border: 1px solid #eee;
+}
+
+.investment-card.highlight-card {
+    background: #1c5839 !important;
+    color: white;
+    border: none;
+    transform: scale(1.05);
+    z-index: 5;
+    box-shadow: 0 10px 30px rgba(28, 88, 57, 0.3);
+}
+
+.highlight-card h3,
+.highlight-card p,
+.highlight-card .fee-amount,
+.highlight-card .gst,
+.highlight-card .note {
+    color: white !important;
+}
+
+.investment-card ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+.investment-card ul li {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.investment-card ul li:before {
+    content: "•";
+    color: #2e7d32;
+    margin-right: 10px;
+    font-size: 1.5rem;
+}
+
+.fee-amount {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 10px 0;
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    flex-wrap: wrap;
+    color: #1c5839;
+}
+
+.fee-amount svg {
+    font-size: 1.8rem;
+}
+
+.gst {
+    font-size: 1rem;
+    font-weight: 400;
+    opacity: 0.8;
+}
+
+/* Process Steps (Timeline) */
+.process-steps {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px 0;
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.process-step {
+    text-align: center;
+    flex: 1;
+    position: relative;
+    z-index: 2;
+}
+
+.step-num {
+    width: 60px;
+    height: 60px;
+    background: white;
+    border: 2px solid #28a745;
+    color: #28a745;
+    border-radius: 50%;
+    margin: 0 auto 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.step-num.highlight {
+    background: #28a745;
+    color: white;
+}
+
+.process-step h4 {
+    color: #333;
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+.process-connector {
+    flex: 1;
+    height: 3px;
+    background: #e0e0e0;
+    margin: 0 10px;
+    transform: translateY(-40px);
+}
+
+/* Application Form */
+.franchise-application {
+    padding: 80px 0;
+    background: #fff;
+    text-align: center;
+}
+
+.application-form {
+    max-width: 700px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+    text-align: left;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #444;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #28a745;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+}
+
+.submit-button {
+    width: 100%;
+    background: linear-gradient(90deg, #43a047, #66bb6a);
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.submit-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+
+/* ===================================================== */
+/*                     RESPONSIVE                        */
+/* ===================================================== */
+
+/* Tablets */
+@media (max-width: 1024px) {
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+}
+
+/* Small Tablets & Large Phones */
+@media (max-width: 768px) {
+    .franchise-hero {
+        height: 350px;
+    }
+
+    .hero-content {
+        left: 20px;
+        bottom: 20px;
+        max-width: 90%;
+        text-align: left;
+        /* Keep left aligned as per SupplyFabriX mobile */
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .section-container {
+        padding: 0 20px;
+    }
+
+    .grid-4,
+    .grid-3,
+    .investment-grid {
+        grid-template-columns: 1fr 1fr;
+        /* 2 columns on tablet */
+    }
+
+    .process-steps {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .process-connector {
+        display: none;
+    }
+
+    .process-step {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        text-align: left;
+        gap: 20px;
+        background: #f9f9f9;
+        padding: 15px;
+        border-radius: 12px;
+    }
+
+    .step-num {
+        margin: 0;
+        min-width: 50px;
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+}
+
+/* Mobiles */
+@media (max-width: 480px) {
+    .franchise-hero {
+        height: 30vh;
+    }
+
+    .hero-content h1 {
+        font-size: 1.6rem;
+    }
+
+    .hero-content p {
+        font-size: 0.9rem;
+    }
+
+    .grid-4,
+    .grid-3,
+    .investment-grid {
+        grid-template-columns: 1fr;
+        /* 1 column on mobile */
+    }
+
+    .application-form {
+        padding: 20px;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* HERO SECTION */
+/* HERO SECTION */
+.franchise-hero {
+    position: relative;
+    height: 60vh;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+}
+
+.hero-bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.25),
+            rgba(0, 0, 0, 0.65));
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 20px;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    font-weight: 300;
+}
+
+.hero-cta-button {
+    display: inline-block;
+    padding: 15px 40px;
+    background-color: #28a745;
+    /* Brand Green */
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.hero-cta-button:hover {
+    background-color: #1e7e34;
+    transform: translateY(-2px);
+}
+
+/* BENEFITS SECTION */
+.franchise-benefits {
+    padding: 80px 20px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.franchise-benefits h2 {
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    color: #1c5839;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.benefit-card {
+    background: white;
+    padding: 40px 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.benefit-card:hover {
+    transform: translateY(-5px);
+}
+
+.benefit-icon {
+    font-size: 3rem;
+    color: #28a745;
+    margin-bottom: 20px;
+}
+
+.benefit-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.benefit-card p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* ========================================= */
+/*       1. IDEAL FRANCHISE PARTNER          */
+/* ========================================= */
+.feature-card {
+    background: #ffffff;
+    padding: 30px 20px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transform: translateY(-5px);
+    border-color: #e0e0e0;
+}
+
+/* Green accent line on top hover */
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: #28a745;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover::before {
+    transform: scaleX(1);
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    color: #28a745;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.feature-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+    color: #1c5839;
+    font-weight: 700;
+}
+
+.feature-card p {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* ========================================= */
+/*       2. FRANCHISE BUSINESS SCOPE         */
+/* ========================================= */
+.service-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    text-align: left;
+    transition: all 0.3s ease;
+    border: 1px solid #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.service-card:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+    border-color: #28a745;
+}
+
+.service-icon {
+    font-size: 2.2rem;
+    color: #1c5839;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: #f4f9f4;
+    border-radius: 8px;
+}
+
+.service-card h4 {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 700;
+}
+
+.service-card p {
+    font-size: 0.95rem;
+    color: #666;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ========================================= */
+/*       3. PERKS & BENEFITS (InputFabriX Style) */
+/* ========================================= */
+.benefit-card-new {
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    transition: transform 0.3s;
+}
+
+/* Dashed borders for desktop */
+@media (min-width: 992px) {
+    .benefit-card-new:not(:last-child) {
+        border-right: 1px dashed rgba(28, 88, 57, 0.2);
+    }
+}
+
+.benefit-card-new:hover {
+    transform: translateY(-5px);
+}
+
+.benefit-icon-new {
+    font-size: 3rem;
+    color: #28a745;
+    margin-bottom: 20px;
+}
+
+.benefit-card-new h3 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    color: #1c5839;
+    font-weight: 700;
+}
+
+.benefit-card-new p {
+    color: #555;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+/* ========================================= */
+/*       4. INVESTMENT & FEES                */
+/* ========================================= */
+.investment-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.investment-card {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    flex: 1;
+    min-width: 300px;
+    max-width: 450px;
+    text-align: left;
+    border: 1px solid #eaeaea;
+    position: relative;
+}
+
+/* Highlight Card Style */
+.investment-card.highlight-card {
+    background: #1c5839;
+    color: white;
+    border: none;
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(28, 88, 57, 0.2);
+    z-index: 2;
+}
+
+.investment-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 25px;
+    color: #1c5839;
+    font-weight: 700;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 15px;
+}
+
+.highlight-card h3 {
+    color: #fff;
+    border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+.investment-card ul {
+    list-style: none;
+    padding: 0;
+}
+
+.investment-card ul li {
+    padding: 12px 0;
+    border-bottom: 1px dashed #eee;
+    font-size: 1.05rem;
+    color: #444;
+    display: flex;
+    align-items: center;
+}
+
+.investment-card ul li:before {
+    content: "•";
+    color: #28a745;
+    margin-right: 10px;
+    font-size: 1.5rem;
+}
+
+.investment-card ul li:last-child {
+    border-bottom: none;
+}
+
+.fee-amount {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.fee-amount svg {
+    font-size: 2rem;
+}
+
+.fee-amount .gst {
+    font-size: 1rem;
+    font-weight: 400;
+    opacity: 0.8;
+}
+
+.note {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-top: 15px;
+    font-style: italic;
+}
+
+/* ========================================= */
+/*       5. APPLICATION PROCESS              */
+/* ========================================= */
+.process-steps {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    padding: 20px 0;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.process-step {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    flex: 1;
+}
+
+.step-num {
+    width: 60px;
+    height: 60px;
+    background: white;
+    border: 2px solid #28a745;
+    color: #28a745;
+    border-radius: 50%;
+    margin: 0 auto 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s;
+}
+
+.process-step:hover .step-num,
+.step-num.highlight {
+    background: #28a745;
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 6px 15px rgba(40, 167, 69, 0.3);
+}
+
+.process-step h4 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 700;
+}
+
+.process-step p {
+    font-size: 0.9rem;
+    color: #666;
+    max-width: 150px;
+    margin: 0 auto;
+}
+
+.process-connector {
+    flex: 1;
+    height: 2px;
+    background: #e0e0e0;
+    margin: 0 10px;
+    transform: translateY(-35px);
+    /* Align with circles */
+}
+
+/* RESPONSIVE CSS */
+@media (max-width: 768px) {
+    .process-steps {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .process-connector {
+        display: none;
+    }
+
+    .process-step {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        background: #f9f9f9;
+        padding: 15px;
+        border-radius: 8px;
+        width: 100%;
+        text-align: left;
+    }
+
+    .step-num {
+        margin: 0;
+        min-width: 50px;
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+
+    .process-step p {
+        margin: 0;
+        max-width: none;
+    }
+
+    .investment-card.highlight-card {
+        transform: scale(1);
+    }
+
+    .benefit-card-new {
+        border-right: none !important;
+        border-bottom: 1px dashed rgba(28, 88, 57, 0.2);
+        padding-bottom: 30px;
+        margin-bottom: 30px;
+    }
+
+    .benefit-card-new:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+    }
+}
+
+/* APPLICATION FORM SECTION */
+.franchise-application {
+    padding: 80px 20px;
+    background-color: white;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.franchise-application h2 {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    color: #1c5839;
+}
+
+.franchise-application>p {
+    text-align: center;
+    color: #666;
+    margin-bottom: 40px;
+}
+
+.application-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #444;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #28a745;
+    outline: none;
+}
+
+.submit-button {
+    background-color: #1c5839;
+    /* Darker Brand Green */
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.submit-button:hover {
+    background-color: #145525;
+}
+
+.submit-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .franchise-hero {
+        height: 50vh;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .application-form {
+        padding: 20px;
+    }
+}
+
+/* HOW IT WORKS SECTION */
+.franchise-steps {
+    padding: 80px 20px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.franchise-steps h2 {
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    color: #1c5839;
+}
+
+.steps-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.step-card {
+    flex: 1;
+    min-width: 250px;
+    text-align: center;
+    position: relative;
+}
+
+.step-number {
+    background-color: #28a745;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0 auto 20px;
+}
+
+.step-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.step-card p {
+    color: #666;
+}
+
+/* AI TECHNOLOGY SECTION */
+.franchise-ai-tech {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+    background-color: #f0f4f1;
+    /* Light greenish tint */
+    gap: 50px;
+    flex-wrap: wrap;
+}
+
+.ai-content {
+    flex: 1;
+    max-width: 500px;
+}
+
+.ai-content h2 {
+    font-size: 2.5rem;
+    color: #1c5839;
+    margin-bottom: 20px;
+}
+
+.ai-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 20px;
+    list-style: none;
+}
+
+.ai-content ul {
+    list-style: none;
+    padding: 0;
+}
+
+.ai-content li {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+}
+
+.ai-image {
+    flex: 1;
+    max-width: 500px;
+}
+
+.ai-image img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* TESTIMONIALS / FAQ SECTION */
+.franchise-faq {
+    padding: 80px 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.franchise-faq h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #1c5839;
+    margin-bottom: 40px;
+}
+
+.faq-item {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
+}
+
+.faq-item h3 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.faq-item p {
+    color: #666;
+    line-height: 1.6;
+}

@@ -45,100 +45,102 @@ const About = () => {
       </header>
 
       {/* Company Overview */}
-<section className="company-overview">
-  <div className="overview-content">
+      <section className="company-overview">
+        <div className="overview-content">
 
-    {/* LEFT SIDE – VIDEO */}
-    <video 
-      className="overview-video"
-      src={require("../images/happy_farmer.mp4")}
-      autoPlay
-      muted
-      loop
-      playsInline
-    />
+          {/* LEFT SIDE – VIDEO */}
+          <video
+            className="overview-video"
+            // src={require("../images/happy_farmer.mp4")}
+            src={require("../images/about.mp4")}
+            autoPlay
+            muted
+            loop
+            playsInline
+          />
 
-    {/* RIGHT SIDE – TEXT */}
-    <div className="text-content">
-      <h2>{t("about_overview_heading")}</h2>
-      <p>{t("about_overview_para")}</p>
-      <ul>
-        <li>{t("about_overview_li_1")}</li>
-        <li>{t("about_overview_li_2")}</li>
-        <li>{t("about_overview_li_3")}</li>
-      </ul>
-    </div>
+          {/* RIGHT SIDE – TEXT */}
+          <div className="text-content">
+            <h2>{t("about_overview_heading")}</h2>
+            <p>{t("about_overview_para")}</p>
+            <ul>
+              <li>{t("about_overview_li_1")}</li>
+              <li>{t("about_overview_li_2")}</li>
+              <li>{t("about_overview_li_3")}</li>
+            </ul>
+          </div>
 
-  </div>
-</section>
+        </div>
+      </section>
 
-        <WhatsAppChatWidget />
-        <Climate/>
+      <WhatsAppChatWidget />
+      <Climate />
       {/* Mission Section */}
-<section className="journey-section">
-  <div className="journey-content">
+      <section className="journey-section">
+        <div className="journey-content">
 
-    {/* LEFT SIDE — TEXT */}
-    <div className="journey-text-content">
-      <h2>{t("about_mission_heading")}</h2>
-      <p>{t("about_mission_subtext")}</p>
-      <ul>
-        <li>{t("about_mission_li_1")}</li>
-        <li>{t("about_mission_li_2")}</li>
-        <li>{t("about_mission_li_3")}</li>
-      </ul>
-    </div>
+          {/* LEFT SIDE — TEXT */}
+          <div className="journey-text-content">
+            <h2>{t("about_mission_heading")}</h2>
+            <p>{t("about_mission_subtext")}</p>
+            <ul>
+              <li>{t("about_mission_li_1")}</li>
+              <li>{t("about_mission_li_2")}</li>
+              <li>{t("about_mission_li_3")}</li>
+            </ul>
+          </div>
 
-    {/* RIGHT SIDE — VIDEO */}
-    <video
-      className="journey-video"
-      src={require("../images/farmer_walking.mp4")}
-      autoPlay
-      loop
-      muted
-      playsInline
-    />
-  </div>
-</section>
+          {/* RIGHT SIDE — VIDEO */}
+          <video
+            className="journey-video"
+            // src={require("../images/farmer_walking.mp4")}
+            src={require("../images/pesti.mp4")}
+            autoPlay
+            loop
+            muted
+            playsInline
+          />
+        </div>
+      </section>
 
 
       {/* Core Values */}
-<section className="values-section">
-  <div className="value-slice">
-    <div className="value-text-wrapper">
-      <h3>{t("value_sustainability_title")}</h3>
-      <p>{t("value_sustainability_desc")}</p>
-    </div>
-  </div>
+      <section className="values-section">
+        <div className="value-slice">
+          <div className="value-text-wrapper">
+            <h3>{t("value_sustainability_title")}</h3>
+            <p>{t("value_sustainability_desc")}</p>
+          </div>
+        </div>
 
-  <div className="value-slice">
-    <div className="value-text-wrapper">
-      <h3>{t("value_transparency_title")}</h3>
-      <p>{t("value_transparency_desc")}</p>
-    </div>
-  </div>
+        <div className="value-slice">
+          <div className="value-text-wrapper">
+            <h3>{t("value_transparency_title")}</h3>
+            <p>{t("value_transparency_desc")}</p>
+          </div>
+        </div>
 
-  <div className="value-slice">
-    <div className="value-text-wrapper">
-      <h3>{t("value_innovation_title")}</h3>
-      <p>{t("value_innovation_desc")}</p>
-    </div>
-  </div>
+        <div className="value-slice">
+          <div className="value-text-wrapper">
+            <h3>{t("value_innovation_title")}</h3>
+            <p>{t("value_innovation_desc")}</p>
+          </div>
+        </div>
 
-  <div className="value-slice">
-    <div className="value-text-wrapper">
-      <h3>{t("value_financial_title")}</h3>
-      <p>{t("value_financial_desc")}</p>
-    </div>
-  </div>
+        <div className="value-slice">
+          <div className="value-text-wrapper">
+            <h3>{t("value_financial_title")}</h3>
+            <p>{t("value_financial_desc")}</p>
+          </div>
+        </div>
 
-  <div className="value-slice">
-    <div className="value-text-wrapper">
-      <h3>{t("value_collaboration_title")}</h3>
-      <p>{t("value_collaboration_desc")}</p>
-    </div>
-  </div>
-</section>
+        <div className="value-slice">
+          <div className="value-text-wrapper">
+            <h3>{t("value_collaboration_title")}</h3>
+            <p>{t("value_collaboration_desc")}</p>
+          </div>
+        </div>
+      </section>
 
 
 

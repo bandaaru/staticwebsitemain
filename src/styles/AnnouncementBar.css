@@ -1,0 +1,87 @@
+.announcement-bar {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 48px;
+    /* 40-48px per requirements */
+    background: linear-gradient(90deg, #0a4d25 0%, #000000 50%, #0a4d25 100%);
+    /* Premium dark green/black gradient */
+    color: white;
+    z-index: 1100;
+    /* Higher than navbar */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    /* Use project font if available, fallback to sans-serif */
+    font-weight: 600;
+    /* Medium-bold */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.announcement-link {
+    text-decoration: none;
+    color: white;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.marquee {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.marquee-content {
+    display: flex;
+    animation: scroll 45s linear infinite;
+    /* Smooth, professional speed */
+    padding-left: 0;
+    font-size: 14px;
+    /* Refined size */
+    letter-spacing: 0.5px;
+    /* Adds premium feel */
+    text-transform: uppercase;
+    /* Corporate look */
+}
+
+/* Ensure consistent spacing in the content string itself */
+
+
+/* Pause on hover */
+.marquee.paused .marquee-content {
+    animation-play-state: paused;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(-50%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .announcement-bar {
+        height: 40px;
+        /* Slightly smaller on mobile */
+        font-size: 14px;
+    }
+
+    .marquee-content {
+        animation-duration: 40s;
+        /* Slower on mobile per requirements */
+    }
+
+    /* Ensure no overlap with header - simply handled by sticky positioning pushing content down if it was fixed, 
+     but since it's sticky top and header is likely sticky or fixed, we might need to adjust header top position or logic.
+     Assuming standard flow for now, it will sit on top.
+  */
+}

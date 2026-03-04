@@ -13,30 +13,30 @@ const CreditFabriX = () => {
 
   return (
     <section className="cred-section">
+      {/* ================= HERO VIDEO ================= */}
+      <div className="cred-hero">
+
+        <video
+          className="cred-video"
+          autoPlay
+          loop
+          muted
+          playsInline
+        >
+          <source src={farmerLoanVideo} type="video/mp4" />
+        </video>
+
+        <div className="cred-overlay"></div>
+
+        <div className="cred-hero-text">
+          <h2><strong>{t("credit_hero_title")}</strong></h2>
+          <h3>{t("credit_hero_subtitle")}</h3>
+          <p>{t("credit_hero_desc")}</p>
+        </div>
+
+      </div>
+
       <div className="cred-container">
-
-        {/* ================= HERO VIDEO ================= */}
-<div className="cred-hero">
-
-  <video 
-    className="cred-video"
-    autoPlay
-    loop
-    muted
-    playsInline
-  >
-    <source src={farmerLoanVideo} type="video/mp4" />
-  </video>
-
-  <div className="cred-overlay"></div>
-
-  <div className="cred-hero-text">
-    <h2><strong>{t("credit_hero_title")}</strong></h2>
-    <h3>{t("credit_hero_subtitle")}</h3>
-    <p>{t("credit_hero_desc")}</p>
-  </div>
-
-</div>
 
         {/* ================= INTRO ================= */}
         <div className="cred-content leaf-decor"></div>

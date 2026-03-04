@@ -31,7 +31,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.35);
+  background: rgba(0, 0, 0, 0.35);
   z-index: 2;
 }
 
@@ -52,29 +52,52 @@
   font-size: 2.8rem;
   font-weight: 700;
   margin-bottom: 15px;
-  text-shadow: 0 3px 8px rgba(0,0,0,0.55);
+  text-shadow: 0 3px 8px rgba(0, 0, 0, 0.55);
 }
 
 .Sustain-content p {
   font-size: 1.25rem;
   line-height: 1.6;
-  text-shadow: 0 3px 8px rgba(0,0,0,0.55);
+  text-shadow: 0 3px 8px rgba(0, 0, 0, 0.55);
 }
 
 /* ===== RESPONSIVE HERO ===== */
 @media (max-width: 1024px) {
-  .Sustain-section { height: 65vh; }
-  .Sustain-content h2 { font-size: 2.2rem; }
-  .Sustain-content p { font-size: 1.1rem; }
+  .Sustain-section {
+    height: 65vh;
+  }
+
+  .Sustain-content h2 {
+    font-size: 2.2rem;
+  }
+
+  .Sustain-content p {
+    font-size: 1.1rem;
+  }
 }
+
 @media (max-width: 768px) {
-  .Sustain-section { height: 55vh; }
-  .Sustain-content h2 { font-size: 1.8rem; }
-  .Sustain-content p { font-size: 1rem; }
+  .Sustain-section {
+    height: 55vh;
+  }
+
+  .Sustain-content h2 {
+    font-size: 1.8rem;
+  }
+
+  .Sustain-content p {
+    font-size: 1rem;
+  }
 }
+
 @media (max-width: 480px) {
-  .Sustain-content h2 { font-size: 1.6rem; }
-  .Sustain-content p { font-size: 0.95rem; }
+  .Sustain-content h2 {
+    font-size: 1.6rem;
+  }
+
+  .Sustain-content p {
+    font-size: 0.95rem;
+  }
 }
 
 
@@ -88,7 +111,7 @@
 }
 
 .sustainability-container {
-  max-width: 1100px;
+  max-width: 1300px;
   margin: auto;
 }
 
@@ -129,7 +152,7 @@
   background: #fff;
   padding: 25px;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   position: relative;
   overflow: hidden;
   transition: 0.3s ease;
@@ -160,6 +183,7 @@
   .esg-columns {
     flex-direction: column;
   }
+
   .esg-box {
     flex: 1 1 100%;
   }
@@ -230,6 +254,7 @@
     flex-direction: column;
     text-align: center;
   }
+
   .solutions-content {
     text-align: center;
   }
@@ -257,7 +282,7 @@
   background: #fff;
   padding: 25px;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   transition: 0.3s;
   position: relative;
 }
@@ -290,4 +315,3 @@
     object-fit: cover;
   }
 }
-

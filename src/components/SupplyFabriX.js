@@ -26,31 +26,32 @@ const SupplyFabriX = () => {
 
     return (
         <section className="sup-section">
+            {/* HERO SECTION */}
+            <div className="sup-hero">
+
+                {/* Background Video */}
+                <video
+                    className="sup-video"
+                    src={ricebagsVideo}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                />
+
+                {/* Dark Overlay */}
+                <div className="sup-video-overlay"></div>
+
+                {/* Text Content */}
+                <div className="sup-content sup-video-text">
+                    <h2><strong>{t("supply_hero_title")}</strong></h2>
+                    <h3>{t("supply_hero_subtitle")}</h3>
+                    <p>{t("supply_hero_desc")}</p>
+                </div>
+
+            </div>
+
             <div className="sup-container">
-
-<div className="sup-hero">
-
-    {/* Background Video */}
-    <video
-        className="sup-video"
-        src={ricebagsVideo}
-        autoPlay
-        loop
-        muted
-        playsInline
-    />
-
-    {/* Dark Overlay */}
-    <div className="sup-video-overlay"></div>
-
-    {/* Text Content */}
-    <div className="sup-content sup-video-text">
-        <h2><strong>{t("supply_hero_title")}</strong></h2>
-        <h3>{t("supply_hero_subtitle")}</h3>
-        <p>{t("supply_hero_desc")}</p>
-    </div>
-
-</div>
 
 
                 <WhatsAppChatWidget />

@@ -14,8 +14,14 @@
 
 /* ===== Container ===== */
 .tracefabrx-container {
-  max-width: 1400px;
+  /* max-width: 1300px; */
   margin: auto;
+}
+
+.tracefabrx-container {
+  width: 100%;
+  max-width: 100%;
+  padding: 0 clamp(16px, 5vw, 60px);
 }
 
 /* =======================================================
@@ -46,7 +52,7 @@
 .trace-hero-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.45);
+  background: rgba(0, 0, 0, 0.45);
   z-index: 2;
 }
 
@@ -81,7 +87,7 @@
 /* ================================
       SECTION LABEL
 ================================ */
-.tracefabrx-label{
+.tracefabrx-label {
   margin: 0 10px;
 }
 
@@ -114,7 +120,7 @@
   display: flex;
   align-items: flex-end;
   padding: 20px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
   transition: 0.3s ease;
 }
 
@@ -122,13 +128,13 @@
 .trace-card-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.45);
+  background: rgba(0, 0, 0, 0.45);
   z-index: 1;
   transition: 0.3s ease;
 }
 
 .tracefabrx-card:hover .trace-card-overlay {
-  background: rgba(0,0,0,0.25);
+  background: rgba(0, 0, 0, 0.25);
 }
 
 /* Text */
@@ -173,7 +179,7 @@
 
 .tracefabrx-button:hover {
   transform: translateY(-3px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* =======================================================
@@ -195,7 +201,7 @@
 }
 
 .tracefabrx-benefit-box:not(:last-child) {
-  border-right: 1px dashed rgba(255,255,255,0.4);
+  border-right: 1px dashed rgba(255, 255, 255, 0.4);
   padding-right: 30px;
 }
 
@@ -222,7 +228,7 @@
 
 .trace-benefit-body {
   font-size: 1rem;
-  color: rgba(255,255,255,0.9);
+  color: rgba(255, 255, 255, 0.9);
   max-width: 280px;
   margin: auto;
 }
@@ -233,9 +239,17 @@
 
 /* Tablets */
 @media (max-width: 1024px) {
-  .trace-hero-text h2 { font-size: 2.5rem; }
-  .trace-hero-text h3 { font-size: 1.3rem; }
-  .trace-hero-text p  { font-size: 1rem; }
+  .trace-hero-text h2 {
+    font-size: 2.5rem;
+  }
+
+  .trace-hero-text h3 {
+    font-size: 1.3rem;
+  }
+
+  .trace-hero-text p {
+    font-size: 1rem;
+  }
 }
 
 /* Tablets + Large Phones (Fix Layout but DO NOT change design) */
@@ -268,7 +282,7 @@
     padding-right: 0;
   }
 
-  
+
 }
 
 /* ================= MOBILE FIX: HOW IT HELPS ================= */
@@ -276,9 +290,12 @@
 @media (max-width: 768px) {
 
   .tracefabrx-benefits-grid {
-    display: flex;              /* override grid */
-    flex-direction: column;     /* stack vertically */
-    gap: 32px;                  /* spacing between cards */
+    display: flex;
+    /* override grid */
+    flex-direction: column;
+    /* stack vertically */
+    gap: 32px;
+    /* spacing between cards */
   }
 
   .tracefabrx-benefit-box {
@@ -314,18 +331,21 @@
 @media (max-width: 480px) {
 
   .tracefabrx-hero {
-  height: 330px;
-  display: flex;
-  align-items: center;      /* vertical center */
-  justify-content: center;  /* horizontal center */
-  padding: 20px;
-  text-align: center;
-}
+    height: 330px;
+    display: flex;
+    align-items: center;
+    /* vertical center */
+    justify-content: center;
+    /* horizontal center */
+    padding: 20px;
+    text-align: center;
+  }
 
 
   .trace-hero-text {
-    position: static;        /* 🔥 IMPORTANT */
-    margin:0;
+    position: static;
+    /* 🔥 IMPORTANT */
+    margin: 0;
     max-width: 100%;
     text-align: center;
     margin-top: 40px;
@@ -351,6 +371,13 @@
 
 /* Fade Animation */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

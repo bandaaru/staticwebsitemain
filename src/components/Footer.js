@@ -18,7 +18,7 @@ const Footer = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       // Use translated alert message
-      alert(t("footer_alert_valid_email")); 
+      alert(t("footer_alert_valid_email"));
       return;
     }
 
@@ -37,15 +37,15 @@ const Footer = () => {
 
       if (response.ok) {
         // Use translated alert messages, falling back to data.message
-        alert(data.message || t("footer_alert_success")); 
+        alert(data.message || t("footer_alert_success"));
         setEmail("");
       } else {
         // Use translated alert messages, falling back to data.error
-        alert(data.error || t("footer_alert_failed")); 
+        alert(data.error || t("footer_alert_failed"));
       }
     } catch (error) {
       // Use translated alert message for network/catch error
-      alert(t("footer_alert_error")); 
+      alert(t("footer_alert_error"));
       console.error("Error subscribing:", error);
     } finally {
       setLoading(false);
@@ -56,10 +56,10 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-content">
         <div className="footer-logo-section">
-          <img 
-            src={logo} 
+          <img
+            src={logo}
             alt={t("footer_logo_alt")} // 👈 Translated alt text
-            className="footer-logo" 
+            className="footer-logo"
           />
           <div className="footer-social-icons">
             <div className="social-icons">
@@ -68,7 +68,7 @@ const Footer = () => {
               <a href="https://www.instagram.com/agrifabrix_123/" target="_blank" rel="noopener noreferrer" aria-label="X"><FaInstagram /></a>
               <a href="https://www.facebook.com/people/Samruddhi-Eco-Agrifabrix/61572279958575/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><FaFacebook /></a>
               <a href="https://youtube.com/@samruddhiecoagrifabrix?si=0ODm3aDBH7niGv4e" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><FaYoutube /></a>
-              <a href={`https://wa.me/${7075483505}`}target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><FaWhatsapp /></a>
+              <a href={`https://wa.me/${7075483505}`} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><FaWhatsapp /></a>
             </div>
           </div>
           {/* Note: The address itself is considered static/non-translatable data */}
@@ -82,13 +82,14 @@ const Footer = () => {
         </div>
 
         <div className="footer-sections">
-          
+
           {/* Company Section */}
           <div className="footer-nav">
             <h2>{t("footer_company_heading")}</h2>
             <ul>
               <li><a href="/About">{t("footer_link_about")}</a></li>
               <li><a href="/About">{t("footer_link_leadership")}</a></li>
+              <li><a href="/Careers">{t("careers")}</a></li>
               <li><a href="/partners">{t("footer_link_partners")}</a></li>
             </ul>
           </div>

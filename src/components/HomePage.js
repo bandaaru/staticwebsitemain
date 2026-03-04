@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useRef  } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import capital from "../images/thub.jpg";
 
@@ -7,6 +7,9 @@ import {
   FaShoppingCart,
   FaHandshake,
   FaTruck,
+  FaMapMarkedAlt,
+  FaUsers,
+  FaBriefcase,
 } from "react-icons/fa";
 
 import "../styles/HomePage.css";
@@ -39,65 +42,108 @@ import logo11 from "../images/viswa.png";
 import logo12 from "../images/efpolymer.png";
 
 
+const CountUp = ({ target, duration = 2000 }) => {
+  const [count, setCount] = useState(0);
+  const elementRef = useRef(null);
+  const [hasStarted, setHasStarted] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasStarted) {
+          setHasStarted(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (elementRef.current) {
+      observer.observe(elementRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [hasStarted]);
+
+  useEffect(() => {
+    if (!hasStarted) return;
+
+    let start = 0;
+    const increment = target / (duration / 16);
+    const timer = setInterval(() => {
+      start += increment;
+      if (start >= target) {
+        setCount(target);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(start));
+      }
+    }, 16);
+
+    return () => clearInterval(timer);
+  }, [hasStarted, target, duration]);
+
+  return <span ref={elementRef}>{count}+</span>;
+};
+
 const HomePage = () => {
   const { t } = useLang();
 
 
   const [showPopupForm, setShowPopupForm] = useState(false);
 
-// Show form after 3 minutes
-useEffect(() => {
-  const timer = setTimeout(() => {
-    setShowPopupForm(true);
-  }, 120000); // 3 minutes = 180 seconds = 180,000 ms
+  // Show form after 3 minutes
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowPopupForm(true);
+    }, 120000); // 3 minutes = 180 seconds = 180,000 ms
 
-  return () => clearTimeout(timer);
-}, []);
+    return () => clearTimeout(timer);
+  }, []);
 
 
   const [currentSlide, setCurrentSlide] = useState(1);
   const [zoomOut, setZoomOut] = useState(false);
 
 
-    const logos = [
-      logo1,
-      logo2,
-      logo3,
-      logo4,
-      logo5,
-      logo6,
-      logo7,
-      logo8,
-      logo9,
-      logo10,
-      logo11,
-      logo12
-    ];
-    const partnerLinks = [
-      "https://capsber.com/",
-      "https://farmsys.co/",
-      "https://dibbleag.com/",
-      "https://www.ai-genix.net/",
-      "https://finozen.co.in/",
-      "https://nyasta.in/",
-      "https://yklaboratories.com/",
-      "https://oscillomachines.com/",
-      "https://www.balwaan.in/",
-      "https://rukart.co/",
-      "https://www.vishwaagrotech.com/",
-      "https://efpolymer.com/",
-    ];
-      const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        phone: "",
-        message: ""
-      });
-        const handleChange = (e) => {
+  const logos = [
+    logo1,
+    logo2,
+    logo3,
+    logo4,
+    logo5,
+    logo6,
+    logo7,
+    logo8,
+    logo9,
+    logo10,
+    logo11,
+    logo12
+  ];
+  const partnerLinks = [
+    "https://capsber.com/",
+    "https://farmsys.co/",
+    "https://dibbleag.com/",
+    "https://www.ai-genix.net/",
+    "https://finozen.co.in/",
+    "https://nyasta.in/",
+    "https://yklaboratories.com/",
+    "https://oscillomachines.com/",
+    "https://www.balwaan.in/",
+    "https://rukart.co/",
+    "https://www.vishwaagrotech.com/",
+    "https://efpolymer.com/",
+  ];
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: ""
+  });
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-      const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await fetch("https://admin.agrifabrix.in/api/static/Contact", {
@@ -111,38 +157,38 @@ useEffect(() => {
       const data = await response.json();
       if (response.ok) {
         // Use translated success alert
-        alert(t("contact_alert_success")); 
+        alert(t("contact_alert_success"));
         setFormData({ name: "", email: "", phone: "", message: "" });
       } else {
         // Use translated failure alert
-        alert(data.error || t("contact_alert_failed")); 
+        alert(data.error || t("contact_alert_failed"));
         console.error("Server Error:", data);
       }
     } catch (err) {
       // Use translated error alert
-      alert(t("contact_alert_error")); 
+      alert(t("contact_alert_error"));
       console.error("Fetch Error:", err);
     }
   };
 
-useEffect(() => {
-  let lastY = window.scrollY;
+  useEffect(() => {
+    let lastY = window.scrollY;
 
-  const handleScroll = () => {
-    const current = window.scrollY;
+    const handleScroll = () => {
+      const current = window.scrollY;
 
-    if (current > lastY) {
-      setZoomOut(true);   // scroll down → zoom OUT
-    } else {
-      setZoomOut(false);  // scroll up → zoom IN
-    }
+      if (current > lastY) {
+        setZoomOut(true);   // scroll down → zoom OUT
+      } else {
+        setZoomOut(false);  // scroll up → zoom IN
+      }
 
-    lastY = current;
-  };
+      lastY = current;
+    };
 
-  window.addEventListener("scroll", handleScroll);
-  return () => window.removeEventListener("scroll", handleScroll);
-}, []);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
 
 
@@ -174,134 +220,134 @@ useEffect(() => {
     );
   };
 
-  // ⭐ AUTO SLIDE EVERY 5 SECONDS ⭐
+  // ⭐ AUTO SLIDE EVERY 8 SECONDS ⭐
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) =>
         prev === slides.length - 1 ? 0 : prev + 1
       );
-    }, 5000);
+    }, 8000);
 
     return () => clearInterval(interval);
   }, [slides.length]);
 
 
-// ⭐ SCROLL ANIMATION TRIGGER ⭐
-useEffect(() => {
-  const elements = document.querySelectorAll(
-    ".fade-in-up, .fade-in-left, .fade-in-right"
-  );
+  // ⭐ SCROLL ANIMATION TRIGGER ⭐
+  useEffect(() => {
+    const elements = document.querySelectorAll(
+      ".fade-in-up, .fade-in-left, .fade-in-right"
+    );
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("show");
-        }
-      });
-    },
-    { threshold: 0.2 }
-  );
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
 
-  elements.forEach((el) => observer.observe(el));
-}, []);
+    elements.forEach((el) => observer.observe(el));
+  }, []);
 
 
   return (
     <div className="homepage">
-     
-      
+
+
 
       {/* ================= HERO CAROUSEL ================= */}
-<section className="hero-carousel" id="home">
+      <section className="hero-carousel" id="home">
 
-  {/* Slide */}
-  <div className="hero-slide" key={currentSlide}>
+        {/* Slide */}
+        <div className="hero-slide" key={currentSlide}>
 
-    {/* Fullscreen image */}
-    <img
-      src={slides[currentSlide].image}
-      alt={t("home_image_alt_crop")}
-      className="hero-carousel-image"
-    />
+          {/* Fullscreen image */}
+          <img
+            src={slides[currentSlide].image}
+            alt={t("home_image_alt_crop")}
+            className="hero-carousel-image"
+          />
 
-    {/* REMOVED overlay */}
+          {/* REMOVED overlay */}
 
-    {/* Text on image with shadow */}
-   <div
-  className={`hero-text-overlay no-overlay-text 
+          {/* Text on image with shadow */}
+          <div
+            className={`hero-text-overlay no-overlay-text 
     ${currentSlide === 0 ? "first-slide-spacing" : ""}
     ${currentSlide === 1 ? "text-right-slide black-text" : ""}
   `}
->
-  <h1>{slides[currentSlide].title}</h1>
-  <p>{slides[currentSlide].description}</p>
+          >
+            <h1>{slides[currentSlide].title}</h1>
+            <p>{slides[currentSlide].description}</p>
 
-  <a href={slides[currentSlide].link} className="learn-more">
-    {t("home_button_learn_more")}
-  </a>
-</div>
-
-
-
-  </div>
-
-</section>
+            <a href={slides[currentSlide].link} className="learn-more">
+              {t("home_button_learn_more")}
+            </a>
+          </div>
 
 
 
-<section class="highlights">
-  
-  <div class="highlight ai">
-    <div class="highlight-text">
-      <h1>AI-Powered Insights</h1>
-      <p>Optimizing supply chain with <br></br>real-time data.</p>
-    </div>
-  </div>
+        </div>
 
-  <div class="highlight finance">
-    <div class="highlight-text1">
-      <h1>Financial Access</h1>
-      <p>BNPL, invoice financing, <br></br>and agrifabrix loans.</p>
-    </div>
-  </div>
-
-  <div class="highlight blockchain">
-    <div class="highlight-text">
-      <h1>Blockchain Traceability</h1>
-      <p>Ensuring transparency and <br></br>fraud prevention.</p>
-    </div>
-  </div>
-
-</section>
+      </section>
 
 
-<div className="section-border top-border"></div>
 
-<section className="vision-mission new-layout paint-section">
+      <section className="highlights">
 
-  <div className="vision-section">   {/* ⭐ Missing wrapper added */}
+        <div className="highlight ai">
+          <div className="highlight-text">
+            <h1>{t("home_highlight_ai_title")}</h1>
+            <p>{t("home_highlight_ai_desc")}</p>
+          </div>
+        </div>
 
-    <div className="vision-image-box">
-      <img 
-        src={mission} 
-        alt={t("home_image_alt_mission")} 
-        className={zoomOut ? "zoom-out" : ""} 
-      />
-    </div>
+        <div className="highlight finance">
+          <div className="highlight-text">
+            <h1>{t("home_highlight_finance_title")}</h1>
+            <p>{t("home_highlight_finance_desc")}</p>
+          </div>
+        </div>
 
-    <div className="vision-text-box">
-      <h2>{t("home_vision_heading")}</h2>
-      <p>{t("home_vision_text")}</p>
+        <div className="highlight blockchain">
+          <div className="highlight-text">
+            <h1>{t("home_highlight_blockchain_title")}</h1>
+            <p>{t("home_highlight_blockchain_desc")}</p>
+          </div>
+        </div>
 
-      <h2>{t("home_mission_heading")}</h2>
-      <p>{t("home_mission_text")}</p>
-    </div>
+      </section>
 
-  </div>
-  
-</section>
-<div className="section-border bottom-border"></div>
+
+      <div className="section-border top-border"></div>
+
+      <section className="vision-mission new-layout paint-section">
+
+        <div className="vision-section">   {/* ⭐ Missing wrapper added */}
+
+          <div className="vision-image-box">
+            <img
+              src={mission}
+              alt={t("home_image_alt_mission")}
+              className={zoomOut ? "zoom-out" : ""}
+            />
+          </div>
+
+          <div className="vision-text-box">
+            <h2>{t("home_vision_heading")}</h2>
+            <p>{t("home_vision_text")}</p>
+
+            <h2>{t("home_mission_heading")}</h2>
+            <p>{t("home_mission_text")}</p>
+          </div>
+
+        </div>
+
+      </section>
+      <div className="section-border bottom-border"></div>
 
 
 
@@ -317,64 +363,59 @@ useEffect(() => {
         {/* <h2>{t("home_offerings_heading")}</h2> */}
 
         <div className="solutions-layout">
-<div className="service-grid">
+          <div className="service-grid">
 
-  <div className="service-card">
-    <img src={inputs} alt="Inputs" className="service-img" />
+            <div className="service-card">
+              <img src={inputs} alt="Inputs" className="service-img" />
 
-    <div className="service-text-block">
-      <h3>
-        <FaSeedling className="service-icon" /> {t("home_offering_inputs_title")}
-      </h3>
-      <p>{t("home_offering_inputs_desc")}</p>
-    </div>
-  </div>
+              <div className="service-text-block">
+                <h3>
+                  <FaSeedling className="service-icon" /> {t("home_offering_inputs_title")}
+                </h3>
+                <p>{t("home_offering_inputs_desc")}</p>
+              </div>
+            </div>
 
-  <div className="service-card">
-    <img src={orders} alt="Orders" className="service-img" />
+            <div className="service-card">
+              <img src={orders} alt="Orders" className="service-img" />
 
-    <div className="service-text-block">
-      <h3>
-        <FaShoppingCart className="service-icon" /> {t("home_offering_ordering_title")}
-      </h3>
-      <p>{t("home_offering_ordering_desc")}</p>
-    </div>
-  </div>
+              <div className="service-text-block">
+                <h3>
+                  <FaShoppingCart className="service-icon" /> {t("home_offering_ordering_title")}
+                </h3>
+                <p>{t("home_offering_ordering_desc")}</p>
+              </div>
+            </div>
 
-  <div className="service-card">
-    <img src={consultancy} alt="Consultancy" className="service-img" />
+            <div className="service-card">
+              <img src={consultancy} alt="Consultancy" className="service-img" />
 
-    <div className="service-text-block">
-      <h3>
-        <FaHandshake className="service-icon" /> {t("home_offering_consultancy_title")}
-      </h3>
-      <p>{t("home_offering_consultancy_desc")}</p>
-    </div>
-  </div>
+              <div className="service-text-block">
+                <h3>
+                  <FaHandshake className="service-icon" /> {t("home_offering_consultancy_title")}
+                </h3>
+                <p>{t("home_offering_consultancy_desc")}</p>
+              </div>
+            </div>
 
-  <div className="service-card">
-    <img src={supplychain} alt="Supply Chain" className="service-img" />
+            <div className="service-card">
+              <img src={supplychain} alt="Supply Chain" className="service-img" />
 
-    <div className="service-text-block">
-      <h3>
-        <FaTruck className="service-icon" /> {t("home_offering_supply_title")}
-      </h3>
-      <p>{t("home_offering_supply_desc")}</p>
-    </div>
-  </div>
+              <div className="service-text-block">
+                <h3>
+                  <FaTruck className="service-icon" /> {t("home_offering_supply_title")}
+                </h3>
+                <p>{t("home_offering_supply_desc")}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-</div>
-
-
-
-
-
-
-
-                <section className="partners-logos">
+      {/* ================= PARTNERS LOGOS ================= */}
+      <section className="partners-logos" id="partners">
         <h2 className="partners-title">{t("partner_network_heading")}</h2>
         <p className="partners-subtitle">{t("partner_network_subtitle")}</p>
-        {/* Logo slider logic remains the same */}
         <div className="partners-slider">
           <div className="partners-track">
             {logos.map((logo, idx) => (
@@ -406,153 +447,166 @@ useEffect(() => {
         </div>
       </section>
 
-<section className="contact-section-two-column">
-  
-  {/* LEFT GREEN CUBOID */}
-  <div className="contact-cuboid">
-    <h2>Your Growth is Our Priority – Let’s Build the Future of Agriculture Together</h2>
+      {/* ================= IMPACT COUNTERS ================= */}
+      <section className="impact-section">
+        <div className="impact-container">
+          <h2 className="impact-title">Driving Agricultural Transformation</h2>
+          <p className="impact-subtitle">Our measurable contribution to the global agri-ecosystem</p>
 
-    <h3>Contact Us</h3>
+          <div className="impact-grid">
+            <div className="impact-card">
+              <div className="impact-icon-wrapper">
+                <FaUsers className="impact-icon" />
+              </div>
+              <div className="impact-numbers"><CountUp target={2000} /></div>
+              <div className="impact-label">FPOs Connected</div>
+            </div>
 
-    <p><strong>Email:</strong> support@agrifabrix.com</p>
-    <p><strong>Phone:</strong> +91-7075483505</p>
+            <div className="impact-card">
+              <div className="impact-icon-wrapper">
+                <FaMapMarkedAlt className="impact-icon" />
+              </div>
+              <div className="impact-numbers"><CountUp target={5000} /></div>
+              <div className="impact-label">Acres Covered</div>
+            </div>
 
-    <p className="timing">
-      Our support team is available Monday to Saturday<br />
-      from 9:00 AM to 6:00 PM IST.
-    </p>
-  </div>
-
-  {/* RIGHT WHITE FORM */}
-  <div className="contact-form-box" id="contact-form">
-    <h2>{t("contact_form_heading")}</h2>
-
-    <form onSubmit={handleSubmit}>
-
-      <label>{t("contact_label_name")}</label>
-      <input
-        type="text"
-        name="name"
-        placeholder={t("contact_placeholder_name")}
-        required
-        value={formData.name}
-        onChange={handleChange}
-      />
-
-      <label>{t("contact_label_email")}</label>
-      <input
-        type="email"
-        name="email"
-        placeholder={t("contact_placeholder_email")}
-        required
-        value={formData.email}
-        onChange={handleChange}
-      />
-
-      <label>{t("contact_label_phone")}</label>
-      <input
-        type="tel"
-        name="phone"
-        placeholder={t("contact_placeholder_phone")}
-        required
-        value={formData.phone}
-        onChange={handleChange}
-      />
-
-      <label>{t("contact_label_message")}</label>
-      <textarea
-        name="message"
-        placeholder={t("contact_placeholder_message")}
-        required
-        value={formData.message}
-        onChange={handleChange}
-      ></textarea>
-
-      <button type="submit">{t("contact_button_submit")}</button>
-    </form>
-  </div>
-
-</section>
-
-
+            <div className="impact-card">
+              <div className="impact-icon-wrapper">
+                <FaBriefcase className="impact-icon" />
+              </div>
+              <div className="impact-numbers"><CountUp target={400} /></div>
+              <div className="impact-label">Direct Buyers</div>
+            </div>
+          </div>
         </div>
       </section>
-<section
-  className="contact-details-container"
-  onClick={() =>
-    window.open(
-      "https://maps.app.goo.gl/LiDKvisvT1f4pvwy8"
-    )
-  }
->
 
-  <div className="contact-bg-overlay">
-    <h2 className="contact-heading">{t("contact_details_heading")}</h2>
+      {/* ================= CONTACT SECTION ================= */}
+      <section className="contact-section-two-column">
+        {/* LEFT GREEN CUBOID */}
+        <div className="contact-cuboid">
+          <h2>{t("contact_main_heading")}</h2>
+          <h3>{t("contact_contact_us_heading")}</h3>
+          <p><strong>{t("contact_label_email")}:</strong>agrifabrix@gmail.com</p>
+          <p><strong>{t("contact_label_phone")}:</strong> +91-7075483505</p>
+          <p className="timing">
+            {t("contact_support_hours")}
+          </p>
+        </div>
 
-    <p className="contact-address">
-      T-Hub, Phase 2, Plot No 1/C, Sy No 83/1, Raidurgam, Knowledge City Rd,
-      Panmaktha, Serilingampalle, Hyderabad, Telangana 500081.
-    </p>
+        {/* RIGHT WHITE FORM */}
+        <div className="contact-form-box" id="contact-form">
+          <h2>{t("contact_form_heading")}</h2>
+          <form onSubmit={handleSubmit}>
+            <label>{t("contact_label_name")}</label>
+            <input
+              type="text"
+              name="name"
+              placeholder={t("contact_placeholder_name")}
+              required
+              value={formData.name}
+              onChange={handleChange}
+            />
+            <label>{t("contact_label_email")}</label>
+            <input
+              type="email"
+              name="email"
+              placeholder={t("contact_placeholder_email")}
+              required
+              value={formData.email}
+              onChange={handleChange}
+            />
+            <label>{t("contact_label_phone")}</label>
+            <input
+              type="tel"
+              name="phone"
+              placeholder={t("contact_placeholder_phone")}
+              required
+              value={formData.phone}
+              onChange={handleChange}
+            />
+            <label>{t("contact_label_message")}</label>
+            <textarea
+              name="message"
+              placeholder={t("contact_placeholder_message")}
+              required
+              value={formData.message}
+              onChange={handleChange}
+            ></textarea>
+            <button type="submit">{t("contact_button_submit")}</button>
+          </form>
+        </div>
+      </section>
 
-  </div>
+      <section
+        className="contact-details-container"
+        onClick={() =>
+          window.open(
+            "https://maps.app.goo.gl/jn5ZAvv5Y22GucTE6"
+          )
+        }
+      >
+        <div className="contact-bg-overlay">
+          <h2 className="contact-heading">{t("contact_details_heading")}</h2>
+          <p className="contact-address">
+            {t("footer_address")}
+          </p>
+        </div>
+      </section>
 
-</section>
+      {showPopupForm && (
+        <div className="popup-overlay">
+          <div className="popup-form-container">
+            <button className="popup-close" onClick={() => setShowPopupForm(false)}>×</button>
 
-{showPopupForm && (
-  <div className="popup-overlay">
-    <div className="popup-form-container">
-      <button className="popup-close" onClick={() => setShowPopupForm(false)}>×</button>
+            <h2>{t("contact_form_heading")}</h2>
 
-      <h2>{t("contact_form_heading")}</h2>
+            <form onSubmit={handleSubmit}>
 
-      <form onSubmit={handleSubmit}>
+              <label>{t("contact_label_name")}</label>
+              <input
+                type="text"
+                name="name"
+                placeholder={t("contact_placeholder_name")}
+                required
+                value={formData.name}
+                onChange={handleChange}
+              />
 
-        <label>{t("contact_label_name")}</label>
-        <input
-          type="text"
-          name="name"
-          placeholder={t("contact_placeholder_name")}
-          required
-          value={formData.name}
-          onChange={handleChange}
-        />
+              <label>{t("contact_label_email")}</label>
+              <input
+                type="email"
+                name="email"
+                placeholder={t("contact_placeholder_email")}
+                required
+                value={formData.email}
+                onChange={handleChange}
+              />
 
-        <label>{t("contact_label_email")}</label>
-        <input
-          type="email"
-          name="email"
-          placeholder={t("contact_placeholder_email")}
-          required
-          value={formData.email}
-          onChange={handleChange}
-        />
+              <label>{t("contact_label_phone")}</label>
+              <input
+                type="tel"
+                name="phone"
+                placeholder={t("contact_placeholder_phone")}
+                required
+                value={formData.phone}
+                onChange={handleChange}
+              />
 
-        <label>{t("contact_label_phone")}</label>
-        <input
-          type="tel"
-          name="phone"
-          placeholder={t("contact_placeholder_phone")}
-          required
-          value={formData.phone}
-          onChange={handleChange}
-        />
+              <label>{t("contact_label_message")}</label>
+              <textarea
+                name="message"
+                placeholder={t("contact_placeholder_message")}
+                required
+                value={formData.message}
+                onChange={handleChange}
+              ></textarea>
 
-        <label>{t("contact_label_message")}</label>
-        <textarea
-          name="message"
-          placeholder={t("contact_placeholder_message")}
-          required
-          value={formData.message}
-          onChange={handleChange}
-        ></textarea>
-
-        <button type="submit">{t("contact_button_submit")}</button>
-      </form>
-    </div>
-  </div>
-)}
-
-
+              <button type="submit">{t("contact_button_submit")}</button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

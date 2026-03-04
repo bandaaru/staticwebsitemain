@@ -49,34 +49,33 @@ const TradeFabriX = () => {
 
   return (
     <section className="trad-section">
+      {/* HERO SECTION — VIDEO HERO */}
+      <div className="trad-hero video-hero">
+
+        {/* Background Video */}
+        <video
+          className="hero-video"
+          autoPlay
+          loop
+          muted
+          playsInline
+        >
+          <source src={marketLinkVideo} type="video/mp4" />
+        </video>
+
+        {/* Dark Overlay */}
+        <div className="hero-overlay"></div>
+
+        {/* Text on video */}
+        <div className="hero-text">
+          <h2><strong>{t("trade_hero_title")}</strong></h2>
+          <h3>{t("trade_hero_subtitle")}</h3>
+          <p>{t("trade_hero_desc")}</p>
+        </div>
+
+      </div>
+
       <div className="trad-container">
-        
-        {/* HERO SECTION */}
-{/* HERO SECTION — VIDEO HERO */}
-<div className="trad-hero video-hero">
-
-    {/* Background Video */}
-    <video 
-        className="hero-video"
-        autoPlay
-        loop
-        muted
-        playsInline
-    >
-        <source src={marketLinkVideo} type="video/mp4" />
-    </video>
-
-    {/* Dark Overlay */}
-    <div className="hero-overlay"></div>
-
-    {/* Text on video */}
-    <div className="hero-text">
-        <h2><strong>{t("trade_hero_title")}</strong></h2>
-        <h3>{t("trade_hero_subtitle")}</h3>
-        <p>{t("trade_hero_desc")}</p>
-    </div>
-
-</div>
 
 
         {/* KEY OFFERINGS */}

@@ -89,7 +89,7 @@ const Navbar = () => {
               className="dropbtn"
               onClick={() => {
                 if (window.innerWidth <= 768) {
-                   toggleDropdown("solutions");
+                  toggleDropdown("solutions");
                 } else {
                   setMenuOpen(false);
                   setOpenDropdown(null);
@@ -107,9 +107,8 @@ const Navbar = () => {
             </div>
 
             <div
-              className={`dropdown-content ${
-                openDropdown === "solutions" ? "open" : ""
-              }`}
+              className={`dropdown-content ${openDropdown === "solutions" ? "open" : ""
+                }`}
             >
               <Link to="/InputFabriX" onClick={toggleMenu}>{t("nav_input_fabrix")}</Link>
               <Link to="/CreditFabriX" onClick={toggleMenu}>{t("nav_credit_fabrix")}</Link>
@@ -137,6 +136,11 @@ const Navbar = () => {
           </li>
 
           <li>
+            <Link to="/franchise" onClick={toggleMenu}>
+              {t("nav_franchise")}
+            </Link>
+          </li>
+          <li>
             <a
               href="https://store.agrifabrix.in/"
               target="_blank"
@@ -147,47 +151,71 @@ const Navbar = () => {
             </a>
           </li>
           <li>
-  <Link
-    to="/#contact-form"
-    onClick={() => {
-      toggleMenu();
-      setTimeout(() => {
-        const el = document.getElementById("contact-form");
-        if (el) el.scrollIntoView({ behavior: "smooth" });
-      }, 100);
-    }}
-  >
-    {t("nav_contact_us")}
-  </Link>
-</li>
+            <Link to="/gallery" onClick={toggleMenu}>
+              {t("nav_gallery")}
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/#contact-form"
+              onClick={() => {
+                toggleMenu();
+                setTimeout(() => {
+                  const el = document.getElementById("contact-form");
+                  if (el) {
+                    const yOffset = -150; // Adjust for sticky navbar + announcement bar
+                    const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                    window.scrollTo({ top: y, behavior: 'smooth' });
+                  }
+                }, 100);
+              }}
+            >
+              {t("nav_contact_us")}
+            </Link>
+          </li>
 
 
+
+          {/* LANGUAGE DROPDOWN */}
+          <li className={`dropdown ${openDropdown === "language" ? "open" : ""}`}>
+            <div
+              className="dropbtn"
+              onClick={() => {
+                if (window.innerWidth <= 768) {
+                  toggleDropdown("language");
+                } else {
+                  setMenuOpen(false);
+                  setOpenDropdown(null);
+                }
+              }}
+              style={{ display: "flex", alignItems: "center" }}
+            >
+              <FaGlobe style={{ fontSize: "1.2rem", marginRight: "8px" }} />
+              <span>{currentLangName}</span>
+              <span
+                className="arrow-css"
+              ></span>
+            </div>
+
+            <div className={`dropdown-content ${openDropdown === "language" ? "open" : ""}`}>
+              {languageOptions.map(([code, name]) => (
+                <div
+                  key={code}
+                  className="lang-option"
+                  onClick={() => {
+                    setCurrentLang(code);
+                    setMenuOpen(false);
+                    setOpenDropdown(null);
+                  }}
+                >
+                  {name}
+                </div>
+              ))}
+            </div>
+          </li>
         </ul>
 
-        {/* LANGUAGE SELECT */}
-        <div className="lang-select-container">
-          <div className="lang-display-wrapper">
-            <FaGlobe className="lang-icon" />
-            <span className="lang-text">{currentLangName}</span>
-          </div>
 
-          <select
-            className="lang-value"
-            onChange={handleLangChange}
-            value={currentLang}
-            aria-label={t("lang_select")}
-          >
-            <option value="placeholder" disabled hidden>
-              {availableLangs["placeholder"]}
-            </option>
-
-            {languageOptions.map(([code, name]) => (
-              <option key={code} value={code}>
-                {name}
-              </option>
-            ))}
-          </select>
-        </div>
       </nav>
     </header>
   );
