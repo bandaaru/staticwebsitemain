@@ -233,24 +233,24 @@ const HomePage = () => {
 
 
   // ⭐ SCROLL ANIMATION TRIGGER ⭐
-  useEffect(() => {
-    const elements = document.querySelectorAll(
-      ".fade-in-up, .fade-in-left, .fade-in-right"
-    );
+  // useEffect(() => {
+  //   const elements = document.querySelectorAll(
+  //     ".fade-in-up, .fade-in-left, .fade-in-right"
+  //   );
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("show");
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
+  //   const observer = new IntersectionObserver(
+  //     (entries) => {
+  //       entries.forEach((entry) => {
+  //         if (entry.isIntersecting) {
+  //           entry.target.classList.add("show");
+  //         }
+  //       });
+  //     },
+  //     { threshold: 0.2 }
+  //   );
 
-    elements.forEach((el) => observer.observe(el));
-  }, []);
+  //   elements.forEach((el) => observer.observe(el));
+  // }, []);
 
 
   return (
@@ -349,6 +349,10 @@ const HomePage = () => {
       </section>
       <div className="section-border bottom-border"></div>
 
+      <div className="vision-bottom-strip">
+        Build Trust First | Digitise Later | Franchise Only When Ready
+      </div>
+
 
 
       {/* WhatsApp + Climate */}
@@ -413,40 +417,40 @@ const HomePage = () => {
       </section>
 
       {/* ================= PARTNERS LOGOS ================= */}
-      <section className="partners-logos" id="partners">
-        <h2 className="partners-title">{t("partner_network_heading")}</h2>
-        <p className="partners-subtitle">{t("partner_network_subtitle")}</p>
-        <div className="partners-slider">
-          <div className="partners-track">
-            {logos.map((logo, idx) => (
-              <a
-                key={idx}
-                href={partnerLinks[idx]}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="partner-logo"
-                aria-label={`Partner link ${idx + 1}`}
-              >
-                <img src={logo} alt={`logo-${idx}`} />
-              </a>
-            ))}
-            {/* duplicate for infinite scroll */}
-            {logos.map((logo, idx) => (
-              <a
-                key={`dup-${idx}`}
-                href={partnerLinks[idx]}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="partner-logo"
-                aria-label={`Partner link duplicate ${idx + 1}`}
-              >
-                <img src={logo} alt={`logo-dup-${idx}`} />
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-
+      <section className="partners-logos">
+            <h2 className="partners-title">{t("partner_network_heading")}</h2>
+            <p className="partners-subtitle">{t("partner_network_subtitle")}</p>
+            {/* Logo slider logic remains the same */}
+            <div className="partners-slider">
+              <div className="partners-track">
+                {logos.map((logo, idx) => (
+                  <a
+                    key={idx}
+                    href={partnerLinks[idx]}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="partner-logo"
+                    aria-label={`Partner link ${idx + 1}`}
+                  >
+                    <img src={logo} alt={`logo-${idx}`} />
+                  </a>
+                ))}
+                {/* duplicate for infinite scroll */}
+                {logos.map((logo, idx) => (
+                  <a
+                    key={`dup-${idx}`}
+                    href={partnerLinks[idx]}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="partner-logo"
+                    aria-label={`Partner link duplicate ${idx + 1}`}
+                  >
+                    <img src={logo} alt={`logo-dup-${idx}`} />
+                  </a>
+                ))}
+              </div>
+            </div>
+          </section>
       {/* ================= IMPACT COUNTERS ================= */}
       <section className="impact-section">
         <div className="impact-container">

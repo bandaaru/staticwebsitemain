@@ -4,8 +4,8 @@
     width: 100%;
     height: 48px;
     /* 40-48px per requirements */
-    background: linear-gradient(90deg, #0a4d25 0%, #000000 50%, #0a4d25 100%);
-    /* Premium dark green/black gradient */
+    background: linear-gradient(90deg, #004d00 0%, #000000 100%);
+    /* Dark gradient green -> black */
     color: white;
     z-index: 1100;
     /* Higher than navbar */
@@ -38,11 +38,11 @@
 
 .marquee-content {
     display: flex;
-    animation: scroll 45s linear infinite;
-    /* Smooth, professional speed */
+    animation: announcementScroll 60s linear infinite;
+    /* Slower, smoother speed */
     padding-left: 0;
-    font-size: 14px;
-    /* Refined size */
+    font-size: 15px;
+    /* Slightly refined size */
     letter-spacing: 0.5px;
     /* Adds premium feel */
     text-transform: uppercase;
@@ -57,13 +57,13 @@
     animation-play-state: paused;
 }
 
-@keyframes scroll {
+@keyframes announcementScroll {
     0% {
-        transform: translateX(-50%);
+        transform: translateX(0);
     }
 
     100% {
-        transform: translateX(0);
+        transform: translateX(-100%);
     }
 }
 

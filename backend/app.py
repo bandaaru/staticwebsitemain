@@ -5,15 +5,19 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from pymongo import MongoClient
 from flask_mail import Mail, Message
-from helpers.upload_helper import save_file
-import config
+import uuid
+from werkzeug.utils import secure_filename
 # ================= CONFIGURATION =================
-MY_EMAIL = config.SENDER_EMAIL 
-MY_APP_PASSWORD = config.SENDER_PASSWORD
-RECIPIENT_EMAIL = config.RECIPIENT_EMAIL
+MONGO_URI = "mongodb://localhost:27017/"
+DB_NAME = "agrifabrix"
+UPLOAD_FOLDER = "uploads"
+ALLOWED_EXTENSIONS = {"pdf", "png", "jpg", "jpeg"}
+MAX_FILE_SIZE_MB = 5
+
+MY_EMAIL = "nagasaiyaswanthbandaru@gmail.com"
+MY_APP_PASSWORD = "eton jytr umcm ahbd" # 16-character Google App Password
+RECIPIENT_EMAIL = "nagasaiyaswanthbandaru@gmail.com"
 LOGO_URL = "https://agrifabrix.in/l.png" 
-MONGO_URI = config.MONGO_URI
-DB_NAME = config.DB_NAME
 # =================================================
 app = Flask(__name__)
 CORS(app)
@@ -38,6 +42,31 @@ newsletter_collection = db["news_letter_subscribers"]
 onboarding_collection = db["onboarding_contacts"]
 franchise_collection = db["franchise_applications"]
 career_collection = db["career_applications"]
+otp_collection = db["career_otp_verifications"]
+
+# OTP Generation and Verification for Career Applications
+import random
+
+# Helper function to save uploaded files
+def save_file(file, folder):
+    """Saves an uploaded file to a specific folder and returns the relative path."""
+    if not file:
+        return None
+
+    # Create absolute path for saving
+    target_dir = os.path.join(os.path.dirname(__file__), UPLOAD_FOLDER, folder)
+    if not os.path.exists(target_dir):
+        os.makedirs(target_dir)
+
+    # Generate a unique filename to avoid collisions
+    original_filename = secure_filename(file.filename)
+    unique_filename = f"{uuid.uuid4().hex}_{original_filename}"
+    file_path = os.path.join(target_dir, unique_filename)
+
+    file.save(file_path)
+    
+    # Return path relative to backend root
+    return os.path.join(UPLOAD_FOLDER, folder, unique_filename)
 
 # Helper function to generate HTML email templates
 def get_html_template(title, content, cta_text=None, cta_link=None):
@@ -220,23 +249,25 @@ def franchise():
         
         # Send mail to admin
         admin_content = f"""
-        <p>A new <strong>Franchise Application</strong> has been received:</p>
-        <table style="width: 100%; border-collapse: collapse;">
-            <tr><td style="padding: 8px; border-bottom: 1px solid #eee;"><strong>Applicant Name:</strong></td><td style="padding: 8px; border-bottom: 1px solid #eee;">{data['name']}</td></tr>
-            <tr><td style="padding: 8px; border-bottom: 1px solid #eee;"><strong>Email:</strong></td><td style="padding: 8px; border-bottom: 1px solid #eee;">{data['email']}</td></tr>
-            <tr><td style="padding: 8px; border-bottom: 1px solid #eee;"><strong>Phone Number:</strong></td><td style="padding: 8px; border-bottom: 1px solid #eee;">{data['phone']}</td></tr>
-            <tr><td style="padding: 8px; border-bottom: 1px solid #eee;"><strong>Target City/Location:</strong></td><td style="padding: 8px; border-bottom: 1px solid #eee;">{data['city']}</td></tr>
-            <tr><td style="padding: 8px; border-bottom: 1px solid #eee;"><strong>Investment Range:</strong></td><td style="padding: 8px; border-bottom: 1px solid #eee;">{data['investment']}</td></tr>
-            <tr><td style="padding: 8px; border-bottom: 1px solid #eee;"><strong>Additional Message:</strong></td><td style="padding: 8px; border-bottom: 1px solid #eee;">{data.get('message', 'N/A')}</td></tr>
+        <p>A new <strong>Franchise Application</strong> has been received with the following details:</p>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+            <tr><td style="padding: 10px; border: 1px solid #eee; background-color: #f9f9f9; width: 40%;"><strong>Applicant Name</strong></td><td style="padding: 10px; border: 1px solid #eee;">{data['name']}</td></tr>
+            <tr><td style="padding: 10px; border: 1px solid #eee; background-color: #f9f9f9;"><strong>Email Address</strong></td><td style="padding: 10px; border: 1px solid #eee;">{data['email']}</td></tr>
+            <tr><td style="padding: 10px; border: 1px solid #eee; background-color: #f9f9f9;"><strong>Phone Number</strong></td><td style="padding: 10px; border: 1px solid #eee;">{data['phone']}</td></tr>
+            <tr><td style="padding: 10px; border: 1px solid #eee; background-color: #f9f9f9;"><strong>Target City/Location</strong></td><td style="padding: 10px; border: 1px solid #eee;">{data['city']}</td></tr>
+            <tr><td style="padding: 10px; border: 1px solid #eee; background-color: #f9f9f9;"><strong>Investment Range</strong></td><td style="padding: 10px; border: 1px solid #eee;">{data['investment']}</td></tr>
+            <tr><td style="padding: 10px; border: 1px solid #eee; background-color: #f9f9f9;"><strong>Additional Message</strong></td><td style="padding: 10px; border: 1px solid #eee;">{data.get('message', 'N/A')}</td></tr>
+            <tr><td style="padding: 10px; border: 1px solid #eee; background-color: #f9f9f9;"><strong>Submission Time</strong></td><td style="padding: 10px; border: 1px solid #eee;">{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</td></tr>
         </table>
         """
-        send_email("New Franchise Application Received", RECIPIENT_EMAIL, get_html_template("Franchise Inquiry Alert", admin_content))
+        send_email("New Franchise Application: " + data['name'], RECIPIENT_EMAIL, get_html_template("Franchise Inquiry Alert", admin_content))
  
         # Send welcome/acknowledgment mail to user
         user_content = f"""
         <p>Hello <strong>{data['name']}</strong>,</p>
         <p>Thank you for your interest in partnering with AgriFabriX! We have successfully received your franchise application for the <strong>{data['city']}</strong> location.</p>
         <p>Our franchise development team is currently reviewing your profile and will get in touch with you shortly to discuss the next steps in our selection process.</p>
+        <p><strong>Meanwhile, explore our Marketplace</strong> to see the range of innovative solutions we bring to the agricultural sector.</p>
         <p>We are excited about the possibility of growing together!</p>
         """
         send_email("Your AgriFabriX Franchise Application", data['email'], get_html_template("Application Successfully Received", user_content, "Explore Marketplace", "https://store.agrifabrix.in/"))
@@ -244,6 +275,74 @@ def franchise():
         return jsonify({"message": "Franchise application submitted successfully!"}), 201
     except Exception as e:
         return jsonify({"error": f"Failed to submit franchise application: {str(e)}"}), 500
+
+
+@app.route("/api/static/Career/SendOTP", methods=["POST"])
+def send_career_otp():
+    data = request.get_json()
+    email = data.get("email")
+    
+    if not email:
+        return jsonify({"error": "Email is required."}), 400
+        
+    otp = str(random.randint(100000, 999999))
+    
+    try:
+        # Store OTP in DB (upsert for specific email)
+        otp_collection.update_one(
+            {"email": email},
+            {"$set": {
+                "otp": otp,
+                "created_at": datetime.datetime.utcnow(),
+                "verified": False
+            }},
+            upsert=True
+        )
+        
+        # Send OTP email
+        otp_content = f"""
+        <p>Your verification code for AgriFabriX Career Application is:</p>
+        <div style="text-align: center; margin: 20px 0;">
+            <span style="font-size: 32px; font-weight: bold; letter-spacing: 5px; color: #0a6b34; background: #f0fdf4; padding: 10px 20px; border-radius: 5px; border: 1px dashed #0a6b34;">
+                {otp}
+            </span>
+        </div>
+        <p>This code will expire in 10 minutes.</p>
+        <p>If you didn't request this, please ignore this email.</p>
+        """
+        send_email("AgriFabriX Verification Code", email, get_html_template("Verify Your Email", otp_content))
+        
+        return jsonify({"message": "OTP sent successfully!"}), 200
+    except Exception as e:
+        return jsonify({"error": f"Failed to send OTP: {str(e)}"}), 500
+
+@app.route("/api/static/Career/VerifyOTP", methods=["POST"])
+def verify_career_otp():
+    data = request.get_json()
+    email = data.get("email")
+    otp = data.get("otp")
+    
+    if not email or not otp:
+        return jsonify({"error": "Email and OTP are required."}), 400
+        
+    try:
+        otp_data = otp_collection.find_one({"email": email})
+        
+        if not otp_data:
+            return jsonify({"error": "No OTP found for this email."}), 404
+            
+        # Check expiry (10 minutes)
+        if (datetime.datetime.utcnow() - otp_data["created_at"]).total_seconds() > 600:
+            return jsonify({"error": "OTP has expired. Please request a new one."}), 400
+            
+        if otp_data["otp"] == otp:
+            otp_collection.update_one({"email": email}, {"$set": {"verified": True}})
+            return jsonify({"message": "Email verified successfully!"}), 200
+        else:
+            return jsonify({"error": "Invalid OTP. Please try again."}), 400
+            
+    except Exception as e:
+        return jsonify({"error": f"Verification failed: {str(e)}"}), 500
 
 # Career Application Route
 @app.route("/api/static/Career/Apply", methods=["POST"])

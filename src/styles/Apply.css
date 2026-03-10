@@ -368,3 +368,82 @@
         text-align: center;
     }
 }
+
+/* OTP Flow Styling */
+.input-with-action {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.input-action-btn {
+    padding: 0 15px;
+    height: 48px;
+    background: #0a6b34;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    font-size: 0.9rem;
+}
+
+.input-action-btn:hover:not(:disabled) {
+    background: #085529;
+    transform: translateY(-1px);
+}
+
+.input-action-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.verified-badge {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #0a6b34;
+    font-weight: 600;
+    font-size: 0.9rem;
+    background: #f0fdf4;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #dcfce7;
+}
+
+.verified-badge svg {
+    width: 16px;
+    height: 16px;
+}
+
+.otp-group {
+    animation: fadeInDown 0.4s ease;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.otp-hint {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 5px;
+}
+
+.form-error-hint {
+    text-align: center;
+    color: #e53e3e;
+    font-size: 0.85rem;
+    margin-top: 10px;
+    font-weight: 500;
+}

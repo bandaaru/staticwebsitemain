@@ -505,7 +505,7 @@
 .partners-track {
   display: flex;
   width: max-content;
-  animation: scroll 25s linear infinite;
+  animation: partnerPageScroll 60s linear infinite;
   will-change: transform;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
@@ -557,13 +557,13 @@
   filter: grayscale(0%);
 }
 
-@keyframes scroll {
+@keyframes partnerPageScroll {
   0% {
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(-50%, 0, 0);
   }
 
   100% {
-    transform: translate3d(-50%, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 }
 

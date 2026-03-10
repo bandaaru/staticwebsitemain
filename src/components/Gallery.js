@@ -69,7 +69,7 @@ const Gallery = () => {
         {
             id: 1,
             src: img1,
-            title: "Smart Agri-Tech",
+            title: "Farmer Collective(FPO)/Farmers",
             category: "Innovation",
             images: [
                 { id: 101, src: sub1_1, title: "Precision Farming" },
@@ -80,7 +80,7 @@ const Gallery = () => {
         {
             id: 2,
             src: img2,
-            title: "FPO Engagement",
+            title: "Franchises",
             category: "Community",
             images: [
                 { id: 201, src: sub2_1, title: "Farmer Meet" },
@@ -90,7 +90,7 @@ const Gallery = () => {
         {
             id: 3,
             src: img3,
-            title: "Modern Mechanization",
+            title: "Stakeholders",
             category: "Infrastructure",
             images: [
                 { id: 301, src: sub3_1, title: "Advanced Tractors" },
@@ -100,7 +100,7 @@ const Gallery = () => {
         {
             id: 4,
             src: img4,
-            title: "AI-Driven Insights",
+            title: "Policy Work",
             category: "Technology",
             images: [
                 { id: 401, src: img4, title: "AI Analysis" },
@@ -110,7 +110,7 @@ const Gallery = () => {
         {
             id: 5,
             src: img5,
-            title: "High-Tech Farming",
+            title: "Global Exposer",
             category: "Sustainability",
             images: [
                 { id: 501, src: img5, title: "Greenhouse Tech" },
@@ -120,21 +120,11 @@ const Gallery = () => {
         {
             id: 7,
             src: img7,
-            title: "Operational Excellence",
+            title: "Client Testimonials",
             category: "Overview",
             images: [
                 { id: 701, src: img7, title: "Workflow Management" },
                 { id: 702, src: img8, title: "Logistics Optimization" }
-            ]
-        },
-        {
-            id: 8,
-            src: img8,
-            title: "Strategic Solutions",
-            category: "Business",
-            images: [
-                { id: 801, src: img8, title: "Market Strategy" },
-                { id: 802, src: img2, title: "Farmer Collaboration" }
             ]
         },
     ];
@@ -153,7 +143,6 @@ const Gallery = () => {
 
     return (
         <div className="gallery-page">
-          
 
             <div className="gallery-container">
                 {!activeSection ? (

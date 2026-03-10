@@ -375,10 +375,10 @@
     height: 8px;
     background: var(--primary-green);
     border-radius: 2px;
-    animation: scroll 2s infinite;
+    animation: galleryMouseScroll 2s infinite;
 }
 
-@keyframes scroll {
+@keyframes galleryMouseScroll {
     0% {
         transform: translate(-50%, 0);
         opacity: 0;

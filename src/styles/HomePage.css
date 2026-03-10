@@ -380,13 +380,13 @@ body {
 
 /* Heading slides WAY up */
 .service-card:hover .service-text-block h3 {
-  transform: translateY(-160px);
+  transform: translateY(-70px);
 }
 
 /* Paragraph slides up + fade in */
 .service-card:hover .service-text-block p {
   opacity: 1;
-  transform: translateY(-155px);
+  transform: translateY(-80px);
 }
 
 
@@ -515,84 +515,86 @@ body {
   padding: 0 20px;
 }
 
+/* =================== PARTNER NETWORK =================== */
+
 .partners-slider {
   width: 100%;
-  margin-top: 30px;
+  overflow: hidden;
   position: relative;
 }
 
 .partners-track {
   display: flex;
+  align-items: center;
   width: max-content;
-  animation: scrollTrack 80s linear infinite;
-  /* Increased to 80s for a very slow, premium feel */
+  animation: partnersScroll 60s linear infinite;
+  will-change: transform;
 }
 
-.partners-track:hover {
-  animation-play-state: paused;
-}
+
 
 .partner-logo {
   flex: 0 0 auto;
-  width: 140px;
-  height: 140px;
-  margin: 0 30px;
+  width: 131px;
+  height: 139px;
+  /* circular container */
+  margin: 0 25px;
   border-radius: 50%;
+  /* circular shape */
   background: #fff;
+  /* solid background */
   display: flex;
+  /* center logo */
   justify-content: center;
   align-items: center;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-  border: 1px solid #f0f0f0;
-  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  /* subtle shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .partner-logo img {
-  width: 65%;
-  height: 65%;
+  width: 70%;
+  /* scaled inside circle */
+  height: 70%;
   object-fit: contain;
-  filter: none;
-  /* Removed grayscale */
-  opacity: 1;
-  /* Full opacity */
-  transition: all 0.3s ease;
+  border-radius: 50%;
+  /* keeps image circular */
+  filter: grayscale(20%);
+  transition: filter 0.3s ease;
 }
 
 .partner-logo:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(10, 107, 52, 0.15);
-  border-color: #0a6b34;
+  transform: scale(1.15);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
-.partner-logo:hover img {
-  transform: scale(1.05);
+.partner-logo img:hover {
+  filter: grayscale(0%);
 }
 
-@keyframes scrollTrack {
+/* ===== Vision Bottom Green Strip ===== */
+
+.vision-bottom-strip {
+  width: 100%;
+  background: #0a5c2f;
+  color: #ffffff;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 0;
+  letter-spacing: 0.5px;
+}
+
+@keyframes partnersScroll {
   0% {
-    transform: translateX(0);
+    transform: translate3d(-50%, 0, 0);
   }
 
   100% {
-    transform: translateX(-50%);
+    transform: translate3d(0, 0, 0);
   }
 }
 
-@media (max-width: 768px) {
-  .partners-logos {
-    padding: 60px 0;
-  }
-
-  .partners-title {
-    font-size: 2rem;
-  }
-
-  .partner-logo {
-    width: 100px;
-    height: 100px;
-    margin: 0 15px;
-  }
-}
 
 /* ======================================================= */
 /*                CONTACT SECTION — TWO COLUMN              */

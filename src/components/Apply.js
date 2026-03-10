@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { submitApplication } from '../api/career'
+import { sendOTP, verifyOTP, submitApplication } from './career'
 import '../styles/Apply.css'
 
 /* ---- Icon Set ---- */
@@ -122,6 +122,12 @@ export default function Apply() {
     const [loading, setLoading] = useState(false)
     const [status, setStatus] = useState(null)
 
+    // OTP States
+    const [otp, setOtp] = useState('')
+    const [otpSent, setOtpSent] = useState(false)
+    const [otpVerified, setOtpVerified] = useState(false)
+    const [otpLoading, setOtpLoading] = useState(false)
+
     const [fields, setFields] = useState({
         full_name: '', email: '', phone: '', city: '', state: '', country: 'India',
         education: '', experience: '', internship_type: '', fellowship_program: '',
@@ -138,8 +144,48 @@ export default function Apply() {
     const handleField = (e) => setFields(prev => ({ ...prev, [e.target.name]: e.target.value }))
     const handleFile = (name, file) => setFiles(prev => ({ ...prev, [name]: file }))
 
+    const handleSendOTP = async () => {
+        if (!fields.email || !fields.email.includes('@')) {
+            setStatus({ type: 'error', msg: 'Please enter a valid email address first.' })
+            return
+        }
+        setOtpLoading(true)
+        setStatus(null)
+        try {
+            await sendOTP(fields.email)
+            setOtpSent(true)
+            setStatus({ type: 'success', msg: 'Verification code sent to your email.' })
+        } catch (err) {
+            setStatus({ type: 'error', msg: err.message })
+        } finally {
+            setOtpLoading(false)
+        }
+    }
+
+    const handleVerifyOTP = async () => {
+        if (!otp || otp.length !== 6) {
+            setStatus({ type: 'error', msg: 'Please enter the 6-digit code.' })
+            return
+        }
+        setOtpLoading(true)
+        setStatus(null)
+        try {
+            await verifyOTP(fields.email, otp)
+            setOtpVerified(true)
+            setStatus({ type: 'success', msg: 'Email verified successfully!' })
+        } catch (err) {
+            setStatus({ type: 'error', msg: err.message })
+        } finally {
+            setOtpLoading(false)
+        }
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault()
+        if (!otpVerified) {
+            setStatus({ type: 'error', msg: 'Please verify your email address first.' })
+            return
+        }
         setStatus(null)
         setLoading(true)
         try {
@@ -208,8 +254,57 @@ export default function Apply() {
                             </div>
                             <div className="form-group">
                                 <label className="form-label" htmlFor="email">Email Address<span className="req"> *</span></label>
-                                <input id="email" name="email" type="email" className="form-input" placeholder="you@example.com" value={fields.email} onChange={handleField} required />
+                                <div className="input-with-action">
+                                    <input
+                                        id="email"
+                                        name="email"
+                                        type="email"
+                                        className="form-input"
+                                        placeholder="you@example.com"
+                                        value={fields.email}
+                                        onChange={handleField}
+                                        disabled={otpVerified}
+                                        required
+                                    />
+                                    {!otpVerified && (
+                                        <button
+                                            type="button"
+                                            className="input-action-btn"
+                                            onClick={handleSendOTP}
+                                            disabled={otpLoading}
+                                        >
+                                            {otpSent ? 'Resend' : 'Verify'}
+                                        </button>
+                                    )}
+                                    {otpVerified && <span className="verified-badge"><IconCheck /> Verified</span>}
+                                </div>
                             </div>
+
+                            {otpSent && !otpVerified && (
+                                <div className="form-group otp-group">
+                                    <label className="form-label" htmlFor="otp">Enter Verification Code</label>
+                                    <div className="input-with-action">
+                                        <input
+                                            id="otp"
+                                            name="otp"
+                                            className="form-input"
+                                            placeholder="6-digit code"
+                                            value={otp}
+                                            onChange={(e) => setOtp(e.target.value)}
+                                            maxLength={6}
+                                        />
+                                        <button
+                                            type="button"
+                                            className="input-action-btn"
+                                            onClick={handleVerifyOTP}
+                                            disabled={otpLoading}
+                                        >
+                                            {otpLoading ? <span className="spinner" /> : 'Confirm'}
+                                        </button>
+                                    </div>
+                                    <p className="otp-hint">Code sent to {fields.email}</p>
+                                </div>
+                            )}
                             <div className="form-group">
                                 <label className="form-label" htmlFor="phone">Phone Number<span className="req"> *</span></label>
                                 <input id="phone" name="phone" className="form-input" placeholder="+91 9XXXXXXXXX" value={fields.phone} onChange={handleField} required />
@@ -308,6 +403,8 @@ export default function Apply() {
                                 {loading ? <><span className="spinner" /> Submitting</> : <>Submit Application <IconArrow /></>}
                             </button>
                         </div>
+
+                        {!otpVerified && <p className="form-error-hint">Please verify your email to enable submission.</p>}
 
                     </div>
                 </form>
