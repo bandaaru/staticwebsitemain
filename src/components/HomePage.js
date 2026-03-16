@@ -14,9 +14,9 @@ import {
 
 import "../styles/HomePage.css";
 
-import cropimage from "../images/HomeSol.png";
+import green_crop from "../images/green_crop.mp4";
 import mission from "../images/Vision.png";
-import cropimage2 from "../images/HomeTech.png";
+import home from "../images/home.mp4";
 
 import inputs from "../images/inputs.png";
 import orders from "../images/orders.png";
@@ -90,6 +90,8 @@ const HomePage = () => {
 
 
   const [showPopupForm, setShowPopupForm] = useState(false);
+  const [showContactInterests, setShowContactInterests] = useState(false);
+  const [showPopupInterests, setShowPopupInterests] = useState(false);
 
   // Show form after 3 minutes
   useEffect(() => {
@@ -137,14 +139,32 @@ const HomePage = () => {
     name: "",
     email: "",
     phone: "",
-    message: ""
+    message: "",
+    interests: []
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
+  const handleCheckboxChange = (e) => {
+    const { value, checked } = e.target;
+    setFormData((prev) => {
+      if (checked) {
+        return { ...prev, interests: [...prev.interests, value] };
+      } else {
+        return {
+          ...prev,
+          interests: prev.interests.filter((item) => item !== value),
+        };
+      }
+    });
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (formData.interests.length === 0) {
+      alert("Please select at least one interest.");
+      return;
+    }
     try {
       const response = await fetch("https://admin.agrifabrix.in/api/static/Contact", {
         method: "POST",
@@ -158,7 +178,7 @@ const HomePage = () => {
       if (response.ok) {
         // Use translated success alert
         alert(t("contact_alert_success"));
-        setFormData({ name: "", email: "", phone: "", message: "" });
+        setFormData({ name: "", email: "", phone: "", message: "", interests: [] });
       } else {
         // Use translated failure alert
         alert(data.error || t("contact_alert_failed"));
@@ -193,20 +213,20 @@ const HomePage = () => {
 
 
 
-  const slides = [
-    {
-      title: t("home_slide_1_title"),
-      description: t("home_slide_1_desc"),
-      image: cropimage,
-      link: "/Solutions",
-    },
-    {
-      title: t("home_slide_2_title"),
-      description: t("home_slide_2_desc"),
-      image: cropimage2,
-      link: "/Technology",
-    },
-  ];
+const slides = [
+  {
+    title: t("home_slide_1_title"),
+    description: t("home_slide_1_desc"),
+    video: green_crop,
+    link: "/Solutions",
+  },
+  {
+    title: t("home_slide_2_title"),
+    description: t("home_slide_2_desc"),
+    video: home,
+    link: "/Technology",
+  },
+];
 
   const prevSlide = () => {
     setCurrentSlide((prev) =>
@@ -233,24 +253,24 @@ const HomePage = () => {
 
 
   // ⭐ SCROLL ANIMATION TRIGGER ⭐
-  // useEffect(() => {
-  //   const elements = document.querySelectorAll(
-  //     ".fade-in-up, .fade-in-left, .fade-in-right"
-  //   );
+  useEffect(() => {
+    const elements = document.querySelectorAll(
+      ".fade-in-up, .fade-in-left, .fade-in-right"
+    );
 
-  //   const observer = new IntersectionObserver(
-  //     (entries) => {
-  //       entries.forEach((entry) => {
-  //         if (entry.isIntersecting) {
-  //           entry.target.classList.add("show");
-  //         }
-  //       });
-  //     },
-  //     { threshold: 0.2 }
-  //   );
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
 
-  //   elements.forEach((el) => observer.observe(el));
-  // }, []);
+    elements.forEach((el) => observer.observe(el));
+  }, []);
 
 
   return (
@@ -259,40 +279,47 @@ const HomePage = () => {
 
 
       {/* ================= HERO CAROUSEL ================= */}
-      <section className="hero-carousel" id="home">
+<section className="hero-carousel" id="home">
 
-        {/* Slide */}
-        <div className="hero-slide" key={currentSlide}>
+  <div className="hero-slide" key={currentSlide}>
 
-          {/* Fullscreen image */}
-          <img
-            src={slides[currentSlide].image}
-            alt={t("home_image_alt_crop")}
-            className="hero-carousel-image"
-          />
+    {/* Video or Image */}
+    {slides[currentSlide].video ? (
+      <video
+        className="hero-carousel-video"
+        autoPlay
+        muted
+        loop
+        playsInline
+      >
+        <source src={slides[currentSlide].video} type="video/mp4" />
+      </video>
+    ) : (
+      <img
+        src={slides[currentSlide].image}
+        alt={t("home_image_alt_crop")}
+        className="hero-carousel-image"
+      />
+    )}
 
-          {/* REMOVED overlay */}
+    {/* Text on media */}
+    <div
+      className={`hero-text-overlay no-overlay-text 
+      ${currentSlide === 0 ? "first-slide-spacing" : ""}
+      ${currentSlide === 1 ? "text-right-slide black-text" : ""}
+      `}
+    >
+      <h1>{slides[currentSlide].title}</h1>
+      <p>{slides[currentSlide].description}</p>
 
-          {/* Text on image with shadow */}
-          <div
-            className={`hero-text-overlay no-overlay-text 
-    ${currentSlide === 0 ? "first-slide-spacing" : ""}
-    ${currentSlide === 1 ? "text-right-slide black-text" : ""}
-  `}
-          >
-            <h1>{slides[currentSlide].title}</h1>
-            <p>{slides[currentSlide].description}</p>
+      <a href={slides[currentSlide].link} className="learn-more">
+        {t("home_button_learn_more")}
+      </a>
+    </div>
 
-            <a href={slides[currentSlide].link} className="learn-more">
-              {t("home_button_learn_more")}
-            </a>
-          </div>
+  </div>
 
-
-
-        </div>
-
-      </section>
+</section>
 
 
 
@@ -349,10 +376,6 @@ const HomePage = () => {
       </section>
       <div className="section-border bottom-border"></div>
 
-      <div className="vision-bottom-strip">
-        Build Trust First | Digitise Later | Franchise Only When Ready
-      </div>
-
 
 
       {/* WhatsApp + Climate */}
@@ -362,95 +385,83 @@ const HomePage = () => {
 
 
 
-      {/* ================= SERVICES ================= */}
-      <section className="services" id="solutions">
-        {/* <h2>{t("home_offerings_heading")}</h2> */}
+<section className="services" id="solutions">
 
-        <div className="solutions-layout">
-          <div className="service-grid">
+  <div className="solutions-layout">
+    <div className="service-grid">
 
-            <div className="service-card">
-              <img src={inputs} alt="Inputs" className="service-img" />
+      <div className="service-item tall">
+        <img src={inputs} alt="Inputs" className="service-img" />
+        <div className="service-text-block">
+          <h3>{t("home_offering_inputs_title")}</h3>
+          <p>{t("home_offering_inputs_desc")}</p>
+        </div>
+      </div>
 
-              <div className="service-text-block">
-                <h3>
-                  <FaSeedling className="service-icon" /> {t("home_offering_inputs_title")}
-                </h3>
-                <p>{t("home_offering_inputs_desc")}</p>
-              </div>
-            </div>
+      <div className="service-item">
+        <img src={orders} alt="Orders" className="service-img" />
+        <div className="service-text-block">
+          <h3>{t("home_offering_ordering_title")}</h3>
+          <p>{t("home_offering_ordering_desc")}</p>
+        </div>
+      </div>
 
-            <div className="service-card">
-              <img src={orders} alt="Orders" className="service-img" />
+      <div className="service-item tall">
+        <img src={consultancy} alt="Consultancy" className="service-img" />
+        <div className="service-text-block">
+          <h3>{t("home_offering_consultancy_title")}</h3>
+          <p>{t("home_offering_consultancy_desc")}</p>
+        </div>
+      </div>
 
-              <div className="service-text-block">
-                <h3>
-                  <FaShoppingCart className="service-icon" /> {t("home_offering_ordering_title")}
-                </h3>
-                <p>{t("home_offering_ordering_desc")}</p>
-              </div>
-            </div>
+      <div className="service-item">
+        <img src={supplychain} alt="Supply Chain" className="service-img" />
+        <div className="service-text-block">
+          <h3>{t("home_offering_supply_title")}</h3>
+          <p>{t("home_offering_supply_desc")}</p>
+        </div>
+      </div>
 
-            <div className="service-card">
-              <img src={consultancy} alt="Consultancy" className="service-img" />
+    </div>
+  </div>
 
-              <div className="service-text-block">
-                <h3>
-                  <FaHandshake className="service-icon" /> {t("home_offering_consultancy_title")}
-                </h3>
-                <p>{t("home_offering_consultancy_desc")}</p>
-              </div>
-            </div>
+</section>
 
-            <div className="service-card">
-              <img src={supplychain} alt="Supply Chain" className="service-img" />
-
-              <div className="service-text-block">
-                <h3>
-                  <FaTruck className="service-icon" /> {t("home_offering_supply_title")}
-                </h3>
-                <p>{t("home_offering_supply_desc")}</p>
-              </div>
-            </div>
+      {/* ================= PARTNERS LOGOS ================= */}
+      <section className="partners-logos" id="partners">
+        <h2 className="partners-title">{t("partner_network_heading")}</h2>
+        <p className="partners-subtitle">{t("partner_network_subtitle")}</p>
+        <div className="partners-slider">
+          <div className="partners-track">
+            {logos.map((logo, idx) => (
+              <a
+                key={idx}
+                href={partnerLinks[idx]}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="partner-logo"
+                aria-label={`Partner link ${idx + 1}`}
+              >
+                <img src={logo} alt={`logo-${idx}`} />
+              </a>
+            ))}
+            {/* duplicate for infinite scroll */}
+            {logos.map((logo, idx) => (
+              <a
+                key={`dup-${idx}`}
+                href={partnerLinks[idx]}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="partner-logo"
+                aria-label={`Partner link duplicate ${idx + 1}`}
+              >
+                <img src={logo} alt={`logo-dup-${idx}`} />
+              </a>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ================= PARTNERS LOGOS ================= */}
-      <section className="partners-logos">
-            <h2 className="partners-title">{t("partner_network_heading")}</h2>
-            <p className="partners-subtitle">{t("partner_network_subtitle")}</p>
-            {/* Logo slider logic remains the same */}
-            <div className="partners-slider">
-              <div className="partners-track">
-                {logos.map((logo, idx) => (
-                  <a
-                    key={idx}
-                    href={partnerLinks[idx]}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="partner-logo"
-                    aria-label={`Partner link ${idx + 1}`}
-                  >
-                    <img src={logo} alt={`logo-${idx}`} />
-                  </a>
-                ))}
-                {/* duplicate for infinite scroll */}
-                {logos.map((logo, idx) => (
-                  <a
-                    key={`dup-${idx}`}
-                    href={partnerLinks[idx]}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="partner-logo"
-                    aria-label={`Partner link duplicate ${idx + 1}`}
-                  >
-                    <img src={logo} alt={`logo-dup-${idx}`} />
-                  </a>
-                ))}
-              </div>
-            </div>
-          </section>
       {/* ================= IMPACT COUNTERS ================= */}
       <section className="impact-section">
         <div className="impact-container">
@@ -491,7 +502,7 @@ const HomePage = () => {
         <div className="contact-cuboid">
           <h2>{t("contact_main_heading")}</h2>
           <h3>{t("contact_contact_us_heading")}</h3>
-          <p><strong>{t("contact_label_email")}:</strong>agrifabrix@gmail.com</p>
+          <p><strong>{t("contact_label_email")}:</strong>info@agrifabrix.com</p>
           <p><strong>{t("contact_label_phone")}:</strong> +91-7075483505</p>
           <p className="timing">
             {t("contact_support_hours")}
@@ -529,6 +540,42 @@ const HomePage = () => {
               value={formData.phone}
               onChange={handleChange}
             />
+
+            <div className="custom-dropdown">
+              <div
+                className="dropdown-header input-like"
+                onClick={() => setShowContactInterests(!showContactInterests)}
+              >
+                {formData.interests.length > 0
+                  ? `${formData.interests.length} selected`
+                  : "Area of Interest"}
+                <span className={`dropdown-arrow ${showContactInterests ? 'open' : ''}`}>▼</span>
+              </div>
+              {showContactInterests && (
+                <div className="checkbox-group dropdown-body">
+                  {[
+                    "InputFabriX",
+                    "CreditFabriX",
+                    "TraceFabriX",
+                    "SupplyFabriX",
+                    "TradeFabriX",
+                    "Franchise",
+                    "Careers",
+                  ].map((option) => (
+                    <label key={option}>
+                      <input
+                        type="checkbox"
+                        value={option}
+                        checked={formData.interests.includes(option)}
+                        onChange={handleCheckboxChange}
+                      />{" "}
+                      {option}
+                    </label>
+                  ))}
+                </div>
+              )}
+            </div>
+
             <label>{t("contact_label_message")}</label>
             <textarea
               name="message"
@@ -537,6 +584,7 @@ const HomePage = () => {
               value={formData.message}
               onChange={handleChange}
             ></textarea>
+
             <button type="submit">{t("contact_button_submit")}</button>
           </form>
         </div>
@@ -596,6 +644,41 @@ const HomePage = () => {
                 value={formData.phone}
                 onChange={handleChange}
               />
+
+              <div className="custom-dropdown">
+                <div
+                  className="dropdown-header input-like"
+                  onClick={() => setShowPopupInterests(!showPopupInterests)}
+                >
+                  {formData.interests.length > 0
+                    ? `${formData.interests.length} selected`
+                    : "Area of Interest *"}
+                  <span className={`dropdown-arrow ${showPopupInterests ? 'open' : ''}`}>▼</span>
+                </div>
+                {showPopupInterests && (
+                  <div className="checkbox-group dropdown-body">
+                    {[
+                      "InputFabriX",
+                      "CreditFabriX",
+                      "TraceFabriX",
+                      "SupplyFabriX",
+                      "TradeFabriX",
+                      "Franchise",
+                      "Careers",
+                    ].map((option) => (
+                      <label key={option}>
+                        <input
+                          type="checkbox"
+                          value={option}
+                          checked={formData.interests.includes(option)}
+                          onChange={handleCheckboxChange}
+                        />{" "}
+                        {option}
+                      </label>
+                    ))}
+                  </div>
+                )}
+              </div>
 
               <label>{t("contact_label_message")}</label>
               <textarea

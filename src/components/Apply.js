@@ -130,7 +130,7 @@ export default function Apply() {
 
     const [fields, setFields] = useState({
         full_name: '', email: '', phone: '', city: '', state: '', country: 'India',
-        education: '', experience: '', internship_type: '', fellowship_program: '',
+        education: '', experience_years: '', experience_months: '', internship_type: '', fellowship_program: '',
         linkedin: '', portfolio: '', reason: '', skills: '',
     })
     const [files, setFiles] = useState({ resume: null, id_proof: null, certificates: null })
@@ -198,7 +198,7 @@ export default function Apply() {
 
             await submitApplication(formData)
             setStatus({ type: 'success', msg: 'Application submitted successfully! We will reach out within 3-5 business days.' })
-            setFields({ full_name: '', email: '', phone: '', city: '', state: '', country: 'India', education: '', experience: '', internship_type: '', fellowship_program: '', linkedin: '', portfolio: '', reason: '', skills: '' })
+            setFields({ full_name: '', email: '', phone: '', city: '', state: '', country: 'India', education: '', experience_years: '', experience_months: '', internship_type: '', fellowship_program: '', linkedin: '', portfolio: '', reason: '', skills: '' })
             setFiles({ resume: null, id_proof: null, certificates: null })
         } catch (err) {
             setStatus({ type: 'error', msg: err.message })
@@ -333,8 +333,17 @@ export default function Apply() {
                                 <input id="education" name="education" className="form-input" placeholder="e.g. B.Sc Agriculture, IIT" value={fields.education} onChange={handleField} />
                             </div>
                             <div className="form-group">
-                                <label className="form-label" htmlFor="experience">Work Experience</label>
-                                <input id="experience" name="experience" className="form-input" placeholder="e.g. 3 years in field operations" value={fields.experience} onChange={handleField} />
+                                <label className="form-label">Work Experience</label>
+                                <div style={{ display: 'flex', gap: '10px' }}>
+                                    <select id="experience_years" name="experience_years" className="form-select" value={fields.experience_years} onChange={handleField} style={{ flex: 1 }}>
+                                        <option value="">Years</option>
+                                        {[...Array(21).keys()].map(y => <option key={y} value={y}>{y} Years</option>)}
+                                    </select>
+                                    <select id="experience_months" name="experience_months" className="form-select" value={fields.experience_months} onChange={handleField} style={{ flex: 1 }}>
+                                        <option value="">Months</option>
+                                        {[...Array(12).keys()].map(m => <option key={m} value={m}>{m} Months</option>)}
+                                    </select>
+                                </div>
                             </div>
 
                             {appType === 'fellowship' && (

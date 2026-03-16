@@ -8,183 +8,200 @@ body {
 
 /* =================== HERO CAROUSEL ================== */
 
+/* =================== HERO CAROUSEL ================== */
+ 
 .hero-carousel {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 90vh;
   overflow: hidden;
   color: white;
 }
-
+.hero-carousel-video {
+  width: 100%;
+  height: 90vh;
+  object-fit: cover;
+}
+ 
 /* Slide container */
 .hero-slide {
   position: relative;
-  width: 100%;
-  height: 100%;
 }
-
-/* FULLSCREEN IMAGE */
+ 
+.hero-carousel-video,
 .hero-carousel-image {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
+  height: 90vh;
   object-fit: cover;
-  z-index: 1;
 }
-
+ 
 /* DARK OVERLAY REMOVED */
 .hero-overlay {
   display: none !important;
 }
-
-/* ================= TEXT OVER IMAGE ================= */
-
-/* Default text left (existing) */
+ 
+/* ================= HERO TEXT OVER VIDEO/IMAGE ================= */
+ 
 .hero-text-overlay {
   position: absolute;
-  top: 12%;
+  top: 40%;
   left: 8%;
+  transform: translateY(-50%);
   max-width: 45%;
   z-index: 3;
-  color: white;
+  color: #ffffff;
   text-shadow: 0 3px 10px rgba(0, 0, 0, 0.7);
 }
-
-/* 👉 For second slide: text on right */
+ 
+/* Right side text for second slide */
 .text-right-slide {
   left: auto !important;
   right: 8% !important;
   text-align: right;
 }
-
-
-
-/* Only first slide: increase line spacing */
+ 
+/* First slide spacing */
 .first-slide-spacing h1,
 .first-slide-spacing p {
-  line-height: 1.5 !important;
-  /* Adjust as needed */
-}
-
-/* Black text only for second slide */
-.black-text {
-  color: #000 !important;
-}
-
-/* Also remove white text-shadow for better visibility */
-.black-text h1,
-.black-text p,
-.black-text a {
-  text-shadow: none !important;
-}
-
-/* Learn More button — second slide (black style) */
-.black-text .learn-more {
-  border: 2px solid #000 !important;
-  color: #000 !important;
-  background: transparent !important;
-}
-
-/* Hover effect (slight gray background) */
-.black-text .learn-more:hover {
-  background: rgba(0, 0, 0, 0.1) !important;
-  transform: translateY(-2px);
-}
-
-
-.hero-text-overlay h1 {
-  font-size: 44px;
-  font-weight: 700;
-  margin-bottom: 20px;
-  line-height: 1.2;
-}
-
-.hero-text-overlay p {
-  font-size: 18px;
-  margin-bottom: 20px;
   line-height: 1.5;
 }
-
-
-
-
-
+ 
+/* ================= TEXT STYLES ================= */
+ 
+.hero-text-overlay h1 {
+  font-size: clamp(28px, 3.5vw, 64px);
+  font-weight: 700;
+  margin-bottom: 18px;
+  line-height: 1.2;
+}
+ 
+.hero-text-overlay p {
+  font-size: clamp(16px, 1.2vw, 22px);
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+ 
+/* ================= BUTTON ================= */
+ 
 .hero-text-overlay .learn-more {
+  display: inline-block;
   padding: 12px 28px;
+  font-size: clamp(24px, 1vw, 18px);
   border: 2px solid #ffffff;
-  /* White outline */
   background: transparent;
-  /* Hollow look */
   color: #ffffff;
   text-decoration: none;
   border-radius: 6px;
-  display: inline-block;
   font-weight: 500;
-  transition: 0.3s ease;
+  transition: all 0.3s ease;
 }
-
-/* Hover effect */
+ 
 .hero-text-overlay .learn-more:hover {
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(4px);
-  color: #ffffff;
   transform: translateY(-2px);
 }
-
-
-
+ 
+/* ================= SECOND SLIDE BLACK TEXT ================= */
+ 
+.black-text {
+  color: #000;
+}
+ 
+.black-text h1,
+.black-text p,
+.black-text a {
+  text-shadow: none;
+}
+ 
+/* Button style for black text */
+.black-text .learn-more {
+  border: 2px solid #000;
+  color: #000;
+  background: transparent;
+}
+ 
+.black-text .learn-more:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+ 
+/* ================= RESPONSIVE ================= */
+ 
+@media (max-width: 992px) {
+  .hero-text-overlay {
+    max-width: 60%;
+  }
+}
+ 
+@media (max-width: 768px) {
+  .hero-text-overlay {
+    left: 5%;
+    right: 5%;
+    max-width: 90%;
+    text-align: left;
+  }
+ 
+  .text-right-slide {
+    text-align: left;
+  }
+}
+ 
+@media (max-width: 480px) {
+  .hero-text-overlay {
+    top: 55%;
+  }
+}
+ 
 /* ================== RESPONSIVE ================== */
-
+ 
 @media (max-width: 1024px) {
   .hero-text-overlay {
     top: 15%;
     max-width: 60%;
   }
-
+ 
   .hero-text-overlay h1 {
     font-size: 34px;
   }
 }
-
+ 
 @media (max-width: 768px) {
   .hero-carousel {
     height: 70vh;
   }
-
+ 
   .hero-text-overlay {
     top: 32%;
     left: 5%;
     max-width: 90%;
   }
-
-
+ 
+ 
   .hero-text-overlay h1 {
     font-size: 26px;
   }
-
+ 
   .hero-text-overlay p {
     font-size: 15px;
   }
-
+ 
   .hero-text-overlay .learn-more {
     padding: 10px 20px;
     font-size: 14px;
   }
 }
-
+ 
 @media (max-width: 480px) {
   .hero-text-overlay h1 {
     font-size: 22px;
   }
-
+ 
   .hero-text-overlay p {
     font-size: 14px;
   }
 }
-
-
+ 
+ 
 /* Full-width stacked container */
 .highlights {
   display: flex;
@@ -193,7 +210,7 @@ body {
   margin: 0;
   padding: 0;
 }
-
+ 
 /* Landscape card */
 .highlight {
   width: 100%;
@@ -204,192 +221,158 @@ body {
   background-repeat: no-repeat;
   overflow: hidden;
 }
-
+ 
 /* AI Image */
 .highlight.ai {
   background-image: url('../images/Ai.png');
 }
-
+ 
 .highlight.finance {
   background-image: url('../images/Finance.png');
 }
-
+ 
 .highlight.blockchain {
   background-image: url('../images/blockchain.png');
 }
-
-
-
+ 
+ 
+ 
 .highlight-text {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   width: 40%;
   color: rgb(255, 255, 255);
-
+ 
   font-family: "Poppins", sans-serif;
   /* font-style: italic; */
   font-size: 30px;
   font-weight: 100;
   line-height: 1.4;
 }
-
+ 
 .highlight.ai .highlight-text {
   left: 40px;
   text-align: left;
 }
-
+ 
 /* Finance text on RIGHT side */
 .highlight.finance .highlight-text {
-  left: 40px;
+  right: 40px;
   text-align: left;
 }
-
+ 
 .highlight.blockchain .highlight-text {
   left: 40px;
   text-align: left;
 }
-
+ 
 /* Responsive for mobile */
 @media (max-width: 768px) {
   .highlight {
     height: 260px;
   }
-
+ 
   .highlight-text {
     width: 80%;
     left: 20px;
     font-size: 20px;
   }
 }
-
-
-/* 2x2 grid */
+ 
 .service-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  /* 2 pictures per row */
-  gap: 0;
-  width: 100%;
-  max-width: 850px;
-  margin: 0 auto;
+  grid-auto-rows: 280px;
+  gap: 20px;
 }
-
-/* REMOVE grid-template-rows — LET GRID AUTO-CREATE ROWS */
-/* REMOVE height: 100% on images */
-
-.service-card {
+ 
+/* card */
+.service-item{
   position: relative;
   overflow: hidden;
-  border: 1px solid #ddd;
+  width: 100%;
+  height: 100%;
 }
-
+ 
+/* tall card */
+.tall {
+  grid-row: span 2;
+}
+ 
+/* image fills entire card */
 .service-img {
   width: 100%;
-  height: 300px;
-  /* <-- Give real height so rows form correctly */
+  height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.5s ease;
 }
-
-.service-card:hover .service-img {
-  transform: scale(1.12);
+ 
+.service-item{
+  position:relative;
+  overflow:hidden;
+  width:100%;
+  height:100%;
 }
-
-
-
-/* TEXT BLOCK */
-.service-text-block {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-
-  width: 100%;
-  padding: 18px;
-
-  /* Base gradient (initial state) */
-  background: linear-gradient(to top,
-      rgba(0, 0, 0, 0.6) 0%,
-      rgba(0, 0, 0, 0.0) 80%);
-
-  color: #fff;
-  z-index: 2;
-  /* Above overlay */
-  transition: 0.35s ease-in-out;
+ 
+.service-img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform .4s ease;
 }
-
-/* Heading ALWAYS visible */
-.service-text-block h3 {
-  margin: 0;
-  font-size: 30px;
-  display: flex;
-  gap: 6px;
-  align-items: center;
-
-  transform: translateY(20px);
-  /* Start lower */
-  transition: 0.35s ease-in-out;
-
-  text-shadow: 0px 4px 12px rgba(0, 0, 0, 0.8);
+ 
+/* overlay */
+.service-item::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.55);
+  opacity:0;
+  transition:.4s;
+  z-index:1;
 }
-
-/* Paragraph initially hidden */
-.service-text-block p {
-  margin: 8px 0 0;
-  font-size: 20px;
-  opacity: 0;
-
-  transform: translateY(40px);
-  /* slide up distance */
-  transition: 0.35s ease-in-out;
-
-  text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.85);
+ 
+/* text */
+.service-text-block{
+  position:absolute;
+  top:55%;
+  left:30px;
+  right:30px;
+  color:white;
+  z-index:2;
+  opacity:0;
+  transform:translateY(30px);
+  transition:.4s;
 }
-
-/* FULL IMAGE DARK OVERLAY */
-.service-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-
-  background: linear-gradient(to top,
-      rgba(0, 0, 0, 0.60) 0%,
-      /* softer full cover */
-      rgba(0, 0, 0, 0.40) 40%,
-      rgba(0, 0, 0, 0.20) 70%,
-      rgba(0, 0, 0, 0.0) 100%);
-
-  opacity: 0;
-  transition: 0.45s ease-in-out;
-  z-index: 1;
+ 
+/* heading */
+.service-text-block h3{
+  font-size:32px;
+  font-weight:700;
+  margin-bottom:12px;
 }
-
-/* Hover → show full-overlay */
-.service-card:hover::before {
-  opacity: 1;
+ 
+/* description */
+.service-text-block p{
+  font-size:17px;
+  font-weight:400;
+  line-height:1.5;
 }
-
-/* Hover → brighten bottom gradient */
-.service-card:hover .service-text-block {
-  background: linear-gradient(to top,
-      rgba(0, 0, 0, 0.40) 0%,
-      rgba(0, 0, 0, 0.20) 40%,
-      rgba(0, 0, 0, 0.00) 100%);
+ 
+/* hover effects */
+.service-item:hover::before{
+  opacity:1;
 }
-
-/* Heading slides WAY up */
-.service-card:hover .service-text-block h3 {
-  transform: translateY(-70px);
+ 
+.service-item:hover .service-text-block{
+  opacity:1;
+  transform:translateY(-20px);
 }
-
-/* Paragraph slides up + fade in */
-.service-card:hover .service-text-block p {
-  opacity: 1;
-  transform: translateY(-80px);
+ 
+.service-item:hover .service-img{
+  transform:scale(1.08);
 }
-
-
 /* =================== VISION & MISSION =================== */
 
 /* ========== Vision Mission New Layout ========== */
@@ -751,6 +734,100 @@ body {
   background-repeat: no-repeat;
   background-position: right 20px center;
   background-size: 22px;
+}
+
+/* CUSTOM DROPDOWN CHECKBOX GROUP */
+.contact-form-box .custom-dropdown,
+.popup-form-container .custom-dropdown {
+  position: relative;
+  width: 100%;
+}
+.contact-form-box .custom-dropdown {
+  grid-column: span 2;
+}
+
+.contact-form-box .dropdown-header {
+  width: 100%;
+  padding: 16px 20px;
+  border-radius: 40px;
+  border: 1px solid #1b5e20;
+  font-size: 0.8rem;
+  color: #0d3d27;
+  background: #f3f5f3;
+  cursor: pointer;
+  display: flex !important;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.popup-form-container .dropdown-header {
+  width: 100%;
+  margin: 10px 0 18px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: white;
+  cursor: pointer;
+  display: flex !important;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.contact-form-box .dropdown-arrow,
+.popup-form-container .dropdown-arrow {
+  transition: transform 0.3s ease;
+}
+
+.contact-form-box .dropdown-arrow.open,
+.popup-form-container .dropdown-arrow.open {
+  transform: rotate(180deg);
+}
+
+.contact-form-box .dropdown-body,
+.popup-form-container .dropdown-body {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: white;
+  border: 1px solid #1b5e20;
+  border-radius: 20px;
+  padding: 15px 20px;
+  margin-top: 5px;
+  z-index: 10;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.popup-form-container .dropdown-body {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-top: -10px;
+}
+
+.contact-form-box .checkbox-group label,
+.popup-form-container .checkbox-group label {
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: #0d3d27;
+  cursor: pointer;
+  width: auto;
+}
+
+.contact-form-box .checkbox-group input[type="checkbox"],
+.popup-form-container .checkbox-group input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  accent-color: #0a6b34;
+  border-radius: 4px;
 }
 
 /* SUBMIT BUTTON FULL WIDTH */

@@ -89,7 +89,7 @@ const Footer = () => {
             <ul>
               <li><a href="/About">{t("footer_link_about")}</a></li>
               <li><a href="/About">{t("footer_link_leadership")}</a></li>
-              <li><a href="/Careers">{t("careers")}</a></li>
+              <li><a href="/Careers">{t("Careers")}</a></li>
               <li><a href="/partners">{t("footer_link_partners")}</a></li>
             </ul>
           </div>
