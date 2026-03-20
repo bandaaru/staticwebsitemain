@@ -2,13 +2,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/AnnouncementBar.css";
-// import { FaTractor, FaStore, FaChartLine } from "react-icons/fa"; // Assuming these icons are available or we can use text/emojis
+import { useLang } from "../components/LangContext";
 
 const AnnouncementBar = () => {
     const [isHovered, setIsHovered] = useState(false);
+    const { t } = useLang();
 
-    // Updated Agri-tech focused content
-    const content = "EMPOWERING AGRICULTURE WITH TECHNOLOGY|NON-CHEMICAL SUSTAINABLE FARMING SOLUTIONS|OWN AN AGRIFABRIX FRANCHISE TODAY|EMPOWERING AGRICULTURE WITH TECHNOLOGY|NON-CHEMICAL SUSTAINABLE FARMING SOLUTIONS|OWN AN AGRIFABRIX FRANCHISE TODAY|";
+    const content = t("announcement_bar_content");
 
     return (
         <div

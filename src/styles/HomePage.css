@@ -9,7 +9,7 @@ body {
 /* =================== HERO CAROUSEL ================== */
 
 /* =================== HERO CAROUSEL ================== */
- 
+
 .hero-carousel {
   position: relative;
   width: 100%;
@@ -17,31 +17,32 @@ body {
   overflow: hidden;
   color: white;
 }
+
 .hero-carousel-video {
   width: 100%;
   height: 90vh;
   object-fit: cover;
 }
- 
+
 /* Slide container */
 .hero-slide {
   position: relative;
 }
- 
+
 .hero-carousel-video,
 .hero-carousel-image {
   width: 100%;
   height: 90vh;
   object-fit: cover;
 }
- 
+
 /* DARK OVERLAY REMOVED */
 .hero-overlay {
   display: none !important;
 }
- 
+
 /* ================= HERO TEXT OVER VIDEO/IMAGE ================= */
- 
+
 .hero-text-overlay {
   position: absolute;
   top: 40%;
@@ -52,37 +53,37 @@ body {
   color: #ffffff;
   text-shadow: 0 3px 10px rgba(0, 0, 0, 0.7);
 }
- 
+
 /* Right side text for second slide */
 .text-right-slide {
   left: auto !important;
   right: 8% !important;
   text-align: right;
 }
- 
+
 /* First slide spacing */
 .first-slide-spacing h1,
 .first-slide-spacing p {
   line-height: 1.5;
 }
- 
+
 /* ================= TEXT STYLES ================= */
- 
+
 .hero-text-overlay h1 {
   font-size: clamp(28px, 3.5vw, 64px);
   font-weight: 700;
   margin-bottom: 18px;
   line-height: 1.2;
 }
- 
+
 .hero-text-overlay p {
   font-size: clamp(16px, 1.2vw, 22px);
   margin-bottom: 24px;
   line-height: 1.6;
 }
- 
+
 /* ================= BUTTON ================= */
- 
+
 .hero-text-overlay .learn-more {
   display: inline-block;
   padding: 12px 28px;
@@ -95,44 +96,44 @@ body {
   font-weight: 500;
   transition: all 0.3s ease;
 }
- 
+
 .hero-text-overlay .learn-more:hover {
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(4px);
   transform: translateY(-2px);
 }
- 
+
 /* ================= SECOND SLIDE BLACK TEXT ================= */
- 
+
 .black-text {
   color: #000;
 }
- 
+
 .black-text h1,
 .black-text p,
 .black-text a {
   text-shadow: none;
 }
- 
+
 /* Button style for black text */
 .black-text .learn-more {
   border: 2px solid #000;
   color: #000;
   background: transparent;
 }
- 
+
 .black-text .learn-more:hover {
   background: rgba(0, 0, 0, 0.08);
 }
- 
+
 /* ================= RESPONSIVE ================= */
- 
+
 @media (max-width: 992px) {
   .hero-text-overlay {
     max-width: 60%;
   }
 }
- 
+
 @media (max-width: 768px) {
   .hero-text-overlay {
     left: 5%;
@@ -140,68 +141,68 @@ body {
     max-width: 90%;
     text-align: left;
   }
- 
+
   .text-right-slide {
     text-align: left;
   }
 }
- 
+
 @media (max-width: 480px) {
   .hero-text-overlay {
     top: 55%;
   }
 }
- 
+
 /* ================== RESPONSIVE ================== */
- 
+
 @media (max-width: 1024px) {
   .hero-text-overlay {
     top: 15%;
     max-width: 60%;
   }
- 
+
   .hero-text-overlay h1 {
     font-size: 34px;
   }
 }
- 
+
 @media (max-width: 768px) {
   .hero-carousel {
     height: 70vh;
   }
- 
+
   .hero-text-overlay {
     top: 32%;
     left: 5%;
     max-width: 90%;
   }
- 
- 
+
+
   .hero-text-overlay h1 {
     font-size: 26px;
   }
- 
+
   .hero-text-overlay p {
     font-size: 15px;
   }
- 
+
   .hero-text-overlay .learn-more {
     padding: 10px 20px;
     font-size: 14px;
   }
 }
- 
+
 @media (max-width: 480px) {
   .hero-text-overlay h1 {
     font-size: 22px;
   }
- 
+
   .hero-text-overlay p {
     font-size: 14px;
   }
 }
- 
- 
+
+
 /* Full-width stacked container */
 .highlights {
   display: flex;
@@ -210,7 +211,7 @@ body {
   margin: 0;
   padding: 0;
 }
- 
+
 /* Landscape card */
 .highlight {
   width: 100%;
@@ -221,85 +222,107 @@ body {
   background-repeat: no-repeat;
   overflow: hidden;
 }
- 
+
 /* AI Image */
 .highlight.ai {
   background-image: url('../images/Ai.png');
 }
- 
+
 .highlight.finance {
   background-image: url('../images/Finance.png');
 }
- 
+
 .highlight.blockchain {
   background-image: url('../images/blockchain.png');
 }
- 
- 
- 
+
+
+
 .highlight-text {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   width: 40%;
-  color: rgb(255, 255, 255);
- 
+  color: #ffffff;
   font-family: "Poppins", sans-serif;
-  /* font-style: italic; */
   font-size: 30px;
   font-weight: 100;
   line-height: 1.4;
+  z-index: 2;
 }
- 
+
+.highlight-text h1 {
+  color: #ffffff !important;
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+.highlight-text p {
+  color: #ffffff !important;
+  font-size: 1.4rem;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
 .highlight.ai .highlight-text {
   left: 40px;
   text-align: left;
 }
- 
+
 /* Finance text on RIGHT side */
 .highlight.finance .highlight-text {
   right: 40px;
   text-align: left;
 }
- 
+
 .highlight.blockchain .highlight-text {
   left: 40px;
   text-align: left;
 }
- 
+
 /* Responsive for mobile */
 @media (max-width: 768px) {
   .highlight {
     height: 260px;
   }
- 
+
   .highlight-text {
-    width: 80%;
-    left: 20px;
+    width: 80% !important;
+    left: 20px !important;
+    right: auto !important;
     font-size: 20px;
   }
+
+  .highlight-text h1 {
+    font-size: 1.8rem !important;
+  }
+
+  .highlight-text p {
+    font-size: 1.1rem !important;
+  }
 }
- 
+
 .service-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-auto-rows: 280px;
   gap: 20px;
 }
- 
+
 /* card */
-.service-item{
+.service-item {
   position: relative;
   overflow: hidden;
   width: 100%;
   height: 100%;
 }
- 
+
 /* tall card */
 .tall {
   grid-row: span 2;
 }
- 
+
 /* image fills entire card */
 .service-img {
   width: 100%;
@@ -307,72 +330,73 @@ body {
   object-fit: cover;
   display: block;
 }
- 
-.service-item{
-  position:relative;
-  overflow:hidden;
-  width:100%;
-  height:100%;
+
+.service-item {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
- 
-.service-img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  transition:transform .4s ease;
+
+.service-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .4s ease;
 }
- 
+
 /* overlay */
-.service-item::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,0.55);
-  opacity:0;
-  transition:.4s;
-  z-index:1;
+.service-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  transition: .4s;
+  z-index: 1;
 }
- 
+
 /* text */
-.service-text-block{
-  position:absolute;
-  top:55%;
-  left:30px;
-  right:30px;
-  color:white;
-  z-index:2;
-  opacity:0;
-  transform:translateY(30px);
-  transition:.4s;
+.service-text-block {
+  position: absolute;
+  top: 55%;
+  left: 30px;
+  right: 30px;
+  color: white;
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: .4s;
 }
- 
+
 /* heading */
-.service-text-block h3{
-  font-size:32px;
-  font-weight:700;
-  margin-bottom:12px;
+.service-text-block h3 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 12px;
 }
- 
+
 /* description */
-.service-text-block p{
-  font-size:17px;
-  font-weight:400;
-  line-height:1.5;
+.service-text-block p {
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.5;
 }
- 
+
 /* hover effects */
-.service-item:hover::before{
-  opacity:1;
+.service-item:hover::before {
+  opacity: 1;
 }
- 
-.service-item:hover .service-text-block{
-  opacity:1;
-  transform:translateY(-20px);
+
+.service-item:hover .service-text-block {
+  opacity: 1;
+  transform: translateY(-20px);
 }
- 
-.service-item:hover .service-img{
-  transform:scale(1.08);
+
+.service-item:hover .service-img {
+  transform: scale(1.08);
 }
+
 /* =================== VISION & MISSION =================== */
 
 /* ========== Vision Mission New Layout ========== */
@@ -498,8 +522,9 @@ body {
   padding: 0 20px;
 }
 
-/* =================== PARTNER NETWORK =================== */
+/* =================== PARTNER NETWORK (Styles moved to Partner.css) =================== */
 
+/*
 .partners-slider {
   width: 100%;
   overflow: hidden;
@@ -520,28 +545,21 @@ body {
   flex: 0 0 auto;
   width: 131px;
   height: 139px;
-  /* circular container */
   margin: 0 25px;
   border-radius: 50%;
-  /* circular shape */
   background: #fff;
-  /* solid background */
   display: flex;
-  /* center logo */
   justify-content: center;
   align-items: center;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  /* subtle shadow */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .partner-logo img {
   width: 70%;
-  /* scaled inside circle */
   height: 70%;
   object-fit: contain;
   border-radius: 50%;
-  /* keeps image circular */
   filter: grayscale(20%);
   transition: filter 0.3s ease;
 }
@@ -554,6 +572,7 @@ body {
 .partner-logo img:hover {
   filter: grayscale(0%);
 }
+*/
 
 /* ===== Vision Bottom Green Strip ===== */
 
@@ -568,6 +587,7 @@ body {
   letter-spacing: 0.5px;
 }
 
+/*
 @keyframes partnersScroll {
   0% {
     transform: translate3d(-50%, 0, 0);
@@ -577,7 +597,7 @@ body {
     transform: translate3d(0, 0, 0);
   }
 }
-
+*/
 
 /* ======================================================= */
 /*                CONTACT SECTION — TWO COLUMN              */
@@ -742,6 +762,7 @@ body {
   position: relative;
   width: 100%;
 }
+
 .contact-form-box .custom-dropdown {
   grid-column: span 2;
 }
@@ -796,7 +817,7 @@ body {
   padding: 15px 20px;
   margin-top: 5px;
   z-index: 10;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -1231,17 +1252,17 @@ body {
   }
 }
 
-/* ================= IMPACT SECTION ================= */
+/* ================= IMPACT SECTION (MINIMALIST + ACCENT ICONS, 3x2 GRID) ================= */
 .impact-section {
-  padding: 80px 5%;
-  background-color: #f9fbf9;
+  padding: 90px 5%;
+  background-color: #ffffff;
   text-align: center;
-  border-top: 1px solid #e5e7eb;
-  border-bottom: 1px solid #e5e7eb;
+  border-top: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
 }
 
 .impact-container {
-  max-width: 1200px;
+  max-width: 1100px;
   margin: 0 auto;
 }
 
@@ -1255,8 +1276,8 @@ body {
 }
 
 .impact-subtitle {
-  font-size: 1.15rem;
-  color: #4b5563;
+  font-size: 1.1rem;
+  color: #6b7280;
   margin-bottom: 60px;
   max-width: 700px;
   margin-left: auto;
@@ -1264,83 +1285,79 @@ body {
   line-height: 1.6;
 }
 
+/* ====== 3-column grid — auto wraps into 3+3 ====== */
 .impact-grid {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 50px 30px;
 }
 
+/* No card box — fully transparent */
 .impact-card {
-  flex: 1;
-  min-width: 280px;
-  max-width: 350px;
-  background: #ffffff;
-  padding: 50px 30px;
-  border-radius: 24px;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.04);
-  border: 1px solid rgba(10, 107, 52, 0.1);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background: transparent;
+  padding: 10px 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: transform 0.35s ease;
 }
 
 .impact-card:hover {
-  transform: translateY(-15px);
-  box-shadow: 0 25px 50px rgba(10, 107, 52, 0.12);
-  border-color: #0a6b34;
+  transform: translateY(-8px);
 }
 
+/* Accent icon circle */
 .impact-icon-wrapper {
-  width: 90px;
-  height: 90px;
-  background: #f0fdf4;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 auto 25px;
-  transition: all 0.4s ease;
+  margin: 0 auto 18px;
+  transition: transform 0.35s ease;
 }
 
+/* ====== Unique Accent Color Per Card ====== */
+.impact-card:nth-child(1) .impact-icon-wrapper { background: #dcfce7; }
+.impact-card:nth-child(2) .impact-icon-wrapper { background: #fef9c3; }
+.impact-card:nth-child(3) .impact-icon-wrapper { background: #dbeafe; }
+.impact-card:nth-child(4) .impact-icon-wrapper { background: #ccfbf1; }
+.impact-card:nth-child(5) .impact-icon-wrapper { background: #ffedd5; }
+.impact-card:nth-child(6) .impact-icon-wrapper { background: #f3e8ff; }
+
+.impact-card:nth-child(1) .impact-icon { color: #16a34a; }
+.impact-card:nth-child(2) .impact-icon { color: #ca8a04; }
+.impact-card:nth-child(3) .impact-icon { color: #2563eb; }
+.impact-card:nth-child(4) .impact-icon { color: #0d9488; }
+.impact-card:nth-child(5) .impact-icon { color: #ea580c; }
+.impact-card:nth-child(6) .impact-icon { color: #9333ea; }
+
 .impact-card:hover .impact-icon-wrapper {
-  background: #0a6b34;
-  transform: rotate(10deg);
+  transform: scale(1.15) rotate(-6deg);
 }
 
 .impact-icon {
-  font-size: 2.5rem;
-  color: #0a6b34;
-  transition: all 0.4s ease;
-}
-
-.impact-card:hover .impact-icon {
-  color: #ffffff;
+  font-size: 2.2rem;
+  transition: transform 0.35s ease;
 }
 
 .impact-numbers {
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: 800;
   color: #0d3d27;
-  margin-bottom: 12px;
+  margin-bottom: 6px;
   line-height: 1;
   font-family: 'Outfit', sans-serif;
   letter-spacing: -1px;
 }
 
 .impact-label {
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-size: 0.9rem;
+  font-weight: 600;
   color: #6b7280;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-}
-
-@media (max-width: 1024px) {
-  .impact-grid {
-    gap: 20px;
-  }
 }
 
 @media (max-width: 768px) {
@@ -1349,15 +1366,270 @@ body {
   }
 
   .impact-title {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
 
-  .impact-card {
-    max-width: 100%;
-    padding: 40px 20px;
+  /* 2 per row on tablet/mobile */
+  .impact-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 36px 20px;
   }
 
   .impact-numbers {
-    font-size: 3.2rem;
+    font-size: 2.4rem;
   }
 }
+
+@media (max-width: 420px) {
+  /* 1 per row on very small phones */
+  .impact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ======================================================= */
+/*               FRANCHISE PROMO SECTION REDESIGN           */
+/* ======================================================= */
+
+/* Outer full-width container with soft blue/purple abstract gradient */
+.franchise-promo-container {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/* Central floating transparent card */
+.franchise-promo-card {
+  width: 95vw;
+  min-height: 90vh;
+  background: transparent;
+  backdrop-filter: none;
+  border-radius: 28px;
+  box-shadow: none;
+  display: flex;
+  overflow: hidden;
+  padding: 60px 4%;
+  gap: 60px;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/* Left column styling */
+.franchise-promo-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.promo-trust-banner {
+  max-width: 320px;
+  height: auto;
+  margin-bottom: 25px;
+}
+
+.promo-trust-text {
+  font-family: "Outfit", sans-serif;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: baseline;
+  gap: 8.5px;
+  margin-bottom: 25px;
+  white-space: nowrap;
+}
+.trust-black {
+  color: #2b3a54;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.trust-green {
+  color: #0d8a42;
+  font-size: 1.5rem;
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.trust-orange {
+  color: #e67e00;
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.trust-red {
+  color: #e63c00;
+  font-size: 1.2rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.promo-heading {
+  font-family: "Outfit", sans-serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #2b3a54; /* Deep slate blue */
+  line-height: 1.2;
+  margin-bottom: 15px;
+}
+
+.promo-subheading {
+  font-size: 1.15rem;
+  color: #556275;
+  margin-bottom: 35px;
+}
+
+/* Green CTA button matching website tone */
+.promo-cta-btn {
+  background: linear-gradient(90deg, #068957 0%, #0aad6e 100%);
+  color: white;
+  padding: 18px 40px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  border-radius: 50px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 40px;
+  box-shadow: 0 10px 25px rgba(6, 137, 87, 0.35);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.promo-cta-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(6, 137, 87, 0.5);
+  color: white;
+}
+
+/* Bullet list */
+.promo-features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.promo-features-list li {
+  display: flex;
+  align-items: center;
+  font-size: 1.05rem;
+  color: #4b5563;
+}
+
+.promo-features-list li::before {
+  content: "";
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background-color: #d1d5db; /* Light grey circle */
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+/* Right column styling */
+.franchise-promo-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.promo-earning-bubble {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  object-fit: contain;
+  /* Soft floating drop shadow on the image itself */
+  filter: drop-shadow(0 25px 35px rgba(0, 0, 0, 0.15));
+  animation: floatBubble 6s ease-in-out infinite;
+}
+
+@keyframes floatBubble {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+/* ======================================================= */
+/*             RESPONSIVE PROMO SECTION                    */
+/* ======================================================= */
+
+@media (max-width: 1024px) {
+  .promo-heading {
+    font-size: 2rem;
+  }
+  .franchise-promo-card {
+    padding: 50px 4%;
+    gap: 30px;
+    min-height: 80vh;
+  }
+  .promo-trust-text {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 850px) {
+  .franchise-promo-container {
+    padding: 20px 10px;
+  }
+  .franchise-promo-card {
+    flex-direction: column;
+    padding: 40px 5%;
+    width: 98vw;
+    min-height: auto;
+  }
+  
+  .franchise-promo-right {
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  .promo-trust-text {
+    white-space: normal;
+    flex-wrap: wrap;
+  }
+
+  .promo-heading {
+    font-size: 2rem;
+  }
+
+  .promo-cta-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .promo-earning-bubble {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 500px) {
+  .franchise-promo-container {
+    padding: 10px;
+  }
+  
+  .franchise-promo-card {
+    padding: 30px 5%;
+    border-radius: 20px;
+    width: 100vw;
+    border-radius: 0;
+  }
+  
+  .promo-heading {
+    font-size: 1.8rem;
+  }
+  
+  .promo-subheading,
+  .promo-features-list li {
+    font-size: 0.95rem;
+  }
+}

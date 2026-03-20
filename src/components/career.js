@@ -1,4 +1,4 @@
-const API_BASE_URL = "https://admin.agrifabrix.in/api/static"; // Update this to production URL when deploying
+const API_BASE_URL = "https://admin.agrifabrix.in/api/static";
 
 export const submitApplication = async (formData) => {
     try {

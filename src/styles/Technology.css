@@ -34,100 +34,63 @@ body {
 /* ===============================
      HERO SECTION (VIDEO)
 =================================*/
-.Tech-section {
-  position: relative;
-  width: 100%;
-  height: 90vh;
-  /* Desktop height */
-  overflow: hidden;
+/* ===============================
+     HERO SECTION (MATCHED WITH SUSTAINABILITY)
+=================================*/
+.sus-hero {
+    position: relative;
+    height: 80vh;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
-
-/* Video Wrapper */
-.Tech-row {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-/* Background Video */
-.Tech-bg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  z-index: 1;
-}
-
-/* Dark Overlay */
-.Tech-row::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.35);
-  z-index: 2;
-}
-
-/* HERO TEXT */
-.Tech-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 3;
-  text-align: center;
-  color: white;
-  width: 90%;
-  max-width: 900px;
-}
-
-.Tech-content h2 {
-  font-size: 2.8rem;
-  font-weight: 600;
-  margin-bottom: 15px;
-}
-
-.Tech-content p {
-  font-size: 1.3rem;
-  max-width: 700px;
-  margin: auto;
-  line-height: 1.6;
-}
-
-
-
-
-/* MOBILE + TABLET (REAL FIX) */
-@media (max-width: 1024px) {
-  .Tech-section {
-    height: 30vh;
-  }
-
-  .Tech-row {
-    height: 30vh;
-  }
-
-  .Tech-bg {
+.sus-video {
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 30vh;
+    height: 100%;
     object-fit: cover;
-  }
-
-  /* ✅ TEXT SIZE CONTROL */
-  .Tech-content h2 {
-    font-size: 1.2rem;
-    /* change as needed */
+    z-index: 0;
+}
+.sus-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(10, 40, 20, 0.8) 100%);
+    z-index: 1;
+}
+.sus-hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #ffffff;
+    max-width: 800px;
+    padding: 0 20px;
+}
+.sus-hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
     line-height: 1.2;
-  }
+    text-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+.sus-hero-desc {
+    font-size: 1.25rem;
+    font-weight: 400;
+    opacity: 0.95;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
 
-  .Tech-content p {
-    font-size: 0.9rem;
-    /* change as needed */
-    line-height: 1.4;
-  }
+@media (max-width: 768px) {
+  .sus-hero { height: 60vh; min-height: 400px; }
+  .sus-hero-title { font-size: 2.25rem; }
+  .sus-hero-desc { font-size: 1.1rem; }
 }
 
 
@@ -145,52 +108,83 @@ body {
 }
 
 .tech-section h2 {
-  font-weight: 300;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2e7d32;
+    margin-bottom: 25px;
 }
 
 /* ===============================
-           CARD GRID
+           NEW CARD GRID
 =================================*/
-.grid {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px;
-  margin-top: 30px;
+.tech-grid-container {
+    max-width: 1200px;
+    margin: auto;
+    text-align: center;
 }
-
-.card {
-  background: #fff;
-  padding: 20px;
-  width: 280px;
-  border-radius: 8px;
-  text-align: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  position: relative;
-  overflow: hidden;
-  transition: transform .3s ease, box-shadow .3s ease;
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-top: 30px;
 }
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
+.service-card {
+    background: #ffffff;
+    padding: 25px 20px;
+    border-radius: 12px;
+    text-align: center;
+    transition: 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 220px;
+    position: relative;
+    overflow: hidden;
 }
-
-/* Watermark */
-.card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("../images/logo1.jpg");
-  background-size: 120px;
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0;
-  transition: .3s ease;
+.service-card:hover {
+    transform: translateY(-6px);
 }
-
-.card:hover::before {
-  opacity: 0.18;
+.icon-wrapper {
+    width: 65px;
+    height: 65px;
+    background: #eaf7ec;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+.icon-wrapper svg {
+    font-size: 30px;
+    color: #2e7d32;
+}
+.service-card::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: #2e7d32;
+    border-radius: 0 0 8px 8px;
+}
+.service-card h4 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.service-card p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+}
+@media (max-width: 992px) {
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+    .grid-3 { grid-template-columns: 1fr; }
 }
 
 /* ===============================
@@ -246,13 +240,11 @@ body {
 =================================*/
 @media (max-width: 1024px) {
 
-  .grid,
   .benefits {
     flex-direction: column;
     align-items: center;
   }
 
-  .card,
   .benefit {
     width: 90%;
   }
@@ -271,4 +263,20 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* ===============================
+        WHY AGRIFABRIX SECTION
+=================================*/
+.why-agri {
+  padding: 80px 20px;
+  background: #f9fbf7;
+}
+
+.why-agri h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2e7d32;
+    margin-bottom: 40px;
+    text-align: center;
 }

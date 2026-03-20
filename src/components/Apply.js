@@ -367,19 +367,19 @@ export default function Apply() {
                             )}
 
                             <div className="form-group">
-                                <label className="form-label" htmlFor="linkedin">LinkedIn Profile</label>
-                                <input id="linkedin" name="linkedin" className="form-input" placeholder="https://linkedin.com/in/yourname" value={fields.linkedin} onChange={handleField} />
+                                <label className="form-label" htmlFor="linkedin">LinkedIn Profile<span className="req"> *</span></label>
+                                <input id="linkedin" name="linkedin" className="form-input" placeholder="https://linkedin.com/in/yourname" value={fields.linkedin} onChange={handleField} required />
                             </div>
                             <div className="form-group">
                                 <label className="form-label" htmlFor="portfolio">Portfolio / Website</label>
-                                <input id="portfolio" name="portfolio" className="form-input" placeholder="https://yourwebsite.com" value={fields.portfolio} onChange={handleField} />
+                                <input id="portfolio" name="portfolio" className="form-input" placeholder="https://yourwebsite.com" value={fields.portfolio} onChange={handleField}  />
                             </div>
                         </div>
 
                         <div className="form-grid form-grid--1">
                             <div className="form-group">
-                                <label className="form-label" htmlFor="skills">Key Skills</label>
-                                <input id="skills" name="skills" className="form-input" placeholder="e.g. Python, Data Analysis, Farm Management" value={fields.skills} onChange={handleField} />
+                                <label className="form-label" htmlFor="skills">Key Skills<span className="req"> *</span></label>
+                                <input id="skills" name="skills" className="form-input" placeholder="e.g. Python, Data Analysis, Farm Management" value={fields.skills} onChange={handleField} required />
                             </div>
                             <div className="form-group">
                                 <label className="form-label" htmlFor="reason">Why AgriFabrix?<span className="req"> *</span></label>

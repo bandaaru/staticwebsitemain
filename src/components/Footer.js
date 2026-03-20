@@ -71,14 +71,10 @@ const Footer = () => {
               <a href={`https://wa.me/${7075483505}`} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><FaWhatsapp /></a>
             </div>
           </div>
-          {/* Note: The address itself is considered static/non-translatable data */}
+          {/* Address - translates with selected language */}
           <p className="company-desc">
-            T-Hub,Phase 2, Plot No 1/C, Sy No 83/1, Raidurgam,<br />
-            Knowledge City Rd, Panmaktha, Serilingampalle, Hyderabad, Telangana 500081.
+            {t("footer_address")}
           </p>
-          {/* <p className="company-desc" >
-            {t("footer_address")}
-          </p> */}
         </div>
 
         <div className="footer-sections">

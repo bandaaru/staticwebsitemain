@@ -10,6 +10,8 @@ import {
   FaMapMarkedAlt,
   FaUsers,
   FaBriefcase,
+  FaBoxOpen,
+  FaStore
 } from "react-icons/fa";
 
 import "../styles/HomePage.css";
@@ -22,6 +24,7 @@ import inputs from "../images/inputs.png";
 import orders from "../images/orders.png";
 import consultancy from "../images/consultancy.png";
 import supplychain from "../images/supplychain.png";
+import franchiseCard from "../images/franchisecard.png";
 
 import { useLang } from "../components/LangContext";
 import WhatsAppChatWidget from "./WhatsAppChatWidget";
@@ -89,18 +92,9 @@ const HomePage = () => {
   const { t } = useLang();
 
 
-  const [showPopupForm, setShowPopupForm] = useState(false);
   const [showContactInterests, setShowContactInterests] = useState(false);
-  const [showPopupInterests, setShowPopupInterests] = useState(false);
 
-  // Show form after 3 minutes
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowPopupForm(true);
-    }, 120000); // 3 minutes = 180 seconds = 180,000 ms
 
-    return () => clearTimeout(timer);
-  }, []);
 
 
   const [currentSlide, setCurrentSlide] = useState(1);
@@ -136,7 +130,8 @@ const HomePage = () => {
     "https://efpolymer.com/",
   ];
   const [formData, setFormData] = useState({
-    name: "",
+    firstName: "",
+    surname: "",
     email: "",
     phone: "",
     message: "",
@@ -178,7 +173,7 @@ const HomePage = () => {
       if (response.ok) {
         // Use translated success alert
         alert(t("contact_alert_success"));
-        setFormData({ name: "", email: "", phone: "", message: "", interests: [] });
+        setFormData({ firstName: "", surname: "", email: "", phone: "", message: "", interests: [] });
       } else {
         // Use translated failure alert
         alert(data.error || t("contact_alert_failed"));
@@ -377,6 +372,39 @@ const slides = [
       <div className="section-border bottom-border"></div>
 
 
+      {/* ================= FRANCHISE PROMO SECTION ================= */}
+      <section className="franchise-promo-container">
+        <div className="franchise-promo-card">
+          
+          <div className="franchise-promo-left">
+            <div className="promo-trust-text">
+              <span className="trust-black">Build Trust First </span>
+              <span className="trust-green">DIGITISE </span>
+              <span className="trust-black">Later </span>
+              <span className="trust-orange">FRANCHISE </span>
+              <span className="trust-red">Only When Ready</span>
+            </div>
+            
+            <h2 className="promo-heading">{t("home_franchise_promo_heading")}</h2>
+            <p className="promo-subheading">{t("home_franchise_promo_subheading")}</p>
+            
+            <a href="/Franchise" className="promo-cta-btn">
+              {t("home_franchise_promo_button")}
+            </a>
+            
+            <ul className="promo-features-list">
+              <li>{t("home_franchise_promo_bullet1")}</li>
+              <li>{t("home_franchise_promo_bullet2")}</li>
+              <li>{t("home_franchise_promo_bullet3")}</li>
+            </ul>
+          </div>
+
+          <div className="franchise-promo-right">
+            <img src={franchiseCard} alt="Franchise Earning Potential" className="promo-earning-bubble" />
+          </div>
+
+        </div>
+      </section>
 
       {/* WhatsApp + Climate */}
       <WhatsAppChatWidget />
@@ -466,31 +494,55 @@ const slides = [
       <section className="impact-section">
         <div className="impact-container">
           <h2 className="impact-title">Driving Agricultural Transformation</h2>
-          <p className="impact-subtitle">Our measurable contribution to the global agri-ecosystem</p>
+          <p className="impact-subtitle">Our growing measurable contribution to the global agri-ecosystem</p>
 
           <div className="impact-grid">
             <div className="impact-card">
               <div className="impact-icon-wrapper">
+                <FaStore className="impact-icon" />
+              </div>
+              <div className="impact-numbers"><CountUp target={4} /></div>
+              <div className="impact-label">Franchises</div>
+            </div>
+
+            <div className="impact-card">
+              <div className="impact-icon-wrapper">
                 <FaUsers className="impact-icon" />
               </div>
-              <div className="impact-numbers"><CountUp target={2000} /></div>
-              <div className="impact-label">FPOs Connected</div>
+              <div className="impact-numbers"><CountUp target={4500} /></div>
+              <div className="impact-label">FPO/Farmers</div>
             </div>
 
             <div className="impact-card">
               <div className="impact-icon-wrapper">
                 <FaMapMarkedAlt className="impact-icon" />
               </div>
-              <div className="impact-numbers"><CountUp target={5000} /></div>
-              <div className="impact-label">Acres Covered</div>
+              <div className="impact-numbers"><CountUp target={15000} /></div>
+              <div className="impact-label">Acres</div>
+            </div>
+            
+            <div className="impact-card">
+              <div className="impact-icon-wrapper">
+                <FaBoxOpen className="impact-icon" />
+              </div>
+              <div className="impact-numbers"><CountUp target={400} /></div>
+              <div className="impact-label">Products</div>
             </div>
 
             <div className="impact-card">
               <div className="impact-icon-wrapper">
-                <FaBriefcase className="impact-icon" />
+                <FaTruck className="impact-icon" />
               </div>
-              <div className="impact-numbers"><CountUp target={400} /></div>
-              <div className="impact-label">Direct Buyers</div>
+              <div className="impact-numbers"><CountUp target={20} /></div>
+              <div className="impact-label">Supplier</div>
+            </div>
+
+            <div className="impact-card">
+              <div className="impact-icon-wrapper">
+                <FaSeedling className="impact-icon" />
+              </div>
+              <div className="impact-numbers"><CountUp target={20} /></div>
+              <div className="impact-label">Crops</div>
             </div>
           </div>
         </div>
@@ -513,13 +565,22 @@ const slides = [
         <div className="contact-form-box" id="contact-form">
           <h2>{t("contact_form_heading")}</h2>
           <form onSubmit={handleSubmit}>
-            <label>{t("contact_label_name")}</label>
+            <label>{t("contact_label_first_name")}</label>
             <input
               type="text"
-              name="name"
-              placeholder={t("contact_placeholder_name")}
+              name="firstName"
+              placeholder={t("contact_placeholder_first_name")}
               required
-              value={formData.name}
+              value={formData.firstName}
+              onChange={handleChange}
+            />
+            <label>{t("contact_label_surname")}</label>
+            <input
+              type="text"
+              name="surname"
+              placeholder={t("contact_placeholder_surname")}
+              required
+              value={formData.surname}
               onChange={handleChange}
             />
             <label>{t("contact_label_email")}</label>
@@ -605,95 +666,6 @@ const slides = [
           </p>
         </div>
       </section>
-
-      {showPopupForm && (
-        <div className="popup-overlay">
-          <div className="popup-form-container">
-            <button className="popup-close" onClick={() => setShowPopupForm(false)}>×</button>
-
-            <h2>{t("contact_form_heading")}</h2>
-
-            <form onSubmit={handleSubmit}>
-
-              <label>{t("contact_label_name")}</label>
-              <input
-                type="text"
-                name="name"
-                placeholder={t("contact_placeholder_name")}
-                required
-                value={formData.name}
-                onChange={handleChange}
-              />
-
-              <label>{t("contact_label_email")}</label>
-              <input
-                type="email"
-                name="email"
-                placeholder={t("contact_placeholder_email")}
-                required
-                value={formData.email}
-                onChange={handleChange}
-              />
-
-              <label>{t("contact_label_phone")}</label>
-              <input
-                type="tel"
-                name="phone"
-                placeholder={t("contact_placeholder_phone")}
-                required
-                value={formData.phone}
-                onChange={handleChange}
-              />
-
-              <div className="custom-dropdown">
-                <div
-                  className="dropdown-header input-like"
-                  onClick={() => setShowPopupInterests(!showPopupInterests)}
-                >
-                  {formData.interests.length > 0
-                    ? `${formData.interests.length} selected`
-                    : "Area of Interest *"}
-                  <span className={`dropdown-arrow ${showPopupInterests ? 'open' : ''}`}>▼</span>
-                </div>
-                {showPopupInterests && (
-                  <div className="checkbox-group dropdown-body">
-                    {[
-                      "InputFabriX",
-                      "CreditFabriX",
-                      "TraceFabriX",
-                      "SupplyFabriX",
-                      "TradeFabriX",
-                      "Franchise",
-                      "Careers",
-                    ].map((option) => (
-                      <label key={option}>
-                        <input
-                          type="checkbox"
-                          value={option}
-                          checked={formData.interests.includes(option)}
-                          onChange={handleCheckboxChange}
-                        />{" "}
-                        {option}
-                      </label>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              <label>{t("contact_label_message")}</label>
-              <textarea
-                name="message"
-                placeholder={t("contact_placeholder_message")}
-                required
-                value={formData.message}
-                onChange={handleChange}
-              ></textarea>
-
-              <button type="submit">{t("contact_button_submit")}</button>
-            </form>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

@@ -1,12 +1,21 @@
 import os
 import datetime
-import threading
-from flask import Flask, request, jsonify
-from flask_cors import CORS
-from pymongo import MongoClient
-from flask_mail import Mail, Message
+import random
 import uuid
+import smtplib
+
+from flask import Flask, Blueprint, request, jsonify
+from flask_cors import CORS
 from werkzeug.utils import secure_filename
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from flask_mail import Mail
+from pymongo import MongoClient
+
+app = Flask(__name__)   # IMPORTANT
+
+CORS(app, resources={r"/api/*": {"origins": "*"}})
+
 # ================= CONFIGURATION =================
 MONGO_URI = "mongodb://localhost:27017/"
 DB_NAME = "agrifabrix"
@@ -14,13 +23,12 @@ UPLOAD_FOLDER = "uploads"
 ALLOWED_EXTENSIONS = {"pdf", "png", "jpg", "jpeg"}
 MAX_FILE_SIZE_MB = 5
 
+
+# ================= CONFIGURATION =================
 MY_EMAIL = "nagasaiyaswanthbandaru@gmail.com"
-MY_APP_PASSWORD = "eton jytr umcm ahbd" # 16-character Google App Password
-RECIPIENT_EMAIL = "nagasaiyaswanthbandaru@gmail.com"
-LOGO_URL = "https://agrifabrix.in/l.png" 
+MY_APP_PASSWORD = "eton jytr umcm ahbd"  # Move to env var in production
+LOGO_URL = "https://agrifabrix.in/l.png"
 # =================================================
-app = Flask(__name__)
-CORS(app)
 
 # Email Configuration
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
@@ -36,16 +44,71 @@ mail = Mail(app)
 client = MongoClient(MONGO_URI)
 db = client[DB_NAME]
 
-# Collections
-contact_collection = db["contact_details"]
-newsletter_collection = db["news_letter_subscribers"]
-onboarding_collection = db["onboarding_contacts"]
-franchise_collection = db["franchise_applications"]
-career_collection = db["career_applications"]
-otp_collection = db["career_otp_verifications"]
+# ---------------- EMAIL SENDER ----------------
+def send_simple_email(subject, to_email, html_body, attachments=None, cc_emails=None):
+    msg = MIMEMultipart("mixed")
+    msg["From"] = MY_EMAIL
+    msg["To"] = to_email
+    msg["Subject"] = subject
 
-# OTP Generation and Verification for Career Applications
-import random
+    if cc_emails:
+        msg["Cc"] = ", ".join(cc_emails)
+
+    # Attach HTML body
+    # msg.attach(MIMEText(html_body, "html"))
+    msg.attach(MIMEText(html_body, "html", "utf-8"))
+
+    # Attach files if provided
+    if attachments:
+        from email.mime.base import MIMEBase
+        from email import encoders
+
+        for file_path in attachments:
+            if os.path.exists(file_path):
+                with open(file_path, "rb") as f:
+                    part = MIMEBase("application", "octet-stream")
+                    part.set_payload(f.read())
+
+                encoders.encode_base64(part)
+                part.add_header(
+                    "Content-Disposition",
+                    f'attachment; filename="{os.path.basename(file_path)}"'
+                )
+
+                msg.attach(part)
+
+    recipients = [to_email] + (cc_emails if cc_emails else [])
+
+    server = smtplib.SMTP("smtp.gmail.com", 587)
+    server.starttls()
+    server.login(MY_EMAIL, MY_APP_PASSWORD)
+    # server.sendmail(MY_EMAIL, recipients, msg.as_string())
+    server.sendmail(MY_EMAIL, recipients, msg.as_bytes())
+    server.quit()
+
+# ---------------- HTML TEMPLATE ----------------
+def get_html_template(title, content, cta_text=None, cta_link=None):
+    return f"""
+    <html>
+    <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+        <div style="max-width: 600px; margin: 0 auto; border: 1px solid #eee; border-radius: 10px;">
+            <div style="background-color: #ffffff; padding: 25px; text-align: center; border-bottom: 2px solid #0a6b34;">
+                <img src="{LOGO_URL}" alt="AgriFabriX" style="max-height: 80px;">
+            </div>
+            <div style="padding: 30px;">
+                <h2 style="color: #0a6b34;">{title}</h2>
+                <div>{content}</div>
+                {f'<div style="text-align:center;margin-top:30px;"><a href="{cta_link}" style="background:#0a6b34;color:#fff;padding:12px 25px;text-decoration:none;border-radius:5px;">{cta_text}</a></div>' if cta_text and cta_link else ""}
+            </div>
+            <div style="background:#f9f9f9;padding:15px;text-align:center;font-size:12px;color:#777;">
+                <p>&copy; 2026 AgriFabriX. All rights reserved.</p>
+            </div>
+        </div>
+    </body>
+    </html>
+    """
+UPLOAD_FOLDER = "uploads"
+
 
 # Helper function to save uploaded files
 def save_file(file, folder):
@@ -54,7 +117,8 @@ def save_file(file, folder):
         return None
 
     # Create absolute path for saving
-    target_dir = os.path.join(os.path.dirname(__file__), UPLOAD_FOLDER, folder)
+    BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+    target_dir = os.path.join(BASE_DIR, UPLOAD_FOLDER, folder)
     if not os.path.exists(target_dir):
         os.makedirs(target_dir)
 
@@ -68,166 +132,170 @@ def save_file(file, folder):
     # Return path relative to backend root
     return os.path.join(UPLOAD_FOLDER, folder, unique_filename)
 
-# Helper function to generate HTML email templates
-def get_html_template(title, content, cta_text=None, cta_link=None):
-    # Brand Color: #0a6b34 (AgriFabriX Green)
-    return f"""
-    <html>
-    <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0;">
-        <div style="max-width: 600px; margin: 0 auto; border: 1px solid #eee; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
-            <div style="background-color: #ffffff; padding: 25px; text-align: center; border-bottom: 2px solid #0a6b34;">
-                <img src="{LOGO_URL}" alt="AgriFabriX" style="max-height: 80px; width: auto;">
-            </div>
-            <div style="padding: 30px; background-color: #ffffff;">
-                <h2 style="color: #0a6b34; margin-top: 0; font-size: 20px; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px;">{title}</h2>
-                <div style="font-size: 16px;">
-                    {content}
-                </div>
-                {f'<div style="text-align: center; margin-top: 30px;"><a href="{cta_link}" style="background-color: #0a6b34; color: #ffffff; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold;">{cta_text}</a></div>' if cta_text and cta_link else ""}
-            </div>
-            <div style="background-color: #f9f9f9; padding: 15px; text-align: center; font-size: 12px; color: #777;">
-                <p style="margin: 5px 0;">&copy; 2026 AgriFabriX. All rights reserved.</p>
-            </div>
-        </div>
-    </body>
-    </html>
-    """
+# ================= ROUTES =================
 
-# Async email helper
-def send_async_email(app, msg):
-    with app.app_context():
-        try:
-            mail.send(msg)
-        except Exception as e:
-            print(f"Background email failed: {e}")
-
-# Main email function (now returns instantly)
-def send_email(subject, recipient, body, is_html=True):
-    msg = Message(subject, recipients=[recipient])
-    if is_html:
-        msg.html = body
-    else:
-        msg.body = body
-    
-    # Start sending in the background
-    threading.Thread(target=send_async_email, args=(app, msg)).start()
-    return True
-
-# Contact Form Route
 @app.route("/api/static/Contact", methods=["POST"])
 def contact():
-    data = request.get_json()
-    print(f"DEBUG: Data received: {data}")
-    required_fields = ["name", "email", "phone", "message"]
+    contact_collection = db["contact_details"]
+    data = request.get_json() or {}
+    required_fields = ["firstName", "surname", "email", "phone", "message"]
 
-    if not all(field in data and data[field] for field in required_fields):
+    if not all(data.get(f) for f in required_fields):
         return jsonify({"error": "All fields are required."}), 400
 
-    contact_doc = {
-        "name": data["name"],
+    interests = data.get("interests", [])
+
+    contact_collection.insert_one({
+        "first_name": data["firstName"],
+        "surname": data["surname"],
         "email": data["email"],
         "phone": data["phone"],
+        "interests": interests,
         "message": data["message"],
         "submitted_at": datetime.datetime.utcnow()
-    }
+    })
 
     try:
-        contact_collection.insert_one(contact_doc)
-        
-        # Send mail to admin
+        # Admin mail
+        interests = data.get("interests", [])
+
         admin_content = f"""
-        <p>You have a new contact form submission:</p>
-        <table style="width: 100%; border-collapse: collapse;">
-            <tr><td style="padding: 8px; border-bottom: 1px solid #eee;"><strong>Name:</strong></td><td style="padding: 8px; border-bottom: 1px solid #eee;">{data['name']}</td></tr>
-            <tr><td style="padding: 8px; border-bottom: 1px solid #eee;"><strong>Email:</strong></td><td style="padding: 8px; border-bottom: 1px solid #eee;">{data['email']}</td></tr>
-            <tr><td style="padding: 8px; border-bottom: 1px solid #eee;"><strong>Phone:</strong></td><td style="padding: 8px; border-bottom: 1px solid #eee;">{data['phone']}</td></tr>
-            <tr><td style="padding: 8px; border-bottom: 1px solid #eee;"><strong>Message:</strong></td><td style="padding: 8px; border-bottom: 1px solid #eee;">{data['message']}</td></tr>
+        <p>A new contact enquiry has been received:</p>
+
+        <table style="width:100%;border-collapse:collapse;">
+        <tr>
+        <td style="padding:8px;border-bottom:1px solid #eee;"><strong>First Name:</strong></td>
+        <td style="padding:8px;border-bottom:1px solid #eee;">{data.get('firstName')}</td>
+        </tr>
+
+        <tr>
+        <td style="padding:8px;border-bottom:1px solid #eee;"><strong>Surname:</strong></td>
+        <td style="padding:8px;border-bottom:1px solid #eee;">{data.get('surname')}</td>
+        </tr>
+
+        <tr>
+        <td style="padding:8px;border-bottom:1px solid #eee;"><strong>Email:</strong></td>
+        <td style="padding:8px;border-bottom:1px solid #eee;">{data.get('email')}</td>
+        </tr>
+
+        <tr>
+        <td style="padding:8px;border-bottom:1px solid #eee;"><strong>Phone:</strong></td>
+        <td style="padding:8px;border-bottom:1px solid #eee;">{data.get('phone')}</td>
+        </tr>
+
+        <tr>
+        <td style="padding:8px;border-bottom:1px solid #eee;"><strong>Area of Interest:</strong></td>
+        <td style="padding:8px;border-bottom:1px solid #eee;">{', '.join(interests) if interests else 'N/A'}</td>
+        </tr>
+
+        <tr>
+        <td style="padding:8px;border-bottom:1px solid #eee;"><strong>Message:</strong></td>
+        <td style="padding:8px;border-bottom:1px solid #eee;">{data.get('message')}</td>
+        </tr>
         </table>
         """
-        send_email("New Contact Form Submission", RECIPIENT_EMAIL, get_html_template("Contact Inquiry Received", admin_content))
+        send_simple_email(
+            "New Contact Form Submission",
+            MY_EMAIL,
+            get_html_template("Contact Enquiry Received", admin_content),
+             cc_emails=["info@agrifabrix.com"]
+        )
 
-        # Send welcome mail to user
-        user_content = f"<p>Hello <strong>{data['name']}</strong>,</p><p>Thank you for reaching out to AgriFabriX. We have received your message and our team will get back to you within 24 hours.</p><p>In the meantime, feel free to explore our digital marketplace for the latest agri-solutions.</p>"
-        send_email("Welcome to AgriFabriX", data['email'], get_html_template("Thank You for Contacting Us", user_content, "Explore Marketplace", "https://store.agrifabrix.in/"))
+        # User welcome mail
+        user_content = f"<p>Hello <strong>{data['firstName']}</strong>,</p><p>Thanks for contacting AgriFabriX! We’ll get back to you soon.</p>"
+        send_simple_email(
+            "Welcome to AgriFabriX",
+            data["email"],
+            get_html_template("Thank You for Contacting Us", user_content, "Explore Marketplace", "https://store.agrifabrix.in/")
+        )
 
         return jsonify({"message": "Contact form submitted successfully!"}), 201
     except Exception as e:
-        return jsonify({"error": f"Failed to submit contact form: {str(e)}"}), 500
+        return jsonify({"error": str(e)}), 500
 
-# Newsletter Subscription Route
+
 @app.route("/api/static/Subscribe", methods=["POST"])
 def subscribe():
-    data = request.get_json()
+    newsletter_collection = db["news_letter_subscribers"]
+    data = request.get_json() or {}
     email = data.get("email")
 
     if not email:
         return jsonify({"error": "Email is required."}), 400
 
+    if newsletter_collection.find_one({"email": email}):
+        return jsonify({"message": "You're already subscribed!"}), 200
+
+    newsletter_collection.insert_one({
+        "email": email,
+        "subscribed_at": datetime.datetime.utcnow()
+    })
+
     try:
-        if newsletter_collection.find_one({"email": email}):
-            return jsonify({"message": "You're already subscribed!"}), 200
+        # Admin mail
+        send_simple_email(
+            "New Newsletter Subscription",
+            MY_EMAIL,
+            get_html_template("New Subscriber Alert", f"<p>New subscriber: <strong>{email}</strong></p>"),
+             cc_emails=["info@agrifabrix.com"]
+        )
 
-        newsletter_collection.insert_one({
-            "email": email,
-            "subscribed_at": datetime.datetime.utcnow()
-        })
-
-        # Send mail to admin
-        send_email("New Newsletter Subscription", RECIPIENT_EMAIL, get_html_template("New Subscriber Alert", f"<p>New person subscribed to the newsletter: <strong>{email}</strong></p>"))
-
-        # Send welcome mail to user
-        sub_content = "<p>Thank you for joining the AgriFabriX community! You're now subscribed to receive our latest updates, insights, and exclusive marketplace offers.</p>"
-        send_email("Welcome to the AgriFabriX Newsletter", email, get_html_template("Welcome to the Family!", sub_content, "Explore Marketplace", "https://store.agrifabrix.in/"))
+        # User welcome mail
+        sub_content = "<p>Thank you for joining the AgriFabriX community! You’re now subscribed.</p>"
+        send_simple_email(
+            "Welcome to the AgriFabriX Newsletter",
+            email,
+            get_html_template("Welcome to the Family!", sub_content, "Explore Marketplace", "https://store.agrifabrix.in/")
+        )
 
         return jsonify({"message": "Thanks for subscribing!"}), 201
     except Exception as e:
-        return jsonify({"error": f"Subscription failed: {str(e)}"}), 500
+        return jsonify({"error": str(e)}), 500
 
-# Onboarding Form Route
+
 @app.route("/api/static/Onboarding", methods=["POST"])
-def onboarding():
-    data = request.get_json()
+def onboarding():  # get DB connection here
+    onboarding_collection = db["onboarding_contacts"]
+    data = request.get_json() or {}
     required_fields = ["contactName", "email", "phone", "orgType", "partnershipReason"]
 
-    if not all(field in data and data[field] for field in required_fields):
+    if not all(data.get(f) for f in required_fields):
         return jsonify({"error": "All fields are required."}), 400
 
-    onboarding_doc = {
+    onboarding_collection.insert_one({
         "contact_name": data["contactName"],
         "email": data["email"],
         "phone": data["phone"],
         "organization_type": data["orgType"],
         "partnership_reason": data["partnershipReason"],
         "submitted_at": datetime.datetime.utcnow()
-    }
+    })
 
     try:
-        onboarding_collection.insert_one(onboarding_doc)
+        # Admin mail
+        send_simple_email(
+            "New Onboarding Enquiry",
+            MY_EMAIL,
+            get_html_template("New Partnership Request", f"<p>New onboarding request from {data['contactName']} <strong>{data['phone']}</strong> <strong>{data['email']}</strong> <strong>{data['partnershipReason']}</strong> <strong>{data['organization_type']}</strong> </p>"),
+             cc_emails=["info@agrifabrix.com"]
+        )
 
-        # Send mail to admin
-        admin_content = f"""
-        <p>A new partnership request has been submitted:</p>
-        <ul>
-            <li><strong>Contact Name:</strong> {data['contactName']}</li>
-            <li><strong>Email:</strong> {data['email']}</li>
-            <li><strong>Phone:</strong> {data['phone']}</li>
-            <li><strong>Organization Type:</strong> {data['orgType']}</li>
-            <li><strong>Reason:</strong> {data['partnershipReason']}</li>
-        </ul>
-        """
-        send_email("New Onboarding Inquiry", RECIPIENT_EMAIL, get_html_template("New Partnership Request", admin_content))
-
-        # Send welcome mail to user
-        onboarding_content = f"<p>Hello <strong>{data['contactName']}</strong>,</p><p>We are excited to receive your partnership request. Our team is currently reviewing your application and will contact you shortly to discuss how we can grow together.</p>"
-        send_email("AgriFabriX Partnership Interest", data['email'], get_html_template("Onboarding Request Received", onboarding_content, "Explore Marketplace", "https://store.agrifabrix.in/"))
+        # User mail
+        onboarding_content = f"<p>Hello <strong>{data['contactName']}</strong>,</p><p>We received your partnership request. Our team will contact you soon.</p>"
+        send_simple_email(
+            "AgriFabriX Partnership Interest",
+            data["email"],
+            get_html_template("Onboarding Request Received", onboarding_content, "Explore Marketplace", "https://store.agrifabrix.in/")
+        )
 
         return jsonify({"message": "Thank you for your interest! We'll get in touch shortly."}), 201
     except Exception as e:
-        return jsonify({"error": f"Submission failed: {str(e)}"}), 500
+        return jsonify({"error": str(e)}), 500
 
 # Franchise Application Route
 @app.route("/api/static/Franchise", methods=["POST"])
 def franchise():
+    franchise_collection = db["franchise_applications"]
     data = request.get_json()
     required_fields = ["name", "email", "phone", "city", "investment"]
 
@@ -260,7 +328,12 @@ def franchise():
             <tr><td style="padding: 10px; border: 1px solid #eee; background-color: #f9f9f9;"><strong>Submission Time</strong></td><td style="padding: 10px; border: 1px solid #eee;">{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</td></tr>
         </table>
         """
-        send_email("New Franchise Application: " + data['name'], RECIPIENT_EMAIL, get_html_template("Franchise Inquiry Alert", admin_content))
+        send_simple_email(
+    "New Franchise Application: " + data['name'],
+    MY_EMAIL,
+    get_html_template("Franchise Enquiry Alert", admin_content),
+     cc_emails=["info@agrifabrix.com"]
+)
  
         # Send welcome/acknowledgment mail to user
         user_content = f"""
@@ -270,15 +343,17 @@ def franchise():
         <p><strong>Meanwhile, explore our Marketplace</strong> to see the range of innovative solutions we bring to the agricultural sector.</p>
         <p>We are excited about the possibility of growing together!</p>
         """
-        send_email("Your AgriFabriX Franchise Application", data['email'], get_html_template("Application Successfully Received", user_content, "Explore Marketplace", "https://store.agrifabrix.in/"))
+        send_simple_email("Your AgriFabriX Franchise Application", data['email'], get_html_template("Application Successfully Received", user_content, "Explore Marketplace", "https://store.agrifabrix.in/"))
  
         return jsonify({"message": "Franchise application submitted successfully!"}), 201
     except Exception as e:
         return jsonify({"error": f"Failed to submit franchise application: {str(e)}"}), 500
 
 
+
 @app.route("/api/static/Career/SendOTP", methods=["POST"])
 def send_career_otp():
+    otp_collection = db["career_otp_verifications"]
     data = request.get_json()
     email = data.get("email")
     
@@ -310,7 +385,7 @@ def send_career_otp():
         <p>This code will expire in 10 minutes.</p>
         <p>If you didn't request this, please ignore this email.</p>
         """
-        send_email("AgriFabriX Verification Code", email, get_html_template("Verify Your Email", otp_content))
+        send_simple_email("AgriFabriX Verification Code", email, get_html_template("Verify Your Email", otp_content))
         
         return jsonify({"message": "OTP sent successfully!"}), 200
     except Exception as e:
@@ -318,6 +393,7 @@ def send_career_otp():
 
 @app.route("/api/static/Career/VerifyOTP", methods=["POST"])
 def verify_career_otp():
+    otp_collection = db["career_otp_verifications"]
     data = request.get_json()
     email = data.get("email")
     otp = data.get("otp")
@@ -347,10 +423,16 @@ def verify_career_otp():
 # Career Application Route
 @app.route("/api/static/Career/Apply", methods=["POST"])
 def career_apply():
+    career_collection = db["career_applications"]
     print("DEBUG: Career Application received")
     # Since we are receiving files, we use request.form instead of request.get_json()
     data = request.form
     app_type = data.get("application_type") # job / fellowship / internship
+
+    # Extract experience fields
+    exp_years = data.get("experience_years")
+    exp_months = data.get("experience_months")
+    experience_str = f"{exp_years} Years {exp_months} Months" if exp_years or exp_months else "Fresher"
 
     if not app_type:
         return jsonify({"error": "application_type is required"}), 400
@@ -376,16 +458,23 @@ def career_apply():
             "state": data.get("state"),
             "country": data.get("country", "India"),
             "education": data.get("education"),
-            "experience": data.get("experience"),
+
+            # NEW EXPERIENCE FIELDS
+            "experience_years": exp_years,
+            "experience_months": exp_months,
+            "experience": experience_str,
+
             "internship_type": data.get("internship_type"),
             "fellowship_program": data.get("fellowship_program"),
             "linkedin": data.get("linkedin"),
             "portfolio": data.get("portfolio"),
             "reason": data.get("reason"),
             "skills": data.get("skills"),
+
             "resume": resume_path,
             "id_proof": id_proof_path,
             "certificates": certificates_path,
+
             "submitted_at": datetime.datetime.utcnow(),
             "status": "pending"
         }
@@ -403,45 +492,65 @@ def career_apply():
             <tr><td style="padding: 8px; border-bottom: 1px solid #eee;"><strong>Phone:</strong></td><td style="padding: 8px; border-bottom: 1px solid #eee;">{data.get('phone')}</td></tr>
             <tr><td style="padding: 8px; border-bottom: 1px solid #eee;"><strong>Location:</strong></td><td style="padding: 8px; border-bottom: 1px solid #eee;">{data.get('city')}, {data.get('state')}, {data.get('country')}</td></tr>
             <tr><td style="padding: 8px; border-bottom: 1px solid #eee;"><strong>Education:</strong></td><td style="padding: 8px; border-bottom: 1px solid #eee;">{data.get('education')}</td></tr>
-            <tr><td style="padding: 8px; border-bottom: 1px solid #eee;"><strong>Experience:</strong></td><td style="padding: 8px; border-bottom: 1px solid #eee;">{data.get('experience')}</td></tr>
+            <tr>
+                <td style="padding: 8px; border-bottom: 1px solid #eee;"><strong>Experience:</strong></td>
+                <td style="padding: 8px; border-bottom: 1px solid #eee;">{data.get('experience_years')} Years {data.get('experience_months')} Months</td>
+            </tr>
         </table>
         <p><strong>Reason for applying:</strong><br>{data.get('reason')}</p>
         """
         
         # We manually use Message to attach files
-        msg = Message(f"New Application: {data.get('full_name')} ({app_type.capitalize()})", recipients=[RECIPIENT_EMAIL])
-        msg.html = get_html_template(f"New {app_type.capitalize()} Application", admin_content)
-        
-        # Attach files if they exist
+        # Prepare attachment paths
+        attachments = []
+
         for path in [resume_path, id_proof_path, certificates_path]:
             if path:
-                # Use standard open() for reliability with absolute/dynamic paths
-                abs_path = os.path.join(os.path.dirname(__file__), path)
+                abs_path = os.path.join(os.path.dirname(__file__), "..", path)
                 print(f"DEBUG: Attaching file: {abs_path}")
+
                 if os.path.exists(abs_path):
-                    try:
-                        with open(abs_path, 'rb') as fp:
-                            msg.attach(os.path.basename(path), "application/octet-stream", fp.read())
-                    except Exception as fe:
-                        print(f"DEBUG: Failed to attach file {path}: {str(fe)}")
+                    attachments.append(abs_path)
 
-        print("DEBUG: Sending emails in background...")
-        threading.Thread(target=send_async_email, args=(app, msg)).start()
+        # Send email to admin with attachments
+        send_simple_email(
+            f"New Application: {data.get('full_name')} ({app_type.capitalize()})",
+            MY_EMAIL,
+            get_html_template(
+            f"New {app_type.capitalize()} Application",
+            admin_content
+            ),
+            attachments=attachments,
+            #  cc_emails=["info@agrifabrix.com"]
+        )
+       
 
-        # ---- Send Acknowledgment to User ----
+        # ---- Send Acknowledgment Email to User ----
         user_content = f"""
         <p>Hello <strong>{data.get('full_name')}</strong>,</p>
-        <p>Thank you for applying for a {app_type} position at AgriFabriX! We have received your application and documents.</p>
-        <p>Our talent acquisition team will review your profile and get back to you within 3-5 business days if your skills align with our current needs.</p>
-        <p>Best regards,<br>AgriFabriX Team</p>
+
+        <p>Thank you for applying for a <strong>{app_type.capitalize()}</strong> position at AgriFabriX!</p>
+
+        <p>We have successfully received your application and supporting documents. Our talent acquisition team will review your profile and contact you within <strong>3–5 business days</strong> if your qualifications match our current requirements.</p>
+
+        <p>If you have any questions, feel free to reply to this email.</p>
+
+        <p>Best regards,<br>
+        <strong>AgriFabriX Team</strong></p>
         """
-        send_email("Application Received - AgriFabriX", data.get('email'), get_html_template("We Received Your Application", user_content))
 
-        return jsonify({"message": "Application submitted successfully!"}), 201
+        send_simple_email(
+            "Application Received - AgriFabriX",
+            data.get("email"),
+            get_html_template("We Received Your Application", user_content)
+        )
 
+        return jsonify({
+        "message": "Application submitted successfully!"
+        }), 201
     except Exception as e:
         print(f"ERROR: {str(e)}")
         return jsonify({"error": f"Failed to submit application: {str(e)}"}), 500
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    app.run(debug=True, port=8080)
