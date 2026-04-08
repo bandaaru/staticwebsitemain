@@ -1,8 +1,8 @@
 
 import React from "react";
 import "../styles/About.css";
-import ceoImage from "../images/Mendu.jpg";
-import cfoImage from "../images/sureshsir.jpeg";
+import ceoImage from "../images/1.jpg";
+import cfoImage from "../images/2.jpg";
 import Climate from "./Climate"
 
 import {
@@ -27,7 +27,7 @@ const About = () => {
       name: "Mendu Srinivasulu",
       designationKey: "designation_ceo", // Use key
       image: ceoImage,
-      linkedin: "https://www.linkedin.com/in/mendu-srinivasulu",
+      linkedin: "https://www.linkedin.com/in/mendu-srinivasulu-65731817/",
     },
     {
       name: "Suresh Naraparaju",
@@ -150,24 +150,22 @@ const About = () => {
         <div className="leaders-container">
           {founders.map((founder, index) => (
             <div className="leader" key={index}>
-              <img
-                src={founder.image}
-                alt={founder.name}
-                className="leader-image"
-              />
-              <h3 className="leader-name">{founder.name}</h3>
-              <p className="leader-designation">
-                {t(founder.designationKey)} {/* 👈 Translated designation */}
-              </p>
-              <a
-                href={founder.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="linkedin-icon"
-                aria-label={`LinkedIn profile for ${founder.name}`}
-              >
-                <FaLinkedin />
-              </a>
+              <div className="leader-image-container">
+                <img
+                  src={founder.image}
+                  alt={founder.name}
+                  className="leader-image"
+                />
+                <a
+                  href={founder.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="linkedin-icon"
+                  aria-label={`LinkedIn profile for ${founder.name}`}
+                >
+                  <FaLinkedin />
+                </a>
+              </div>
             </div>
           ))}
         </div>

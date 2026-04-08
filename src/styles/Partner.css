@@ -692,7 +692,7 @@
 @media (max-width: 768px) {
   .partners-track {
     width: max-content;
-    animation: scroll 15s linear infinite !important;
+    animation: partnerPageScroll 20s linear infinite !important;
   }
 }
 

@@ -76,21 +76,23 @@ const Franchise = () => {
   return (
     <div className="franchise-page">
       {/* HERO SECTION */}
-      {/* HERO SECTION */}
-      <section className="franchise-hero">
+      {/* HERO SECTION - Matched with Sustainability Format */}
+      <section className="sus-hero">
         <video
-          className="hero-bg-video"
+          className="sus-video"
           src={heroBg}
           autoPlay
           loop
           muted
           playsInline
         />
-        <div className="hero-overlay"></div>
-        <div className="hero-content">
-          <h1>{t("franchise_hero_title")}</h1>
-          <p style={{ fontWeight: 'bold' }}>{t("franchise_hero_desc")}</p>
-          <a href="#leads-form" className="hero-cta-button">{t("franchise_hero_cta")}</a>
+        <div className="sus-overlay"></div>
+        <div className="sus-hero-content">
+          <h1 className="sus-hero-title">{t("franchise_hero_title")}</h1>
+          <p className="sus-hero-desc" style={{ fontWeight: 'bold' }}>{t("franchise_hero_desc")}</p>
+          <a href="#leads-form" className="hero-cta-button" style={{ marginTop: '20px' }}>
+            {t("franchise_hero_cta")}
+          </a>
         </div>
       </section>
       {/* IDEAL FRANCHISE PARTNER */}
@@ -292,18 +294,20 @@ const Franchise = () => {
       </section>
       {/* TECHNOLOGY SECTION (Preserved) */}
       <section className="franchise-ai-tech">
-        <div className="ai-image">
-          <img src={require("../images/farmer_with_drone.png")} alt="Modern Banana Farming" />
-        </div>
-        <div className="ai-content">
-          <h2>{t("franchise_tech_title")}</h2>
-          <p>{t("franchise_tech_desc")}</p>
-          <ul>
-            <li><FaLeaf color="#28a745" /> <span>{t("franchise_tech_li1")}</span></li>
-            <li><FaCoins color="#28a745" /> <span>{t("franchise_tech_li2")}</span></li>
-            <li><FaChartLine color="#28a745" /> <span>{t("franchise_tech_li3")}</span></li>
-            <li><FaCheckCircle color="#28a745" /> <span>{t("franchise_tech_li4")}</span></li>
-          </ul>
+        <div className="section-container ai-tech-container">
+          <div className="ai-image">
+            <img src={require("../images/farmer_with_drone.png")} alt="Modern Banana Farming" />
+          </div>
+          <div className="ai-content">
+            <h2>{t("franchise_tech_title")}</h2>
+            <p>{t("franchise_tech_desc")}</p>
+            <ul>
+              <li><FaLeaf color="#28a745" /> <span>{t("franchise_tech_li1")}</span></li>
+              <li><FaCoins color="#28a745" /> <span>{t("franchise_tech_li2")}</span></li>
+              <li><FaChartLine color="#28a745" /> <span>{t("franchise_tech_li3")}</span></li>
+              <li><FaCheckCircle color="#28a745" /> <span>{t("franchise_tech_li4")}</span></li>
+            </ul>
+          </div>
         </div>
       </section>
 

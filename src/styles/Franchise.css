@@ -21,76 +21,89 @@
 }
 
 /* ===================================================== */
-/*                    HERO VIDEO SECTION                 */
+/*      HERO SECTION (MATCHED WITH SUSTAINABILITY)       */
 /* ===================================================== */
 
-.franchise-hero {
+.sus-hero {
     position: relative;
-    width: 100%;
-    height: 520px;
-    margin-bottom: 50px;
+    height: 80vh;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     overflow: hidden;
 }
 
-.hero-bg-video {
+.sus-video {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    position: absolute;
-    inset: 0;
     z-index: 0;
 }
 
-.hero-overlay {
+.sus-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(rgba(0, 0, 0, 0.25),
-            rgba(0, 0, 0, 0.65));
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(10, 40, 20, 0.8) 100%);
     z-index: 1;
 }
 
-.hero-content {
-    position: absolute;
-    left: 50px;
-    bottom: 40px;
-    z-index: 3;
-    max-width: 650px;
-    color: #fff;
-    text-align: left;
+.sus-hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #ffffff;
+    max-width: 850px;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.hero-content h1 {
-    font-size: 4rem;
-    font-weight: 700;
-    margin-bottom: 10px;
+.sus-hero-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
     line-height: 1.2;
-    font-family: "Poppins", sans-serif;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
-.hero-content p {
-    font-size: 1.3rem;
-    margin-bottom: 30px;
-    font-weight: 300;
-    line-height: 1.7;
+.sus-hero-desc {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-weight: 400;
+    opacity: 0.95;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
 
 .hero-cta-button {
     display: inline-block;
-    padding: 12px 24px;
+    padding: 15px 40px;
     background: linear-gradient(90deg, #43a047, #66bb6a);
     color: white;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 600;
     border-radius: 30px;
     text-decoration: none;
-    transition: 0.3s ease;
+    transition: all 0.3s ease;
     border: none;
     cursor: pointer;
+    box-shadow: 0 4px 15px rgba(67, 160, 71, 0.3);
 }
 
 .hero-cta-button:hover {
     transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 25px rgba(67, 160, 71, 0.4);
+    background: linear-gradient(90deg, #388e3c, #4caf50);
+}
+
+@media (max-width: 768px) {
+    .sus-hero { height: 60vh; min-height: 400px; }
+    .sus-hero-title { font-size: 2.25rem; }
+    .sus-hero-desc { font-size: 1.1rem; }
 }
 
 /* ===================================================== */
@@ -118,7 +131,7 @@
 
 /* SECTION HEADINGS (Matching SupplyFabriX labels) */
 .franchise-section h2 {
-    font-size: 2rem;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
     color: #1b5e20;
     margin-bottom: 2rem;
     text-align: center;
@@ -126,7 +139,7 @@
 }
 
 .section-subtitle {
-    font-size: 1.1rem;
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
     color: #666;
     text-align: center;
     max-width: 700px;
@@ -137,12 +150,11 @@
 /*                        CARDS                          */
 /* ===================================================== */
 
-/* Grids */
 .grid-4,
 .grid-3,
 .investment-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 25px;
     z-index: 2;
 }
@@ -416,92 +428,88 @@
 
 /* Tablets */
 @media (max-width: 1024px) {
-    .hero-content h1 {
-        font-size: 3rem;
+    .sus-hero {
+        height: 60vh;
+    }
+    .grid-4, .grid-3, .investment-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
-/* Small Tablets & Large Phones */
 @media (max-width: 768px) {
-    .franchise-hero {
-        height: 350px;
+    .sus-hero {
+        height: 50vh;
+        min-height: 400px;
     }
-
-    .hero-content {
-        left: 20px;
-        bottom: 20px;
+    .sus-hero-content {
         max-width: 90%;
-        text-align: left;
-        /* Keep left aligned as per SupplyFabriX mobile */
     }
-
-    .hero-content h1 {
-        font-size: 2rem;
+    .grid-4, .grid-3, .investment-grid {
+        grid-template-columns: 1fr;
     }
-
-    .section-container {
-        padding: 0 20px;
-    }
-
-    .grid-4,
-    .grid-3,
-    .investment-grid {
-        grid-template-columns: 1fr 1fr;
-        /* 2 columns on tablet */
-    }
-
     .process-steps {
         flex-direction: column;
         gap: 30px;
+        padding-left: 10px;
+        padding-right: 10px;
     }
-
     .process-connector {
         display: none;
     }
-
     .process-step {
+        width: 100%;
         display: flex;
         align-items: center;
-        width: 100%;
-        text-align: left;
         gap: 20px;
+        text-align: left;
+        position: relative;
         background: #f9f9f9;
         padding: 15px;
-        border-radius: 12px;
+        border-radius: 8px;
     }
-
+    /* Simple vertical line connecting step numbers on mobile */
+    .process-step:not(:last-child)::after {
+        content: "";
+        position: absolute;
+        left: 40px;
+        top: 65px;
+        bottom: -30px;
+        width: 2px;
+        background: #e0e0e0;
+        z-index: 1;
+    }
     .step-num {
         margin: 0;
-        min-width: 50px;
-        width: 50px;
-        height: 50px;
+        min-width: 50px !important;
+        width: 50px !important;
+        height: 50px !important;
         font-size: 1.2rem;
+        flex-shrink: 0 !important;
+        aspect-ratio: 1 / 1 !important;
+        border-radius: 50% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        z-index: 5;
+    }
+    .process-step h4 {
+        margin: 0;
+    }
+    .investment-card.highlight-card {
+        transform: scale(1);
+    }
+    .application-form {
+        padding: 20px;
     }
 }
 
-/* Mobiles */
 @media (max-width: 480px) {
-    .franchise-hero {
-        height: 30vh;
+    .sus-hero {
+        height: 40vh;
     }
-
-    .hero-content h1 {
-        font-size: 1.6rem;
-    }
-
-    .hero-content p {
-        font-size: 0.9rem;
-    }
-
-    .grid-4,
-    .grid-3,
-    .investment-grid {
-        grid-template-columns: 1fr;
-        /* 1 column on mobile */
-    }
-
-    .application-form {
-        padding: 20px;
+    .hero-cta-button {
+        padding: 12px 25px;
+        font-size: 1rem;
     }
 }
 
@@ -515,76 +523,7 @@
     }
 }
 
-/* HERO SECTION */
-/* HERO SECTION */
-.franchise-hero {
-    position: relative;
-    height: 60vh;
-    min-height: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: white;
-    overflow: hidden;
-}
-
-.hero-bg-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
-
-}
-
-.hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(rgba(0, 0, 0, 0.25),
-            rgba(0, 0, 0, 0.65));
-    z-index: 1;
-}
-
-.hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 800px;
-    padding: 20px;
-}
-
-.hero-content h1 {
-    font-size: 3rem;
-    font-weight: 700;
-    margin-bottom: 20px;
-    line-height: 1.2;
-}
-
-.hero-content p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-    font-weight: 300;
-}
-
-.hero-cta-button {
-    display: inline-block;
-    padding: 15px 40px;
-    background-color: #28a745;
-    /* Brand Green */
-    color: white;
-    font-size: 1.1rem;
-    font-weight: 600;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background-color 0.3s ease, transform 0.2s;
-}
-
-.hero-cta-button:hover {
-    background-color: #1e7e34;
-    transform: translateY(-2px);
-}
+/* Duplicate hero definitions removed */
 
 /* BENEFITS SECTION */
 .franchise-benefits {
@@ -685,9 +624,12 @@
 
 /* IMAGE BOX */
 
+/* IMAGE BOX */
+
 .image-box img {
     width: 100%;
     height: 100%;
+    max-height: 400px;
     object-fit: cover;
 }
 
@@ -712,7 +654,7 @@
 }
 
 .content-box p {
-    font-size: 15px;
+    font-size: clamp(0.9rem, 1.2vw, 1rem);
     line-height: 1.6;
     color: #555;
 }
@@ -734,9 +676,16 @@
 
        .highlight-text {
         color: #ffffff !important;
-        background: rgba(0,0,0,0.4);  /* optional for visibility */
-        padding: 5px 10px;
-        border-radius: 4px;
+        background: rgba(0,0,0,0.6);
+        padding: 8px 15px;
+        border-radius: 0;
+        width: 100%;
+        display: block;
+        margin-top: -45px; /* Pull to bottom of image box */
+        position: relative;
+        z-index: 10;
+        font-weight: 700;
+        text-align: center;
     }
     .feature-row {
         flex-direction: column;
@@ -888,7 +837,7 @@
 
 .perks-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 30px;
 }
 
@@ -1114,57 +1063,6 @@
 }
 
 /* RESPONSIVE CSS */
-@media (max-width: 768px) {
-    .process-steps {
-        flex-direction: column;
-        gap: 30px;
-    }
-
-    .process-connector {
-        display: none;
-    }
-
-    .process-step {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        background: #f9f9f9;
-        padding: 15px;
-        border-radius: 8px;
-        width: 100%;
-        text-align: left;
-    }
-
-    .step-num {
-        margin: 0;
-        min-width: 50px;
-        width: 50px;
-        height: 50px;
-        font-size: 1.2rem;
-    }
-
-    .process-step p {
-        margin: 0;
-        max-width: none;
-    }
-
-    .investment-card.highlight-card {
-        transform: scale(1);
-    }
-
-    .benefit-card-new {
-        border-right: none !important;
-        border-bottom: 1px dashed rgba(28, 88, 57, 0.2);
-        padding-bottom: 30px;
-        margin-bottom: 30px;
-    }
-
-    .benefit-card-new:last-child {
-        border-bottom: none;
-        margin-bottom: 0;
-    }
-}
-
 /* APPLICATION FORM SECTION */
 .franchise-application {
     padding: 80px 20px;
@@ -1317,59 +1215,101 @@
     color: #666;
 }
 
-/* AI TECHNOLOGY SECTION */
+/* AI TECHNOLOGY SECTION (Redesign) */
 .franchise-ai-tech {
+    background-color: #f4fbf4;
+    padding: 80px 20px;
+    width: 100%;
+}
+
+.ai-tech-container {
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 80px 20px;
-    background-color: #f0f4f1;
-    /* Light greenish tint */
-    gap: 50px;
-    flex-wrap: wrap;
+    gap: 60px;
+}
+
+.ai-image {
+    flex: 1;
+    max-width: 45%;
+}
+
+.ai-image img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    object-fit: cover;
+    display: block;
 }
 
 .ai-content {
     flex: 1;
-    max-width: 500px;
+    text-align: left;
 }
 
 .ai-content h2 {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     color: #1c5839;
+    font-weight: 700;
     margin-bottom: 20px;
+    line-height: 1.2;
 }
 
 .ai-content p {
     font-size: 1.1rem;
-    line-height: 1.6;
     color: #555;
-    margin-bottom: 20px;
-    list-style: none;
+    line-height: 1.6;
+    margin-bottom: 30px;
 }
 
 .ai-content ul {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 .ai-content li {
-    margin-bottom: 15px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
+    margin-bottom: 20px;
+    font-size: 1.05rem;
     font-weight: 500;
+    color: #444;
 }
 
-.ai-image {
-    flex: 1;
-    max-width: 500px;
+.ai-content li svg {
+    font-size: 1.2rem;
+    color: #28a745;
+    flex-shrink: 0;
 }
 
-.ai-image img {
-    width: 100%;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+@media (max-width: 900px) {
+    .ai-tech-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+    }
+    
+    .ai-image {
+        max-width: 100%;
+    }
+    
+    .ai-content {
+        text-align: center;
+    }
+    
+    .ai-content ul {
+        display: inline-block;
+        text-align: left;
+    }
+    
+    .ai-content li {
+        justify-content: flex-start;
+    }
+    
+    .ai-content h2 {
+        font-size: 2.2rem;
+    }
 }
 
 /* TESTIMONIALS / FAQ SECTION */

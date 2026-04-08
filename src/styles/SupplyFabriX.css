@@ -58,27 +58,27 @@
 .sup-video-text {
   position: absolute;
   left: 50px;
-  bottom: 40px;
+  bottom: 0px;
   z-index: 3;
   max-width: 650px;
   color: #fff;
 }
 
 .sup-video-text h2 {
-  font-size: 4rem;
+  font-size: clamp(2rem, 5vw, 4rem);
   font-weight: 700;
   margin-bottom: 10px;
   font-family: "Poppins", sans-serif;
 }
 
 .sup-video-text h3 {
-  font-size: 2rem;
+  font-size: clamp(1.2rem, 3vw, 2rem);
   margin-bottom: 12px;
   color: #f1f1f1;
 }
 
 .sup-video-text p {
-  font-size: 1.3rem;
+  font-size: clamp(0.9rem, 1.5vw, 1.3rem);
   line-height: 1.7;
 }
 
@@ -243,16 +243,12 @@
 
 /* Tablets */
 @media (max-width: 1024px) {
-  .sup-video-text h2 {
-    font-size: 3rem;
+  .sup-hero {
+    height: 380px;
   }
-
-  .sup-video-text h3 {
-    font-size: 1.5rem;
-  }
-
-  .sup-video-text p {
-    font-size: 1.1rem;
+  .sup-video-text {
+    left: 30px;
+    bottom: 30px;
   }
 }
 
@@ -260,58 +256,33 @@
 @media (max-width: 768px) {
   .sup-hero {
     height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-
   .sup-video-text {
-    left: 20px;
-    bottom: 20px;
+    position: relative;
+    left: 0;
+    bottom: 0;
     max-width: 90%;
+    text-align: center;
   }
-
-  .sup-video-text h2 {
-    font-size: 2rem;
-  }
-
-  .sup-video-text p {
-    font-size: 1rem;
-  }
-
   .sup-card-grid {
     grid-template-columns: 1fr 1fr;
-  }
-
-  .sup-leaf-decor::before,
-  .sup-leaf-decor::after {
-    display: none;
+    gap: 15px;
   }
 }
 
 /* Mobiles */
 @media (max-width: 480px) {
   .sup-hero {
-    height: 30vh;
+    height: 300px;
   }
-
-  .sup-video-text h2 {
-    font-size: 1.6rem;
-    text-align: center;
-    margin-right: 20px;
-  }
-
-  .sup-video-text h3 {
-    font-size: 0.8rem;
-    text-align: center;
-    margin-right: 20px;
-  }
-
-  .sup-video-text p {
-    font-size: 0.7rem;
-    text-align: center;
-    margin-right: 20px;
-  }
-
   .sup-card-grid {
     grid-template-columns: 1fr;
+  }
+  .sup-video-text h2 {
+    font-size: 1.6rem;
   }
 }
 

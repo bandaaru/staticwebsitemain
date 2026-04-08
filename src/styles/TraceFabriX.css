@@ -63,24 +63,24 @@
   color: #ffffff !important;
   max-width: 650px;
   margin-left: 50px;
-  bottom: 40px;
+  bottom: 0px;
 }
 
 .trace-hero-text h2 {
-  font-size: 4rem;
+  font-size: clamp(2rem, 5vw, 4rem);
   font-weight: 700;
   margin-bottom: 10px;
   font-family: "Poppins", sans-serif;
 }
 
 .trace-hero-text h3 {
-  font-size: 2rem;
+  font-size: clamp(1.2rem, 3vw, 2rem);
   margin-bottom: 12px;
   color: #f1f1f1 !important;
 }
 
 .trace-hero-text p {
-  font-size: 1.3rem;
+  font-size: clamp(0.9rem, 1.5vw, 1.3rem);
   line-height: 1.7;
 }
 
@@ -239,129 +239,46 @@
 
 /* Tablets */
 @media (max-width: 1024px) {
-  .trace-hero-text h2 {
-    font-size: 2.5rem;
+  .tracefabrx-hero {
+    height: 380px;
+    padding: 30px;
   }
-
-  .trace-hero-text h3 {
-    font-size: 1.3rem;
-  }
-
-  .trace-hero-text p {
-    font-size: 1rem;
+  .trace-hero-text {
+    margin-left: 30px;
   }
 }
 
-/* Tablets + Large Phones (Fix Layout but DO NOT change design) */
 @media (max-width: 768px) {
-
   .tracefabrx-hero {
-    height: 300px;
+    height: 350px;
     padding: 20px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
   }
-
   .trace-hero-video {
     object-fit: cover;
   }
-
+  .trace-hero-text {
+    margin-left: 0;
+    max-width: 90%;
+    bottom: 0;
+  }
   .tracefabrx-card-grid {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
   }
-
   .tracefabrx-card {
     height: 220px;
   }
-
-  .tracefabrx-benefits-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .tracefabrx-benefit-box {
-    border-right: none !important;
-    padding-right: 0;
-  }
-
-
 }
 
-/* ================= MOBILE FIX: HOW IT HELPS ================= */
-/* ================= MOBILE FIX: BENEFITS SECTION ================= */
-@media (max-width: 768px) {
-
-  .tracefabrx-benefits-grid {
-    display: flex;
-    /* override grid */
-    flex-direction: column;
-    /* stack vertically */
-    gap: 32px;
-    /* spacing between cards */
-  }
-
-  .tracefabrx-benefit-box {
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  /* Remove dashed divider */
-  .tracefabrx-benefit-box:not(:last-child) {
-    border-right: none !important;
-    padding-right: 0 !important;
-  }
-
-  .trace-benefit-icon {
-    margin-bottom: 16px;
-  }
-
-  .trace-benefit-title {
-    font-size: 1.3rem;
-  }
-
-  .trace-benefit-body {
-    font-size: 0.95rem;
-    line-height: 1.5;
-  }
-}
-
-
-
-/* Phones */
 @media (max-width: 480px) {
-
   .tracefabrx-hero {
-    height: 330px;
-    display: flex;
-    align-items: center;
-    /* vertical center */
-    justify-content: center;
-    /* horizontal center */
-    padding: 20px;
-    text-align: center;
+    height: 300px;
   }
-
-
-  .trace-hero-text {
-    position: static;
-    /* 🔥 IMPORTANT */
-    margin: 0;
-    max-width: 100%;
-    text-align: center;
-    margin-top: 40px;
-  }
-
-  .trace-hero-text h2 {
-    font-size: 1.6rem;
-    line-height: 1.2;
-  }
-
-  .trace-hero-text h3 {
-    font-size: 0.8rem;
-  }
-
-  .trace-hero-text p {
-    font-size: 0.7rem;
+  .tracefabrx-title-item {
+    font-size: 1.3rem;
   }
 }
 

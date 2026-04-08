@@ -67,11 +67,11 @@
   color: #ffffff !important;
   max-width: 650px;
   margin-left: 30px;
-  bottom: 260px;
+  bottom: 0px;
 }
 
 .cred-hero-text h2 {
-  font-size: 4rem;
+  font-size: clamp(2rem, 5vw, 4rem);
   font-weight: 700;
   margin-bottom: 10px;
   font-family: "Poppins", sans-serif;
@@ -79,13 +79,13 @@
 }
 
 .cred-hero-text h3 {
-  font-size: 2rem;
+  font-size: clamp(1.2rem, 3vw, 2rem);
   margin-bottom: 12px;
   color: #f1f1f1 !important;
 }
 
 .cred-hero-text p {
-  font-size: 1.3rem;
+  font-size: clamp(0.9rem, 1.5vw, 1.3rem);
   line-height: 1.7;
   color: #ffffff !important;
 }
@@ -329,94 +329,63 @@
 =============================== */
 
 /* Tablets & small laptops */
-@media (max-width: 900px) {
-
+/* Tablets & small laptops */
+@media (max-width: 1024px) {
   .cred-hero {
-    height: 380px;
+    height: 450px;
+    padding: 30px;
+  }
+  .cred-solutions-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .cred-solutions-grid .cred-solution-box:nth-child(2) {
+    border-right: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .cred-hero {
+    height: 350px;
     padding: 20px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
   }
-
-  .cred-hero-text h2 {
-    font-size: 2.5rem;
+  .cred-hero-text {
+    margin-left: 0;
+    max-width: 90%;
   }
-
   .cred-solutions-grid {
     grid-template-columns: 1fr;
   }
-
   .cred-solutions-grid .cred-solution-box {
-    border-right: none;
-    padding-right: 0;
+    border-right: none !important;
+    padding-right: 0 !important;
     padding-bottom: 30px;
   }
-
   .cred-apply-steps {
     flex-direction: column;
     align-items: center;
   }
-
   .cred-apply-image img {
-    width: 85%;
+    width: 100%;
+    max-width: 400px;
   }
-
   .cred-step-list::before {
-    left: 5%;
-    transform: translateX(-50%);
+    display: none;
   }
-
   .cred-step-item {
     flex-direction: column;
     text-align: center;
+    align-items: center;
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 480px) {
   .cred-hero {
-    height: 30vh;
-    /* ✅ increase visible video area */
-    padding: 0;
+    height: 300px;
   }
-
-  .cred-video {
-    width: 100%;
-    height: 37vh;
-    object-fit: cover;
-    /* fill container */
-    object-position: center;
-    transform: scale(1.15);
-    /* 🔥 visually increase size */
-  }
-
-
-  /* TEXT POSITION */
-  .cred-hero-text {
-    position: absolute;
-    left: 0px;
-    /* keep inside screen */
-    bottom: 50px;
-    max-width: 90%;
-    text-align: left;
-  }
-
-  /* TEXT SIZE REDUCED */
-  .cred-hero-text h2 {
-    font-size: 1.6rem;
-    line-height: 1.15;
-    margin-bottom: 0px;
-    margin-left: 80px;
-  }
-
-  .cred-hero-text h3 {
-    font-size: 0.8rem;
-    margin-bottom: 3px;
-    margin-left: 65px;
-  }
-
-  .cred-hero-text p {
-    font-size: 0.9rem;
-    line-height: 1.4;
-  }
-
 }
 
 

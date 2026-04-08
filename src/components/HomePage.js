@@ -208,20 +208,20 @@ const HomePage = () => {
 
 
 
-const slides = [
-  {
-    title: t("home_slide_1_title"),
-    description: t("home_slide_1_desc"),
-    video: green_crop,
-    link: "/Solutions",
-  },
-  {
-    title: t("home_slide_2_title"),
-    description: t("home_slide_2_desc"),
-    video: home,
-    link: "/Technology",
-  },
-];
+  const slides = [
+    {
+      title: t("home_slide_1_title"),
+      description: t("home_slide_1_desc"),
+      video: green_crop,
+      link: "/Solutions",
+    },
+    {
+      title: t("home_slide_2_title"),
+      description: t("home_slide_2_desc"),
+      video: home,
+      link: "/Technology",
+    },
+  ];
 
   const prevSlide = () => {
     setCurrentSlide((prev) =>
@@ -274,47 +274,47 @@ const slides = [
 
 
       {/* ================= HERO CAROUSEL ================= */}
-<section className="hero-carousel" id="home">
+      <section className="hero-carousel" id="home">
 
-  <div className="hero-slide" key={currentSlide}>
+        <div className="hero-slide" key={currentSlide}>
 
-    {/* Video or Image */}
-    {slides[currentSlide].video ? (
-      <video
-        className="hero-carousel-video"
-        autoPlay
-        muted
-        loop
-        playsInline
-      >
-        <source src={slides[currentSlide].video} type="video/mp4" />
-      </video>
-    ) : (
-      <img
-        src={slides[currentSlide].image}
-        alt={t("home_image_alt_crop")}
-        className="hero-carousel-image"
-      />
-    )}
+          {/* Video or Image */}
+          {slides[currentSlide].video ? (
+            <video
+              className="hero-carousel-video"
+              autoPlay
+              muted
+              loop
+              playsInline
+            >
+              <source src={slides[currentSlide].video} type="video/mp4" />
+            </video>
+          ) : (
+            <img
+              src={slides[currentSlide].image}
+              alt={t("home_image_alt_crop")}
+              className="hero-carousel-image"
+            />
+          )}
 
-    {/* Text on media */}
-    <div
-      className={`hero-text-overlay no-overlay-text 
+          {/* Text on media */}
+          <div
+            className={`hero-text-overlay no-overlay-text 
       ${currentSlide === 0 ? "first-slide-spacing" : ""}
       ${currentSlide === 1 ? "text-right-slide black-text" : ""}
       `}
-    >
-      <h1>{slides[currentSlide].title}</h1>
-      <p>{slides[currentSlide].description}</p>
+          >
+            <h1>{slides[currentSlide].title}</h1>
+            <p>{slides[currentSlide].description}</p>
 
-      <a href={slides[currentSlide].link} className="learn-more">
-        {t("home_button_learn_more")}
-      </a>
-    </div>
+            <a href={slides[currentSlide].link} className="learn-more">
+              {t("home_button_learn_more")}
+            </a>
+          </div>
 
-  </div>
+        </div>
 
-</section>
+      </section>
 
 
 
@@ -375,7 +375,7 @@ const slides = [
       {/* ================= FRANCHISE PROMO SECTION ================= */}
       <section className="franchise-promo-container">
         <div className="franchise-promo-card">
-          
+
           <div className="franchise-promo-left">
             <div className="promo-trust-text">
               <span className="trust-black">Build Trust First </span>
@@ -384,14 +384,14 @@ const slides = [
               <span className="trust-orange">FRANCHISE </span>
               <span className="trust-red">Only When Ready</span>
             </div>
-            
+
             <h2 className="promo-heading">{t("home_franchise_promo_heading")}</h2>
             <p className="promo-subheading">{t("home_franchise_promo_subheading")}</p>
-            
+
             <a href="/Franchise" className="promo-cta-btn">
               {t("home_franchise_promo_button")}
             </a>
-            
+
             <ul className="promo-features-list">
               <li>{t("home_franchise_promo_bullet1")}</li>
               <li>{t("home_franchise_promo_bullet2")}</li>
@@ -413,47 +413,47 @@ const slides = [
 
 
 
-<section className="services" id="solutions">
+      <section className="services" id="solutions">
 
-  <div className="solutions-layout">
-    <div className="service-grid">
+        <div className="solutions-layout">
+          <div className="service-grid">
 
-      <div className="service-item tall">
-        <img src={inputs} alt="Inputs" className="service-img" />
-        <div className="service-text-block">
-          <h3>{t("home_offering_inputs_title")}</h3>
-          <p>{t("home_offering_inputs_desc")}</p>
+            <div className="service-item tall">
+              <img src={inputs} alt="Inputs" className="service-img" />
+              <div className="service-text-block">
+                <h3>{t("home_offering_inputs_title")}</h3>
+                <p>{t("home_offering_inputs_desc")}</p>
+              </div>
+            </div>
+
+            <div className="service-item">
+              <img src={orders} alt="Orders" className="service-img" />
+              <div className="service-text-block">
+                <h3>{t("home_offering_ordering_title")}</h3>
+                <p>{t("home_offering_ordering_desc")}</p>
+              </div>
+            </div>
+
+            <div className="service-item tall">
+              <img src={consultancy} alt="Consultancy" className="service-img" />
+              <div className="service-text-block">
+                <h3>{t("home_offering_consultancy_title")}</h3>
+                <p>{t("home_offering_consultancy_desc")}</p>
+              </div>
+            </div>
+
+            <div className="service-item">
+              <img src={supplychain} alt="Supply Chain" className="service-img" />
+              <div className="service-text-block">
+                <h3>{t("home_offering_supply_title")}</h3>
+                <p>{t("home_offering_supply_desc")}</p>
+              </div>
+            </div>
+
+          </div>
         </div>
-      </div>
 
-      <div className="service-item">
-        <img src={orders} alt="Orders" className="service-img" />
-        <div className="service-text-block">
-          <h3>{t("home_offering_ordering_title")}</h3>
-          <p>{t("home_offering_ordering_desc")}</p>
-        </div>
-      </div>
-
-      <div className="service-item tall">
-        <img src={consultancy} alt="Consultancy" className="service-img" />
-        <div className="service-text-block">
-          <h3>{t("home_offering_consultancy_title")}</h3>
-          <p>{t("home_offering_consultancy_desc")}</p>
-        </div>
-      </div>
-
-      <div className="service-item">
-        <img src={supplychain} alt="Supply Chain" className="service-img" />
-        <div className="service-text-block">
-          <h3>{t("home_offering_supply_title")}</h3>
-          <p>{t("home_offering_supply_desc")}</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-</section>
+      </section>
 
       {/* ================= PARTNERS LOGOS ================= */}
       <section className="partners-logos" id="partners">
@@ -520,7 +520,7 @@ const slides = [
               <div className="impact-numbers"><CountUp target={15000} /></div>
               <div className="impact-label">Acres</div>
             </div>
-            
+
             <div className="impact-card">
               <div className="impact-icon-wrapper">
                 <FaBoxOpen className="impact-icon" />
